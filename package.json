@@ -1,7 +1,44 @@
 {
-  "name": "v-ui",
-  "version": "0.0.0",
-  "private": true,
+  "name": "@silentmx/v-ui",
+  "version": "0.0.1",
+  "private": false,
+  "type": "module",
+  "description": "vue3 based component library built on top of Unocss and Vueuse",
+  "author": {
+    "name": "silentmx",
+    "email": "silentmx@outlook.com",
+    "url": "https://github.com/silentmx"
+  },
+  "homepage": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/silentmx/v-ui",
+    "directory": "src"
+  },
+  "bugs": {
+    "email": "silentmx@outlook.com",
+    "url": "https://github.com/silentmx/v-ui/issues"
+  },
+  "keywords": [
+    "component library",
+    "vue3",
+    "unocss",
+    "vueuse"
+  ],
+  "license": "MIT",
+  "main": "./dist/v-ui.umd.cjs",
+  "module": "./dist/v-ui.js",
+  "exports": {
+    ".": {
+      "import": "./dist/v-ui.js",
+      "require": "./dist/v-ui.umd.cjs"
+    }
+  },
+  "files": [
+    "dist",
+    "volar.d.ts"
+  ],
+  "types": "./dist/types",
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check build-only",
@@ -10,15 +47,15 @@
     "type-check": "vue-tsc --noEmit"
   },
   "dependencies": {
-    "vue": "^3.2.45"
+    "vue": "^3.2.47"
   },
   "devDependencies": {
-    "@types/node": "^18.11.12",
+    "@types/node": "^18.13.0",
     "@vitejs/plugin-vue": "^4.0.0",
     "@vue/tsconfig": "^0.1.3",
     "npm-run-all": "^4.1.5",
-    "typescript": "~4.7.4",
-    "vite": "^4.0.0",
-    "vue-tsc": "^1.0.12"
+    "typescript": "~4.9.5",
+    "vite": "^4.1.1",
+    "vue-tsc": "^1.1.0"
   }
 }

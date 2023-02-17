@@ -2,6 +2,7 @@ import { fileURLToPath, URL } from 'node:url';
 
 import Vue from '@vitejs/plugin-vue';
 import { resolve } from 'node:path';
+import Unocss from 'unocss/vite';
 import AutoImport from 'unplugin-auto-import/vite';
 import VueMacros from 'unplugin-vue-macros';
 import { defineConfig } from 'vitest/config';
@@ -36,6 +37,8 @@ export default defineConfig({
         vue: Vue()
       }
     }),
+    // https://github.com/antfu/unplugin-auto-import
+    Unocss(),
     AutoImport({
       imports: ["vue", "@vueuse/core"],
       dts: "src/auto-imports.d.ts"

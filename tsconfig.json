@@ -4,7 +4,8 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.d.ts",
-    "src/**/*.vue"
+    "src/**/*.vue",
+    "volar.d.ts"
   ],
   "compilerOptions": {
     "baseUrl": "src",
@@ -27,6 +28,9 @@
     "paths": {
       "@/*": [
         "*"
+      ],
+      "v-ui": [
+        "./"
       ]
     },
     "types": [

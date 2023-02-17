@@ -6,16 +6,21 @@ importers:
     specifiers:
       '@antfu/ni': ^0.20.0
       '@floating-ui/dom': ^1.2.1
+      '@types/fs-extra': ^11.0.1
       '@types/node': ^18.13.0
       '@unocss/core': ^0.49.4
       '@unocss/reset': ^0.49.4
       '@vitejs/plugin-vue': ^4.0.0
       '@vue/tsconfig': ^0.1.3
       '@vueuse/core': ^9.12.0
+      camelcase: ^7.0.1
       defu: ^6.1.2
+      fs-extra: ^11.1.0
+      globby: ^13.1.3
       npm-run-all: ^4.1.5
       tsx: ^3.12.3
       typescript: ~4.9.5
+      unocss: ^0.49.4
       unplugin-auto-import: ^0.14.2
       unplugin-vue-define-options: ^1.2.1
       unplugin-vue-macros: ^1.7.3
@@ -26,16 +31,21 @@ importers:
     devDependencies:
       '@antfu/ni': 0.20.0
       '@floating-ui/dom': 1.2.1
+      '@types/fs-extra': 11.0.1
       '@types/node': 18.13.0
       '@unocss/core': 0.49.4
       '@unocss/reset': 0.49.4
       '@vitejs/plugin-vue': 4.0.0_vite@4.1.1+vue@3.2.47
       '@vue/tsconfig': 0.1.3_@types+node@18.13.0
       '@vueuse/core': 9.12.0_vue@3.2.47
+      camelcase: 7.0.1
       defu: 6.1.2
+      fs-extra: 11.1.0
+      globby: 13.1.3
       npm-run-all: 4.1.5
       tsx: 3.12.3
       typescript: 4.9.5
+      unocss: 0.49.4_vite@4.1.1
       unplugin-auto-import: 0.14.2_@vueuse+core@9.12.0
       unplugin-vue-define-options: 1.2.1_vue@3.2.47
       unplugin-vue-macros: 1.7.3_jrocdvrx2shxvrjpfyz42zursu
@@ -1030,6 +1040,19 @@ packages:
     resolution: {integrity: sha512-WulqXMDUTYAXCjZnk6JtIHPigp55cVtDgDrO2gHRwhyJto21+1zbVCtOYB2L1F9w4qCQ0rOGWBnBe0FNTiEJIQ==}
     dev: true
 
+  /@types/fs-extra/11.0.1:
+    resolution: {integrity: sha512-MxObHvNl4A69ofaTRU8DFqvgzzv8s9yRtaPPm5gud9HDNvpB3GPQFvNuTWAI59B9huVGV5jXYJwbCsmBsOGYWA==}
+    dependencies:
+      '@types/jsonfile': 6.1.1
+      '@types/node': 18.13.0
+    dev: true
+
+  /@types/jsonfile/6.1.1:
+    resolution: {integrity: sha512-GSgiRCVeapDN+3pqA35IkQwasaCh/0YFH5dEF6S88iDvEn901DjOeH3/QPY+XYP1DFzDZPvIvfeEgk+7br5png==}
+    dependencies:
+      '@types/node': 18.13.0
+    dev: true
+
   /@types/node/18.13.0:
     resolution: {integrity: sha512-gC3TazRzGoOnoKAhUx+Q0t8S9Tzs74z7m0ipwGpSqQrleP14hKxP4/JUeEQcD3W1/aIpnWl8pHowI7WokuZpXg==}
     dev: true
@@ -1787,6 +1810,11 @@ packages:
       get-intrinsic: 1.2.0
     dev: true
 
+  /camelcase/7.0.1:
+    resolution: {integrity: sha512-xlx1yCK2Oc1APsPXDL2LdlNP6+uu8OCDdhOBSVT279M/S+y75O30C2VuD8T2ogdePBBl7PfPF4504tnLgX3zfw==}
+    engines: {node: '>=14.16'}
+    dev: true
+
   /caniuse-lite/1.0.30001452:
     resolution: {integrity: sha512-Lkp0vFjMkBB3GTpLR8zk4NwW5EdRdnitwYJHDOOKIU85x4ckYCPQ+9WlVvSVClHxVReefkUMtWZH2l9KGlD51w==}
     dev: true
@@ -2203,6 +2231,15 @@ packages:
       is-callable: 1.2.7
     dev: true
 
+  /fs-extra/11.1.0:
+    resolution: {integrity: sha512-0rcTq621PD5jM/e0a3EJoGC/1TC5ZBCERW82LQuwfGnCa1V8w7dpYH1yNu+SLb6E5dkeCBzKEyLGlFrnr+dUyw==}
+    engines: {node: '>=14.14'}
+    dependencies:
+      graceful-fs: 4.2.10
+      jsonfile: 6.1.0
+      universalify: 2.0.0
+    dev: true
+
   /fs-minipass/2.1.0:
     resolution: {integrity: sha512-V/JgOLFCS+R6Vcq0slCuaeWEdNC3ouDlJMNIsacH2VtALiu9mV4LPrHc5cDl8k5aw6J8jwgWWpiTo5RYhmIzvg==}
     engines: {node: '>= 8'}
@@ -2591,6 +2628,14 @@ packages:
 
   /jsonc-parser/3.2.0:
     resolution: {integrity: sha512-gfFQZrcTc8CnKXp6Y4/CBT3fTc0OVuDofpre4aEeEpSBPV5X5v4+Vmx+8snU7RLPrNHPKSgLxGo9YuQzz20o+w==}
+    dev: true
+
+  /jsonfile/6.1.0:
+    resolution: {integrity: sha512-5dgndWOriYSm5cnYaJNhalLNDKOqFwyDB/rr1E9ZsGciGvKPs8R2xYGCacuf3z6K1YKDz182fd+fY3cn3pMqXQ==}
+    dependencies:
+      universalify: 2.0.0
+    optionalDependencies:
+      graceful-fs: 4.2.10
     dev: true
 
   /knitwork/1.0.0:
@@ -3448,6 +3493,11 @@ packages:
       unplugin: 1.1.0
     transitivePeerDependencies:
       - rollup
+    dev: true
+
+  /universalify/2.0.0:
+    resolution: {integrity: sha512-hAZsKq7Yy11Zu1DE0OzWjw7nnLZmJZYTDZZyEFHZdUhV8FkH5MCfoU1XMaxXovpyW5nq5scPqq0ZDP9Zyl04oQ==}
+    engines: {node: '>= 10.0.0'}
     dev: true
 
   /unocss/0.49.4_vite@4.1.1:

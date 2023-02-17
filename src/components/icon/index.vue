@@ -3,5 +3,5 @@
 </script>
 
 <template>
-  <button class="bg-red">button</button>
+  <div>Icon component</div>
 </template>

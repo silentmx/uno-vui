@@ -51,6 +51,7 @@ export default defineConfig({
   },
   test: {
     globals: true,
+    include: ['test/**/*.test.ts'],
     environment: 'jsdom',
     transformMode: {
       web: [/.[tj]sx$/],

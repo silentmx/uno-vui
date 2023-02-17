@@ -1,7 +1,8 @@
-import { defineConfig, presetIcons, presetUno, transformerDirectives, transformerVariantGroup } from 'unocss';
+import { defineConfig, presetAttributify, presetIcons, presetUno, transformerDirectives, transformerVariantGroup } from 'unocss';
 export default defineConfig({
   presets: [
     presetUno(),
+    presetAttributify(),
     presetIcons({
       cdn: "https://esm.sh/"
     })
@@ -10,5 +11,5 @@ export default defineConfig({
     transformerVariantGroup(),
     transformerDirectives()
   ],
-  include: [/.*\/xxx\.js(.*)?$/, './**/*.vue', './**/*.md'],
+  include: [/.*\/v-ui\.js(.*)?$/, './**/*.vue', './**/*.md'],
 });

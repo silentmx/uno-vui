@@ -4,7 +4,9 @@
     "baseUrl": ".",
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "types": [],
+    "types": [
+      "./auto-imports"
+    ],
     "lib": [
       "esnext",
       "dom",

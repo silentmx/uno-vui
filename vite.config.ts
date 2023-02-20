@@ -41,7 +41,11 @@ export default defineConfig({
     Unocss(),
     AutoImport({
       imports: ["vue", "@vueuse/core"],
-      dts: "src/auto-imports.d.ts"
+      dts: "src/auto-imports.d.ts",
+      dirs: [
+        "src/composables"
+      ],
+      vueTemplate: true
     })
   ],
   resolve: {

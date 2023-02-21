@@ -10,11 +10,11 @@
     "baseUrl": ".",
     "types": [
       "vite/client",
-      "../volar"
+      "../../volar"
     ],
     "paths": {
       "v-ui": [
-        "../src"
+        "../../src"
       ],
     }
   },

@@ -31,7 +31,7 @@
       ],
       "v-ui": [
         "./"
-      ]
+      ],
     },
     "types": [
       "vite/client",

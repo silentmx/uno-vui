@@ -4,7 +4,11 @@ import { VBtn } from '../../src';
 
 describe("button component", () => {
   test("basic", () => {
-    const wrapper = shallowMount(VBtn, {});
+    const wrapper = shallowMount(VBtn, {
+      slots: {
+        default: () => "button"
+      }
+    });
     expect(wrapper.find('button').text()).toBe("button")
   })
 });

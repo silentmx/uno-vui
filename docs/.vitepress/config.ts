@@ -1,5 +1,6 @@
 import { defineConfig } from 'vitepress';
 import { description } from '../../package.json';
+import { applyPlugins } from './plugins';
 
 const guides = [
   { text: '开始', link: '/guide/' },
@@ -41,6 +42,9 @@ export default defineConfig({
   ],
   themeConfig: {
     logo: "/logo.png",
+    outline: {
+      label: "本页目录"
+    },
     editLink: {
       pattern: 'https://github.com/silentmx/v-ui/edit/main/docs/:path',
       text: '为此页提供修改建议',
@@ -54,11 +58,20 @@ export default defineConfig({
     //   }
     // },
     socialLinks: [{ icon: 'github', link: 'https://github.com/silentmx/v-ui' }],
+    nav,
+    sidebar,
     footer: {
       message: 'MIT Licensed',
       copyright: 'Copyright © 2023-present @silentmx',
     },
-    nav,
-    sidebar
+  },
+  markdown: {
+    config: (md) => {
+      applyPlugins(md);
+    },
+    theme: {
+      light: "vitesse-light",
+      dark: "vitesse-dark"
+    }
   }
 });

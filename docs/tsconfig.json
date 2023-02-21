@@ -2,16 +2,9 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
     "types": [
+      "../volar",
       "./auto-imports"
-    ],
-    "lib": [
-      "esnext",
-      "dom",
-      "dom.iterable",
-      "scripthost"
     ],
     "paths": {}
   },
@@ -23,6 +16,5 @@
     "**/*.d.ts",
     "**/*.vue",
     "**/*.md",
-    ".vitepress/shims.d.ts"
   ],
 }

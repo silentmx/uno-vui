@@ -1,8 +1,8 @@
-import * as components from '@silentmx/v-ui/components';
 import Theme from 'vitepress/theme';
 import type { App } from 'vue';
 import { h } from 'vue';
-import DemoBlock from './components/demo-block.vue';
+import * as components from '../../../src/components';
+import DemoBlock from '../components/demo-block.vue';
 import './custom.css';
 
 // Unocss
@@ -15,7 +15,7 @@ export default {
       // 'home-features-after': () => h(teamMember),
     })
   },
-  enhanceApp(app: App) {
+  enhanceApp({ app }: { app: App }) {
     for (let name of Object.keys(components)) {
       app.component(name, (components as any)[name]);
     }

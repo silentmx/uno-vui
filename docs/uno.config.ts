@@ -11,5 +11,4 @@ export default defineConfig({
     transformerVariantGroup(),
     transformerDirectives()
   ],
-  include: [/.*\/v-ui\.js(.*)?$/, './**/*.vue', './**/*.md'],
 });

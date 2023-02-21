@@ -1,10 +1,13 @@
 {
   "extends": "../tsconfig.json",
   "include": [
-    "**/*.ts",
-    "**/*.d.ts",
-    "**/*.vue",
-    "**/*.md",
+    ".vitepress/**/*.ts",
+    ".vitepress/**/*.vue",
+    "example/**/*.vue",
+    "components/**/*.md",
+    "guide/**/*.md",
+    ".env.d.ts",
+    "auto-import.d.ts"
   ],
   "compilerOptions": {
     "baseUrl": ".",
@@ -18,7 +21,4 @@
       ],
     }
   },
-  "exclude": [
-    "**/dist/**",
-  ],
 }

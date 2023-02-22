@@ -7,7 +7,7 @@
     "components/**/*.md",
     "guide/**/*.md",
     ".env.d.ts",
-    "auto-import.d.ts"
+    "auto-import.d.ts",
   ],
   "compilerOptions": {
     "baseUrl": ".",
@@ -18,7 +18,7 @@
     "paths": {
       "v-ui": [
         "../src"
-      ],
+      ]
     }
   },
 }

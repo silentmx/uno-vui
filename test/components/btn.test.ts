@@ -1,6 +1,6 @@
-import { VBtn } from '@/components';
 import { shallowMount } from '@vue/test-utils';
 import { describe, expect, test } from "vitest";
+import { VBtn } from '../../src';
 
 describe("button component", () => {
   test("basic", () => {

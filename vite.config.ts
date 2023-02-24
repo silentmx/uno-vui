@@ -4,13 +4,7 @@ import Vue from '@vitejs/plugin-vue';
 import { resolve } from 'node:path';
 import Unocss from 'unocss/vite';
 import AutoImport from 'unplugin-auto-import/vite';
-import VueMacros from 'unplugin-vue-macros';
 import { defineConfig } from 'vitest/config';
-
-const externals = [
-  'vue',
-  '@floating-ui/dom',
-];
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -22,21 +16,18 @@ export default defineConfig({
     },
     outDir: "dist",
     rollupOptions: {
-      external: externals,
+      external: [
+        'vue',
+      ],
       output: {
         globals: {
           "vue": "Vue",
-          "@floating-ui/dom": "FloatingDom",
         }
       }
     }
   },
   plugins: [
-    VueMacros.vite({
-      plugins: {
-        vue: Vue()
-      }
-    }),
+    Vue(),
     // https://github.com/antfu/unplugin-auto-import
     Unocss(),
     AutoImport({
@@ -54,11 +45,11 @@ export default defineConfig({
     }
   },
   test: {
-    globals: true,
+    clearMocks: true,
     include: ['test/**/*.test.ts'],
-    environment: 'jsdom',
+    environment: "jsdom",
     transformMode: {
-      web: [/.[tj]sx$/],
-    },
-  },
+      web: [/\.[jt]sx$/],
+    }
+  }
 })

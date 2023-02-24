@@ -8,35 +8,23 @@
     "volar.d.ts"
   ],
   "compilerOptions": {
-    "baseUrl": "src",
-    "target": "ESNext",
-    "useDefineForClassFields": true,
-    "module": "ESNext",
-    "moduleResolution": "node",
-    "strict": true,
-    "jsx": "preserve",
-    "sourceMap": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "esModuleInterop": true,
+    "baseUrl": ".",
     "outDir": "dist/types",
     "lib": [
       "ESNext",
       "DOM"
     ],
-    "skipLibCheck": true,
     "paths": {
       "@/*": [
-        "*"
+        "./src/*"
       ],
       "v-ui": [
-        "./"
-      ],
+        "./dist/types"
+      ]
     },
     "types": [
       "vite/client",
       "vitest/globals",
-      "unplugin-vue-define-options/macros-global"
     ]
   },
   "references": [

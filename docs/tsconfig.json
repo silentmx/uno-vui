@@ -1,24 +1,34 @@
 {
-  "extends": "../tsconfig.json",
+  "extends": "@vue/tsconfig/tsconfig.web.json",
   "include": [
     ".vitepress/**/*.ts",
     ".vitepress/**/*.vue",
     "example/**/*.vue",
     "components/**/*.md",
     "guide/**/*.md",
-    ".env.d.ts",
+    "shims.d.ts",
     "auto-import.d.ts",
+  ],
+  "exclude": [
+    "**/dist/**"
   ],
   "compilerOptions": {
     "baseUrl": ".",
-    "types": [
-      "vite/client",
-      "../volar"
+    "lib": [
+      "ESNext",
+      "DOM"
     ],
     "paths": {
+      "@/*": [
+        "./*"
+      ],
       "v-ui": [
-        "../src"
+        "../dist/types"
       ]
-    }
-  },
+    },
+    "types": [
+      "vite/client",
+      "@silentmx/v-ui/volar"
+    ]
+  }
 }

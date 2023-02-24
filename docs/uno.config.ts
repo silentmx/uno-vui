@@ -1,3 +1,4 @@
+import { presetVui } from '@silentmx/v-ui';
 import {
   defineConfig, presetAttributify,
   presetIcons,
@@ -5,7 +6,6 @@ import {
   transformerDirectives,
   transformerVariantGroup
 } from 'unocss';
-import { presetVui } from '../src/preset';
 
 export default defineConfig({
   presets: [

@@ -1,7 +1,7 @@
+import { vui } from '@silentmx/v-ui';
 import Theme from 'vitepress/theme';
 import type { App } from 'vue';
 import { h } from 'vue';
-import { vui } from '../../../src';
 import DemoBlock from '../components/demo-block.vue';
 import './custom.css';
 

@@ -6,7 +6,7 @@ import { theme } from 'unocss/preset-mini';
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 
 const content = `/**
- * Auto genrator from unocss/preset-mini
+ * Auto genrator
  */
 // theme type list
 const ThemeList = ["primary", "secondary", "success", "warn", "error", "info", "default"] as const;
@@ -26,7 +26,7 @@ export type SizeType = typeof SizeList[number];
 `;
 
 const pkgRoot = path.join(__dirname, "..");
-const srcDir = path.join(pkgRoot, "src", "composables");
+const srcDir = path.join(pkgRoot, "packages", "v-ui", "src", "composables");
 
 const colors = Object.keys(theme.colors || {}).filter(c => {
   if (theme.colors && typeof theme.colors[c] == 'object') {

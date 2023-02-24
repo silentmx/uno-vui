@@ -1,10 +1,13 @@
-import { shallowMount } from '@vue/test-utils';
+import { VBtn } from '@v-ui/components';
+import { mount } from '@vue/test-utils';
 import { describe, expect, test } from "vitest";
-import { VBtn } from '../../src';
 
 describe("button component", () => {
   test("basic", () => {
-    const wrapper = shallowMount(VBtn, {
+    const wrapper = mount(VBtn, {
+      props: {
+        loading: false
+      },
       slots: {
         default: () => "button"
       }

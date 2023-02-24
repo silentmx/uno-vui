@@ -1,5 +1,5 @@
 /**
- * Auto genrator from unocss/preset-mini
+ * Auto genrator
  */
 // theme type list
 const ThemeList = ["primary", "secondary", "success", "warn", "error", "info", "default"] as const;

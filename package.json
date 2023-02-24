@@ -1,89 +1,39 @@
 {
-  "name": "@silentmx/v-ui",
+  "name": "@silentmx/monorepo",
   "version": "0.0.1",
-  "private": false,
-  "type": "module",
-  "description": "vue3 based component library built on top of Unocss and Vueuse",
-  "author": {
-    "name": "silentmx",
-    "email": "silentmx@outlook.com",
-    "url": "https://github.com/silentmx"
-  },
-  "homepage": "",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/silentmx/v-ui",
-    "directory": "src"
-  },
-  "bugs": {
-    "email": "silentmx@outlook.com",
-    "url": "https://github.com/silentmx/v-ui/issues"
-  },
-  "keywords": [
-    "component library",
-    "vue3",
-    "unocss",
-    "vueuse"
-  ],
+  "private": true,
+  "packageManager": "pnpm@7.27.1",
   "license": "MIT",
-  "main": "./dist/v-ui.umd.cjs",
-  "module": "./dist/v-ui.js",
-  "exports": {
-    ".": {
-      "types": "./dist/types",
-      "import": "./dist/v-ui.js",
-      "require": "./dist/v-ui.umd.cjs"
-    }
-  },
-  "files": [
-    "dist",
-    "volar.d.ts"
-  ],
-  "types": "./dist/types",
   "scripts": {
-    "dev": "vue-tsc --declaration --emitDeclarationOnly --watch && vite build --watch",
-    "build": "vite build && vue-tsc --declaration --emitDeclarationOnly",
-    "docs:dev": "pnpm --filter @silentmx/v-ui-docs dev",
-    "docs:build": "pnpm --filter @silentmx/v-ui-docs build",
-    "docs:preview": "pnpm --filter @silentmx/v-ui-docs preview",
-    "gen-volar": "na tsx ./scripts/gen-volar.ts",
+    "dev": "nr gen && nr stub",
+    "docs:dev": "pnpm --filter @silentmx/v-ui-docs run dev",
+    "stub": "pnpm -r --parallel --filter=./packages/* run stub",
+    "gen": "pnpm gen-types && pnpm gen-volar",
     "gen-types": "na tsx ./scripts/gen-types.ts",
-    "prepare": "pnpm gen-types && pnpm gen-volar",
-    "test": "vitest",
-    "test:coverage": "vitest --coverage",
-    "update:pkg": "pnpm update --latest && pnpm --filter @silentmx/v-ui-docs update --latest"
+    "gen-volar": "na tsx ./scripts/gen-volar.ts",
+    "release": "bumpp package.json packages/**/package.json",
+    "test": "vitest"
   },
   "devDependencies": {
     "@antfu/ni": "^0.20.0",
+    "@silentmx/v-ui": "workspace:^0.0.1",
     "@types/fs-extra": "^11.0.1",
     "@types/node": "^18.14.1",
-    "@unocss/core": "^0.50.0",
-    "@unocss/reset": "^0.50.0",
     "@vitejs/plugin-vue": "^4.0.0",
-    "@vitest/coverage-c8": "^0.28.5",
     "@vue/test-utils": "^2.3.0",
     "@vue/tsconfig": "^0.1.3",
-    "@vueuse/core": "^9.13.0",
+    "bumpp": "^9.0.0",
     "camelcase": "^7.0.1",
-    "defu": "^6.1.2",
     "fs-extra": "^11.1.0",
-    "globby": "^13.1.3",
     "jsdom": "^21.1.0",
-    "npm-run-all": "^4.1.5",
+    "pnpm": "^7.27.1",
     "tsx": "^3.12.3",
-    "typescript": "~4.9.5",
-    "unocss": "^0.50.0",
+    "typescript": "^4.9.5",
+    "unocss": "^0.50.1",
     "unplugin-auto-import": "^0.15.0",
     "unplugin-vue-components": "^0.24.0",
-    "vite": "^4.1.4",
     "vitest": "^0.28.5",
     "vue": "^3.2.47",
     "vue-tsc": "^1.1.7"
-  },
-  "peerDependencies": {
-    "@unocss/reset": "*",
-    "@vueuse/core": "*",
-    "unocss": "*",
-    "vue": "^3.*"
   }
 }

@@ -16,7 +16,6 @@
   "author": "silentmx@outlook.com",
   "license": "MIT",
   "dependencies": {
-    "@silentmx/v-ui": "workspace:*",
     "markdown-it": "^13.0.1"
   },
   "devDependencies": {

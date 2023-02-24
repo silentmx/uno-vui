@@ -1,15 +1,11 @@
 <script setup lang="ts">
-import type { ColorType, SizeType, ThemeType } from '@/composables/types';
 import type { PropType } from 'vue';
+import type { ThemeType } from '../../composables/types';
 
 const props = defineProps({
   type: {
-    type: String as PropType<ThemeType | ColorType>,
-    default: "default"
-  },
-  size: {
-    type: String as PropType<SizeType>,
-    default: "md"
+    type: String as PropType<ThemeType>,
+    default: "default",
   },
   to: String,
   loading: Boolean,

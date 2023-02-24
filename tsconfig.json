@@ -1,32 +1,30 @@
 {
   "extends": "@vue/tsconfig/tsconfig.web.json",
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/**/*.d.ts",
-    "src/**/*.vue",
-    "volar.d.ts"
-  ],
   "compilerOptions": {
-    "baseUrl": ".",
-    "outDir": "dist/types",
     "lib": [
       "ESNext",
       "DOM"
     ],
-    "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-      "v-ui": [
-        "./dist/types"
-      ]
-    },
     "types": [
       "vite/client",
-      "vitest/globals",
-    ]
+      "vitest/globals"
+    ],
+    "paths": {
+      "@silentmx/v-ui": [
+        "./packages/v-ui/src"
+      ],
+      "@v-ui/components": [
+        "./packages/v-ui/src/components/index.ts"
+      ]
+    }
   },
+  "exclude": [
+    "**/dist/**",
+    "**/node_modules/**",
+    "**/test/dts/**",
+    "**/packages/**",
+    "**/docs/**"
+  ],
   "references": [
     {
       "path": "./tsconfig.config.json"

@@ -1,5 +1,4 @@
 import { defineConfig } from 'vitepress';
-import { description } from '../../package.json';
 import { applyPlugins } from './plugins';
 
 const guides = [
@@ -36,9 +35,13 @@ const sidebar = {
 export default defineConfig({
   lang: "zh-Hans",
   title: "v-ui",
-  description: `${description}`,
+  description: `Popular, beautiful and fast UnoCSS component library`,
   head: [
     ['link', { rel: 'icon', href: '/logo.svg', type: 'image/svg+xml' }],
+    ['meta', {
+      property: 'og:description',
+      content: 'Popular, beautiful and fast UnoCSS component library',
+    }],
   ],
   themeConfig: {
     logo: "/logo.png",

@@ -1,5 +1,6 @@
-import type { ColorType } from '@/composables/types';
+
 import type { Theme } from 'unocss/preset-uno';
+import type { ColorType } from '../composables/types';
 
 export const themeSet = (config?: { primary: ColorType, secondary: ColorType }[]): Theme => {
   // 默认主题

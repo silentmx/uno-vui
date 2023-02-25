@@ -17,7 +17,7 @@ export interface ThemeConfig {
 }
 
 // colors type list
-const ColorList = [
+export const ColorList = [
   $color
 ] as const;
 export type ColorType = typeof ColorList[number];
@@ -41,10 +41,7 @@ const colors = Object.keys(theme.colors || {}).filter(c => {
       "yellow",
       "green",
       "lightblue",
-      "warmgray",
-      "truegray",
-      "coolgray",
-      "bluegray"
+      "gray",
     ].includes(c.toLowerCase());
   } else {
     return false;

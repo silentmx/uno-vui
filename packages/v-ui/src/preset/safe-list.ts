@@ -1,29 +1,23 @@
-import { ThemeList } from "../composables/types";
+import { ColorList } from "../composables/types";
 
-// bluepurple: {
-//   primarylight: '#1d4ed8',
-//   primarydark: '#3b82f6',
-//   secondarylight: '#7e22ce',
-//   secondarydark: '#a855f7'
-// },
-// ambergray: {
-//   primarylight: '#b45309',
-//   primarydark: '#f59e0b',
-//   secondarylight: '#374151',
-//   secondarydark: '#6b7280'
-// },
-// successlight: '#15803d',
-// successdark: '#22c55e',
-// warnlight: '#a16207',
-// warndark: '#eab308',
-// errorlight: '#b91c1c',
-// errordark: '#ef4444',
-// infolight: '#374151',
-// infodark: '#6b7280'
-export const safelist: string[] = [
+//颜色区间
+const colorRegion = ["50", "100", "200", "300", "400", "500", "600", "700", "800", "900"];
+
+export const safeListSet = (): string[] => {
+  const staticColorsSafeList = [
+    "bg-red", "text-red",
+    "bg-yellow", "text-yellow",
+    "bg-green", "text-green",
+    "bg-gray", "text-gray",
+  ];
+
   // theme safe list
-  ...ThemeList.map((item: string) => {
+  let themeSafeList: string[] = ColorList.map(item => {
+    return [`bg-${item}`, `text-${item}`];
+  }).flat(2);
 
-    return `bg-bluepurple-successdark`;
-  }),
-];
+  return [
+    ...staticColorsSafeList,
+    ...themeSafeList
+  ]
+}

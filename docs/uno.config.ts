@@ -14,7 +14,10 @@ export default defineConfig({
     presetIcons({
       cdn: "https://esm.sh/"
     }),
-    presetVui(),
+    presetVui([
+      { primary: "blue", secondary: "purple" },
+      { primary: "pink", secondary: "violet" },
+    ]),
   ],
   transformers: [
     transformerVariantGroup(),

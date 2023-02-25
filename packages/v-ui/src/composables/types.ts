@@ -10,7 +10,7 @@ export interface ThemeConfig {
 }
 
 // colors type list
-const ColorList = [
+export const ColorList = [
   "rose",
   "pink",
   "fuchsia",
@@ -25,11 +25,18 @@ const ColorList = [
   "lime",
   "amber",
   "orange",
-  "gray",
   "slate",
   "zinc",
   "neutral",
   "stone",
+  "warmgray",
+  "warmgray",
+  "truegray",
+  "truegray",
+  "coolgray",
+  "coolgray",
+  "bluegray",
+  "bluegray",
 ] as const;
 export type ColorType = typeof ColorList[number];
 

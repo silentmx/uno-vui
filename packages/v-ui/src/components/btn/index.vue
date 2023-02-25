@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { PropType } from 'vue';
 import type { ThemeType } from '../../composables/types';
-import { selectedTheme } from '../../composables/use-theme';
+import { getThemeColor } from '../../composables/use-theme';
 
 const isDark = useDark();
 
@@ -21,7 +21,7 @@ const isDisabled = computed(() => {
 
 const classList = computed(() => {
   // 色调
-  let res: string[] = [`bg-${selectedTheme.value.primary}${selectedTheme.value.secondary}-${props.type}${isDark ? 'dark' : 'light'}`];
+  let res: string[] = [`bg-${getThemeColor(props.type)}`, "hover:bg-op-20"];
 
   return res;
 });
@@ -32,6 +32,4 @@ const classList = computed(() => {
     <div v-if="loading" class="i-carbon-circle-dash animate-spin"></div>
     <slot></slot>
   </component>
-  {{ selectedTheme }}
-  <button @click="selectedTheme = { primary: 'amber', secondary: 'gray' }">chang theme</button>
 </template>

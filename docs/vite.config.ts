@@ -8,6 +8,7 @@ export default defineConfig({
     AutoImport({
       imports: ['vue', '@vueuse/core'],
       vueTemplate: true,
+      ignore: ["h"],
       dts: 'auto-imports.d.ts',
     }),
   ],

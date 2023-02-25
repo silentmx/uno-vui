@@ -2,8 +2,12 @@
  * Auto genrator
  */
 // theme type list
-const ThemeList = ["primary", "secondary", "success", "warn", "error", "info", "default"] as const;
+export const ThemeList = ["primary", "secondary", "success", "warn", "error", "info", "default"] as const;
 export type ThemeType = typeof ThemeList[number];
+export interface ThemeConfig {
+  primary: ColorType,
+  secondary: ColorType,
+}
 
 // colors type list
 const ColorList = [
@@ -30,7 +34,7 @@ const ColorList = [
 export type ColorType = typeof ColorList[number];
 
 // size type list
-const SizeList = [
+export const SizeList = [
   "default",
   "none",
   "xs",

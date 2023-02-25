@@ -9,8 +9,12 @@ const content = `/**
  * Auto genrator
  */
 // theme type list
-const ThemeList = ["primary", "secondary", "success", "warn", "error", "info", "default"] as const;
+export const ThemeList = ["primary", "secondary", "success", "warn", "error", "info", "default"] as const;
 export type ThemeType = typeof ThemeList[number];
+export interface ThemeConfig {
+  primary: ColorType,
+  secondary: ColorType,
+}
 
 // colors type list
 const ColorList = [
@@ -19,7 +23,7 @@ const ColorList = [
 export type ColorType = typeof ColorList[number];
 
 // size type list
-const SizeList = [
+export const SizeList = [
   $size
 ] as const;
 export type SizeType = typeof SizeList[number];
@@ -29,7 +33,7 @@ const pkgRoot = path.join(__dirname, "..");
 const srcDir = path.join(pkgRoot, "packages", "v-ui", "src", "composables");
 
 const colors = Object.keys(theme.colors || {}).filter(c => {
-  if (theme.colors && typeof theme.colors[c] == 'object') {
+  if (theme.colors && typeof (theme.colors as any)[c] == 'object') {
     return ![
       "light",
       "dark",
@@ -45,7 +49,7 @@ const colors = Object.keys(theme.colors || {}).filter(c => {
   } else {
     return false;
   }
-}).map(c => `"${c}",`);
+}).map(c => `"${c.toLowerCase()}",`);
 const sizes = Object.keys(theme.spacing || {}).map(s => `"${s.toLowerCase()}",`);
 
 const colorContent = content.replace("$color", colors.join("\n  "));

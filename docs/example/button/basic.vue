@@ -1,3 +1,3 @@
 <template>
-  <v-btn :loading="true">default</v-btn>
+  <v-btn :loading="false" type="success">default</v-btn>
 </template>

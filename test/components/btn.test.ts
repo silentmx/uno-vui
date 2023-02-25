@@ -6,7 +6,7 @@ describe("button component", () => {
   test("basic", () => {
     const wrapper = mount(VBtn, {
       props: {
-        loading: false
+        loading: false,
       },
       slots: {
         default: () => "button"

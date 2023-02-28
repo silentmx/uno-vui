@@ -1,5 +1,7 @@
 import type { Ref } from 'vue';
-import type { ThemeConfig, ThemeType } from "./types";
+import type { ColorRegionType, ThemeConfig, ThemeType } from "./types";
+
+const isDark = useDark();
 
 // 默认主题
 export const selectedTheme: Ref<ThemeConfig> = ref<ThemeConfig>({
@@ -8,30 +10,59 @@ export const selectedTheme: Ref<ThemeConfig> = ref<ThemeConfig>({
 });
 
 // 所有主题
-export const allThemes: Ref<ThemeConfig[]> = ref<ThemeConfig[]>([
-  selectedTheme.value,
-]);
+export let allThemes: { themes: ThemeConfig[], dark: ColorRegionType, light: ColorRegionType } = {
+  themes: [selectedTheme.value],
+  dark: "700",
+  light: "500"
+}
 
-export function getThemeColor(name: ThemeType) {
+export function setAllThemes(themes: ThemeConfig[], dark: ColorRegionType = "700", light: ColorRegionType = "500") {
+  if (!themes || themes.length <= 0) {
+    themes = [selectedTheme.value];
+  }
+
+  allThemes = {
+    themes,
+    dark,
+    light
+  };
+
+  selectedTheme.value = allThemes.themes[0];
+}
+
+// 获取当前主题颜色
+export function getTheme(name: ThemeType, element?: Ref<HTMLElement | null>) {
+  let color: string = selectedTheme.value.primary;
   switch (name) {
     case "secondary": {
-      return selectedTheme.value.secondary;
+      color = selectedTheme.value.secondary;
+      break;
     }
     case "success": {
-      return "green";
+      color = "green";
+      break;
     }
     case "warn": {
-      return "yellow";
+      color = "yellow";
+      break;
     }
     case "error": {
-      return "red";
+      color = "red";
+      break;
     }
     case "info": {
-      return "gray";
+      color = "gray";
+      break;
     }
-    case "primary":
     default: {
-      return selectedTheme.value.primary;
+      break;
     }
+  }
+
+  return {
+    color,
+    isDark,
+    isHovered: useElementHover(element),
+    region: isDark.value ? allThemes.dark : allThemes.light,
   }
 }

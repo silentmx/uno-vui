@@ -9,6 +9,10 @@ export interface ThemeConfig {
   secondary: ColorType,
 }
 
+//颜色区间
+export const colorRegion = ["50", "100", "200", "300", "400", "500", "600", "700", "800", "900"] as const;
+export type ColorRegionType = typeof colorRegion[number];
+
 // colors type list
 export const ColorList = [
   "rose",

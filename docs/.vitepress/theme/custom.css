@@ -7,6 +7,7 @@
       #bd34fe 50%,
       #47caff 50%);
   --vp-home-hero-image-filter: blur(40px);
+  --vp-code-block-bg: rgba(125, 125, 125, 0.04);
 }
 
 @media (min-width: 640px) {
@@ -19,4 +20,8 @@
   :root {
     --vp-home-hero-image-filter: blur(72px);
   }
+}
+
+.dark {
+  --vp-code-block-bg: rgba(0, 0, 0, 0.2);
 }

@@ -2,7 +2,7 @@ import fsExtra from 'fs-extra';
 import { dirname, join, sep } from "node:path";
 import type { MarkdownRenderer } from "vitepress";
 import { DemoTag } from "./constants";
-import { DemoInfos } from "./types";
+import type { DemoInfos } from "./types";
 
 const scriptRE = /<\/script>/;
 const scriptLangTsRE = /<\s*script[^>]*\blang=['"]ts['"][^>]*/;
@@ -13,18 +13,18 @@ let index = 1;
 export function getDemoComponent(md: MarkdownRenderer, env: any, { title, desc, path, code, ...props }: DemoInfos) {
   const componentName = `DemoComponent${index++}`;
   path = normalizePath(path);
-  const github = `https://github.com/silentmx/v-ui/tree/main/${path.split('/').slice(-4).join('/')}`;
   injectImportStatement(env, componentName, path);
 
-  const highlightedCode = md.options.highlight!(code, props.lang || "vue", "");
+  const lang = props.lang || "vue";
+  const highlightedCode = md.options.highlight!(code, lang, "");
   return `
     <${DemoTag}
       code="${encodeURIComponent(code)}"
       highlightedCode="${encodeURIComponent(highlightedCode)}"
+      lang="${lang}"
       src="${path}"
       title="${title ?? ''}"
       desc="${desc ?? ''}"
-      github="${github}"
     >
         <${componentName}></${componentName}>
     </${DemoTag}>

@@ -11,13 +11,13 @@ export default defineConfig({
   presets: [
     presetUno(),
     presetAttributify(),
-    presetIcons({
-      cdn: "https://esm.sh/"
+    presetIcons(),
+    presetVui({
+      themes: [
+        { primary: "blue", secondary: "purple" },
+        { primary: "pink", secondary: "violet" },
+      ]
     }),
-    presetVui([
-      { primary: "blue", secondary: "purple" },
-      { primary: "pink", secondary: "violet" },
-    ]),
   ],
   transformers: [
     transformerVariantGroup(),

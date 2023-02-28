@@ -8,7 +8,10 @@
     "**/*.d.ts",
     "**/*.vue",
     "**/*.tsx",
-    ".vitepress/**/*.ts"
+    "**/*.md",
+    ".vitepress/**/*.ts",
+    ".vitepress/**/*.vue",
+    "../packages/v-ui/volar.d.ts"
   ],
   "compilerOptions": {
     "baseUrl": ".",
@@ -18,7 +21,7 @@
     ],
     "types": [
       "vite/client",
-      "../packages/v-ui/volar",
+      "@silentmx/v-ui/volar",
       "./auto-imports"
     ],
     "paths": {

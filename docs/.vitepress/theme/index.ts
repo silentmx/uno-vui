@@ -12,7 +12,7 @@ export default {
   ...Theme,
   Layout() {
     return h(Theme.Layout, null, {
-      // 'home-features-after': () => h(teamMember),
+
     })
   },
   enhanceApp({ app }: { app: App }) {

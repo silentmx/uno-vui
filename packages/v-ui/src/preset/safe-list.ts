@@ -1,7 +1,4 @@
-import { ColorList } from "../composables/types";
-
-//颜色区间
-const colorRegion = ["50", "100", "200", "300", "400", "500", "600", "700", "800", "900"];
+import { ColorList, colorRegion } from "../composables/types";
 
 export const safeListSet = (): string[] => {
   const staticColorsSafeList = [
@@ -12,12 +9,22 @@ export const safeListSet = (): string[] => {
   ];
 
   // theme safe list
-  let themeSafeList: string[] = ColorList.map(item => {
+  const themeSafeList: string[] = ColorList.map(item => {
     return [`bg-${item}`, `text-${item}`];
   }).flat(2);
 
-  return [
+  const safeList = [
     ...staticColorsSafeList,
     ...themeSafeList
-  ]
+  ];
+
+  const res = safeList.reduce((acc: string[], cur: string) => {
+    acc.push(cur);
+    colorRegion.forEach(val => {
+      acc.push(`${cur}-${val}`);
+    });
+    return acc;
+  }, []);
+
+  return res;
 }

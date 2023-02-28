@@ -7,6 +7,7 @@ export default defineConfig({
     Unocss(),
     AutoImport({
       imports: ['vue', '@vueuse/core'],
+      include: [/\.[jt]sx?$/, /\.vue\??/, /\.md$/],
       vueTemplate: true,
       ignore: ["h"],
       dts: 'auto-imports.d.ts',

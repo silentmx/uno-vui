@@ -46,7 +46,6 @@ features:
 ---
 
 <script setup lang="ts">
-import { onMounted } from 'vue';
 import { version } from '../package.json';
 
 onMounted(() => {
@@ -57,5 +56,5 @@ onMounted(() => {
     docsReleaseTagSpan.innerText = `v${version}`;
     tagLineParagragh?.appendChild(docsReleaseTagSpan);
   }
-})
+});
 </script>

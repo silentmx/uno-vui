@@ -9,11 +9,14 @@ const content = `/**
  * Auto genrator
  */
 // theme type list
-export const ThemeList = ["primary", "secondary", "success", "warn", "error", "info", "default"] as const;
+export const ThemeList = ["primary", "accent", "success", "warn", "error"] as const;
 export type ThemeType = typeof ThemeList[number];
 export interface ThemeConfig {
-  primary: ColorType,
-  secondary: ColorType,
+  primary: ColorType;
+  accent: ColorType;
+  success: ColorType;
+  warn: ColorType;
+  error: ColorType;
 }
 
 //颜色区间
@@ -37,20 +40,8 @@ const pkgRoot = path.join(__dirname, "..");
 const srcDir = path.join(pkgRoot, "packages", "v-ui", "src", "composables");
 
 const colors = Object.keys(theme.colors || {}).filter(c => {
-  if (theme.colors && typeof (theme.colors as any)[c] == 'object') {
-    return ![
-      "light",
-      "dark",
-      "red",
-      "yellow",
-      "green",
-      "lightblue",
-      "gray",
-    ].includes(c.toLowerCase());
-  } else {
-    return false;
-  }
-}).map(c => `"${c.toLowerCase()}",`);
+  return typeof (theme.colors as any)[c] == "object";
+}).map(c => `"${c}",`);
 const sizes = Object.keys(theme.spacing || {}).map(s => `"${s.toLowerCase()}",`);
 
 const colorContent = content.replace("$color", colors.join("\n  "));

@@ -17,10 +17,11 @@
   "license": "MIT",
   "dependencies": {
     "@iconify-json/carbon": "^1.1.16",
+    "@silentmx/v-ui": "workspace:*",
     "markdown-it": "^13.0.1"
   },
   "devDependencies": {
     "@types/markdown-it": "^12.2.3",
-    "vitepress": "1.0.0-alpha.48"
+    "vitepress": "1.0.0-alpha.49"
   }
 }

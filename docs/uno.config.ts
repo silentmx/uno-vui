@@ -14,8 +14,8 @@ export default defineConfig({
     presetIcons(),
     presetVui({
       themes: [
-        { primary: "blue", secondary: "purple" },
-        { primary: "pink", secondary: "violet" },
+        { primary: "blue", accent: "purple" },
+        { primary: "pink", accent: "violet" },
       ]
     }),
   ],

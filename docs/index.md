@@ -47,12 +47,13 @@ features:
 
 <script setup lang="ts">
 import { version } from '../package.json';
+import { VBtn } from '@silentmx/v-ui';
 
 onMounted(() => {
   if(version) {
     const tagLineParagragh = document.querySelector('div.VPHero.has-image.VPHomeHero > div > div.main > p.tagline');
     const docsReleaseTagSpan = document.createElement('samp');
-    docsReleaseTagSpan.classList.add("bg-blue-500", "px-2", "py-1", "text-3", "rd-3", "text-white", "v-mid", "ml-1");
+    docsReleaseTagSpan.classList.add("bg-blue", "px-2", "py-1", "text-3", "rd-3", "text-white", "v-mid", "ml-1");
     docsReleaseTagSpan.innerText = `v${version}`;
     tagLineParagragh?.appendChild(docsReleaseTagSpan);
   }

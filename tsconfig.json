@@ -12,9 +12,6 @@
     "paths": {
       "@silentmx/v-ui": [
         "./packages/v-ui/src"
-      ],
-      "@v-ui/components": [
-        "./packages/v-ui/src/components/index.ts"
       ]
     }
   },
@@ -22,7 +19,6 @@
     "**/dist/**",
     "**/node_modules/**",
     "**/test/dts/**",
-    "**/packages/**",
     "**/docs/**"
   ],
   "references": [

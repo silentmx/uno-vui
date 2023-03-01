@@ -2,11 +2,14 @@
  * Auto genrator
  */
 // theme type list
-export const ThemeList = ["primary", "secondary", "success", "warn", "error", "info", "default"] as const;
+export const ThemeList = ["primary", "accent", "success", "warn", "error"] as const;
 export type ThemeType = typeof ThemeList[number];
 export interface ThemeConfig {
-  primary: ColorType,
-  secondary: ColorType,
+  primary: ColorType;
+  accent: ColorType;
+  success: ColorType;
+  warn: ColorType;
+  error: ColorType;
 }
 
 //颜色区间
@@ -26,21 +29,29 @@ export const ColorList = [
   "cyan",
   "teal",
   "emerald",
+  "green",
   "lime",
+  "yellow",
   "amber",
   "orange",
+  "red",
+  "gray",
   "slate",
   "zinc",
   "neutral",
   "stone",
+  "light",
+  "dark",
+  "lightblue",
+  "lightBlue",
   "warmgray",
-  "warmgray",
+  "warmGray",
   "truegray",
-  "truegray",
+  "trueGray",
   "coolgray",
-  "coolgray",
+  "coolGray",
   "bluegray",
-  "bluegray",
+  "blueGray",
 ] as const;
 export type ColorType = typeof ColorList[number];
 

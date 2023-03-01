@@ -20,16 +20,8 @@ const isDisabled = computed(() => {
 const theme = getTheme(props.type);
 const classList = computed(() => {
   return [
-    // 色调
-    `bg-${theme.color}-${theme.lightRegion} dark:bg-${theme.color}-${theme.darkRegion}`,
-    props.type == "default" ? [
-      `bg-op-10 dark:bg-op-10 hover:bg-op-30`,
-      `hover:text-${theme.color}-${theme.lightRegion}`,
-      `b-gray-300 dark:b-gray-${theme.darkRegion} b b-solid hover:b-none`
-    ] : [
-      `text-gray-100 hover:bg-${theme.color}-${theme.lightRegion}`
-    ],
-    `flex items-center px-4 py-1 b-rd`,
+    `flex items-center px-4 py-1 rounded-sm bg-${theme.color} dark:bg-${theme.color}-900 hover-bg-op-100`,
+    props.type == "default" ? "bg-op-10" : "text-gray-100",
     props.disabled ? "cursor-not-allowed" : "",
     props.loading ? "cursor-wait" : "",
   ];

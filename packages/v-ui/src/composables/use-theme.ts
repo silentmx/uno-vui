@@ -1,68 +1,45 @@
 import type { Ref } from 'vue';
-import type { ColorRegionType, ThemeConfig, ThemeType } from "./types";
-
-const isDark = useDark();
+import type { ColorRegionType, ColorType, ThemeConfig, ThemeType } from "./types";
 
 // 默认主题
 export const selectedTheme: Ref<ThemeConfig> = ref<ThemeConfig>({
   primary: "blue",
-  secondary: "purple"
+  accent: "purple",
+  success: "green",
+  warn: "yellow",
+  error: "red",
 });
 
 // 所有主题
-export let allThemes: { themes: ThemeConfig[], dark: ColorRegionType, light: ColorRegionType } = {
-  themes: [selectedTheme.value],
-  dark: "700",
-  light: "500"
-}
+let darkRegion: ColorRegionType = "700";
+let lightRegion: ColorRegionType = "500";
+export let allThemes: ThemeConfig[] = [selectedTheme.value];
 
-export function setAllThemes(themes: ThemeConfig[], dark: ColorRegionType = "700", light: ColorRegionType = "500") {
-  if (!themes || themes.length <= 0) {
-    themes = [selectedTheme.value];
+export function setAllThemes(
+  themes: ThemeConfig[],
+  dark: ColorRegionType = darkRegion,
+  light: ColorRegionType = lightRegion
+) {
+  if (themes && themes.length > 0) {
+    allThemes = themes;
   }
 
-  allThemes = {
-    themes,
-    dark,
-    light
-  };
-
-  selectedTheme.value = allThemes.themes[0];
+  console.log(allThemes);
+  darkRegion = dark;
+  lightRegion = light;
+  selectedTheme.value = allThemes[0];
 }
 
 // 获取当前主题颜色
-export function getTheme(name: ThemeType, element?: Ref<HTMLElement | null>) {
-  let color: string = selectedTheme.value.primary;
-  switch (name) {
-    case "secondary": {
-      color = selectedTheme.value.secondary;
-      break;
-    }
-    case "success": {
-      color = "green";
-      break;
-    }
-    case "warn": {
-      color = "yellow";
-      break;
-    }
-    case "error": {
-      color = "red";
-      break;
-    }
-    case "info": {
-      color = "gray";
-      break;
-    }
-    default: {
-      break;
-    }
+export function getTheme(name: ThemeType | "default") {
+  let color: ColorType = selectedTheme.value.primary;
+  if (name !== "default") {
+    color = selectedTheme.value[name];
   }
 
   return {
     color,
-    isDark,
-    isHovered: useElementHover(element),
-    region: isDark.value ? allThemes.dark : allThemes.light,
+    darkRegion,
+    lightRegion
   }
 }

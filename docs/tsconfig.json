@@ -1,8 +1,5 @@
 {
   "extends": "@vue/tsconfig/tsconfig.web.json",
-  "exclude": [
-    "**/dist/**"
-  ],
   "include": [
     "**/*.ts",
     "**/*.d.ts",
@@ -11,7 +8,6 @@
     "**/*.md",
     ".vitepress/**/*.ts",
     ".vitepress/**/*.vue",
-    "../packages/v-ui/volar.d.ts"
   ],
   "compilerOptions": {
     "baseUrl": ".",
@@ -21,14 +17,9 @@
     ],
     "types": [
       "vite/client",
+      "./auto-imports",
       "@silentmx/v-ui/volar",
-      "./auto-imports"
     ],
-    "paths": {
-      "@silentmx/v-ui": [
-        "../packages/v-ui/src"
-      ]
-    }
   },
   "references": [
     {

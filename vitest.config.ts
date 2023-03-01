@@ -26,7 +26,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      "@v-ui/components": r("./packages/v-ui/src/components")
+      "@silentmx/v-ui": r("./packages/v-ui/src")
     },
   },
 })

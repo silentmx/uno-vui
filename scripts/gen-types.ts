@@ -42,7 +42,7 @@ const srcDir = path.join(pkgRoot, "packages", "v-ui", "src", "composables");
 const colors = Object.keys(theme.colors || {}).filter(c => {
   return typeof (theme.colors as any)[c] == "object";
 }).map(c => `"${c}",`);
-const sizes = Object.keys(theme.spacing || {}).map(s => `"${s.toLowerCase()}",`);
+const sizes = Object.keys(theme.breakpoints || {}).map(s => `"${s.toLowerCase()}",`);
 
 const colorContent = content.replace("$color", colors.join("\n  "));
 const sizesContent = colorContent.replace("$size", sizes.join("\n  "));

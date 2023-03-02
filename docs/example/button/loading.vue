@@ -10,7 +10,7 @@ const startLoading = () => {
 </script>
 
 <template>
-  <v-btn type="info" :loading="loading" @click="startLoading">
+  <v-btn :loading="loading" @click="startLoading">
     {{ loading ? "Loading~~" : "Start Load" }}
   </v-btn>
 </template>

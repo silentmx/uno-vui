@@ -3,8 +3,8 @@
  */
 declare module 'vue' {
   export interface GlobalComponents {
-    VBtnGroup: typeof import('@silentmx/v-ui')['VBtnGroup']
     VBtn: typeof import('@silentmx/v-ui')['VBtn']
+    VThemePick: typeof import('@silentmx/v-ui')['VThemePick']
   }
 }
 

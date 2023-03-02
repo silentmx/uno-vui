@@ -3,7 +3,7 @@ import type { Theme } from 'unocss/preset-uno';
 import type { ColorRegionType, ColorType } from '../composables/types';
 import { setAllThemes } from '../composables/use-theme';
 import { rules } from './rules';
-import { safeListSet } from './safe-list';
+import { safelist } from './safe-list';
 import { shortcuts } from './shortcuts';
 
 interface Config {
@@ -34,7 +34,23 @@ export const presetVui = (config: Config): Preset<Theme> => {
   return {
     name: "@silentmx/v-ui",
     rules,
-    safelist: safeListSet(),
-    shortcuts
+    safelist,
+    shortcuts,
+    preflights: [
+      {
+        layer: "base",
+        getCSS: () => `
+          * {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+          },
+          button,select,input,option {
+            outline: none;
+            -webkit-appearance: none
+          }
+        `
+      }
+    ]
   }
 }

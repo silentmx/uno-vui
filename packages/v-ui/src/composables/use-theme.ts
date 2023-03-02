@@ -1,5 +1,7 @@
 import type { Ref } from 'vue';
-import type { ColorRegionType, ColorType, ThemeConfig, ThemeType } from "./types";
+import { colorRegion, type ColorRegionType, type ColorType, type ThemeConfig, type ThemeType } from "./types";
+
+const isDark = useDark();
 
 // 默认主题
 export const selectedTheme: Ref<ThemeConfig> = ref<ThemeConfig>({
@@ -10,36 +12,41 @@ export const selectedTheme: Ref<ThemeConfig> = ref<ThemeConfig>({
   error: "red",
 });
 
+let darkRegion: ColorRegionType = "500";
+let lightRegion: ColorRegionType = "400";
 // 所有主题
-let darkRegion: ColorRegionType = "700";
-let lightRegion: ColorRegionType = "500";
-export let allThemes: ThemeConfig[] = [selectedTheme.value];
+export let allThemes: Ref<ThemeConfig[]> = ref<ThemeConfig[]>([]);
 
 export function setAllThemes(
   themes: ThemeConfig[],
   dark: ColorRegionType = darkRegion,
   light: ColorRegionType = lightRegion
 ) {
+  console.log(themes);
   if (themes && themes.length > 0) {
-    allThemes = themes;
+    allThemes.value = themes;
   }
-
-  console.log(allThemes);
   darkRegion = dark;
   lightRegion = light;
-  selectedTheme.value = allThemes[0];
+  console.log(allThemes.value);
+  selectedTheme.value = allThemes.value[0];
 }
 
-// 获取当前主题颜色
-export function getTheme(name: ThemeType | "default") {
+export function getTheme(type: ThemeType | "default", el?: Ref<HTMLElement | null>) {
   let color: ColorType = selectedTheme.value.primary;
-  if (name !== "default") {
-    color = selectedTheme.value[name];
+  if (type !== "default") {
+    color = selectedTheme.value[type];
   }
+
+  const region = isDark.value ? darkRegion : lightRegion;
+  const regionIndex = colorRegion.findIndex(v => v == region);
+  const hoverRegion = colorRegion.at(regionIndex + 1) || colorRegion[9];
 
   return {
     color,
-    darkRegion,
-    lightRegion
+    isDark,
+    region,
+    isHover: useElementHover(el),
+    hoverRegion,
   }
 }

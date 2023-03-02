@@ -57,19 +57,10 @@ export type ColorType = typeof ColorList[number];
 
 // size type list
 export const SizeList = [
-  "default",
-  "none",
-  "xs",
   "sm",
+  "md",
   "lg",
   "xl",
   "2xl",
-  "3xl",
-  "4xl",
-  "5xl",
-  "6xl",
-  "7xl",
-  "8xl",
-  "9xl",
 ] as const;
 export type SizeType = typeof SizeList[number];

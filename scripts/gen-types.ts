@@ -8,17 +8,6 @@ const __dirname = fileURLToPath(new URL(".", import.meta.url));
 const content = `/**
  * Auto genrator
  */
-// theme type list
-export const ThemeList = ["primary", "accent", "success", "warn", "error"] as const;
-export type ThemeType = typeof ThemeList[number];
-export interface ThemeConfig {
-  primary: ColorType;
-  accent: ColorType;
-  success: ColorType;
-  warn: ColorType;
-  error: ColorType;
-}
-
 //颜色区间
 export const colorRegion = ["50", "100", "200", "300", "400", "500", "600", "700", "800", "900"] as const;
 export type ColorRegionType = typeof colorRegion[number];

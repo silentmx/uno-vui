@@ -6,10 +6,11 @@
   "license": "MIT",
   "scripts": {
     "dev": "nr gen && nr stub",
+    "doc": "nr docs:dev",
     "docs:dev": "pnpm --filter @silentmx/v-ui-docs run dev",
     "build": "nr gen && pnpm -r --parallel --filter=./packages/* run build",
     "stub": "pnpm -r --parallel --filter=./packages/* run stub",
-    "gen": "pnpm gen-types && pnpm gen-volar",
+    "gen": "nr gen-types && nr gen-volar",
     "gen-types": "na tsx ./scripts/gen-types.ts",
     "gen-volar": "na tsx ./scripts/gen-volar.ts",
     "release": "bumpp package.json packages/**/package.json",
@@ -18,7 +19,7 @@
   "devDependencies": {
     "@antfu/ni": "^0.20.0",
     "@types/fs-extra": "^11.0.1",
-    "@types/node": "^18.14.2",
+    "@types/node": "^18.14.5",
     "@unocss/reset": "^0.50.3",
     "@vitejs/plugin-vue": "^4.0.0",
     "@vue/test-utils": "^2.3.0",

@@ -15,6 +15,7 @@ export default defineConfig({
     presetVui({
       themes: [
         { primary: "blue", accent: "purple" },
+        { primary: "blue", accent: "purple" },
         { primary: "pink", accent: "violet" },
       ]
     }),

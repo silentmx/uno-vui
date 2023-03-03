@@ -1,19 +1,13 @@
-import { ColorList, colorRegion, type ColorType } from "../composables/types";
+import { ThemeList } from "./config";
 
 export const safelist: string[] = [
   // theme color safe list
-  ...ColorList.reduce((acc: string[], cur: ColorType) => {
-    // 背景色，文字颜色，边框颜色
+  ...ThemeList.reduce((acc: string[], cur) => {
     acc.push(...[
-      `bg-${cur}`, `text-${cur}`, `b-${cur}`
+      `bg-${cur}`, `text-${cur}`, `b-${cur}`,
+      `hover:bg-${cur}`, `hover:text-${cur}`, `hover:b-${cur}`,
+      `hover:bg-h${cur}`, `hover:text-h${cur}`, `hover:b-h${cur}`,
     ]);
-
-    colorRegion.forEach(region => {
-      acc.push(...[
-        `bg-${cur}-${region}`, `text-${cur}-${region}`, `b-${cur}-${region}`,
-      ]);
-    });
-
     return acc;
-  }, []).flat(2),
+  }, []).flat(2)
 ];

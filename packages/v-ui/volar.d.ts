@@ -6,6 +6,12 @@ declare module 'vue' {
     VBtn: typeof import('@silentmx/v-ui')['VBtn']
     VThemePick: typeof import('@silentmx/v-ui')['VThemePick']
   }
+
+  // for vue template auto import
+  export interface ComponentCustomProperties {
+    $VMessage: typeof import('@silentmx/v-ui')['VMessage']
+  }
+  
 }
 
 export { }

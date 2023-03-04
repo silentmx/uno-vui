@@ -15,6 +15,12 @@ const components = [
       },
     ],
   },
+  {
+    text: "函数",
+    items: [
+      { text: "消息", link: "/components/message" }
+    ]
+  }
 ];
 
 const nav = [

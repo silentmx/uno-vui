@@ -11,7 +11,7 @@
     ],
     "paths": {
       "@silentmx/v-ui": [
-        "./packages/v-ui/src"
+        "./packages/v-ui/src/index.ts"
       ]
     }
   },

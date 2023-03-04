@@ -15,6 +15,11 @@
       "ESNext",
       "DOM"
     ],
+    "paths": {
+      "@silentmx/v-ui": [
+        "../packages/v-ui/src/index.ts"
+      ]
+    },
     "types": [
       "vite/client",
       "./auto-imports",

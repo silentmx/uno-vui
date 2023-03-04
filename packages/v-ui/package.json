@@ -34,7 +34,7 @@
   },
   "main": "./dist/v-ui.umd.cjs",
   "module": "./dist/v-ui.js",
-  "types": "./dist/types",
+  "types": "./dist/types/index.d.ts",
   "files": [
     "dist",
     "volar.d.ts"

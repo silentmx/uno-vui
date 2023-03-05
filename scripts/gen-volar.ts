@@ -45,7 +45,7 @@ declare module 'vue' {
   }
 
   // for vue template auto import
-  export interface ComponentCustomProperties {
+  interface ComponentCustomProperties {
     $properties
   }
   

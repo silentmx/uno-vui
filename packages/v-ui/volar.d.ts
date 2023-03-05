@@ -8,7 +8,7 @@ declare module 'vue' {
   }
 
   // for vue template auto import
-  export interface ComponentCustomProperties {
+  interface ComponentCustomProperties {
     $VMessage: typeof import('@silentmx/v-ui')['VMessage']
   }
   

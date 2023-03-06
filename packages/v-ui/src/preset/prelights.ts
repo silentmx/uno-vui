@@ -59,6 +59,7 @@ function genPrelightCss(themes: ThemeConfig[], dark: ColorRegionType, light: Col
       itemCss += `\n}\n`;
       return itemCss;
     }).join("\n");
+    acc += "\n";
     return acc;
   }, "");
 

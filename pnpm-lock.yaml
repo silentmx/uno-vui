@@ -16,11 +16,11 @@ importers:
       camelcase: ^7.0.1
       fs-extra: ^11.1.0
       jsdom: ^21.1.0
-      pnpm: ^7.28.0
+      pnpm: ^7.29.0
       tsx: ^3.12.3
       typescript: ^4.9.5
       unocss: ^0.50.3
-      unplugin-auto-import: ^0.15.0
+      unplugin-auto-import: ^0.15.1
       unplugin-vue-components: ^0.24.0
       vitest: ^0.29.2
       vue: ^3.2.47
@@ -38,11 +38,11 @@ importers:
       camelcase: 7.0.1
       fs-extra: 11.1.0
       jsdom: 21.1.0
-      pnpm: 7.28.0
+      pnpm: 7.29.0
       tsx: 3.12.3
       typescript: 4.9.5
       unocss: 0.50.3_postcss@8.4.21+vite@4.1.4
-      unplugin-auto-import: 0.15.0_@vueuse+core@9.13.0
+      unplugin-auto-import: 0.15.1_@vueuse+core@9.13.0
       unplugin-vue-components: 0.24.0_vue@3.2.47
       vitest: 0.29.2_jsdom@21.1.0
       vue: 3.2.47
@@ -2836,8 +2836,8 @@ packages:
       pathe: 1.1.0
     dev: true
 
-  /pnpm/7.28.0:
-    resolution: {integrity: sha512-nbuY07S2519jEjaV9KLjSFmOwh0b6KIViIdc/RCJkgco8SZa2+ikQQe4N3CfNn5By5BH0dKVbZ8Ox1Mw8wItSA==}
+  /pnpm/7.29.0:
+    resolution: {integrity: sha512-SyJGcUK7gmLSJYjspL6iVOR9CS7ARYA7K0JmJkjn+MMxEJBUwzc0XdPBNwh5q8dxs+iR2ZQBalmI1lI24GRVOA==}
     engines: {node: '>=14.6'}
     hasBin: true
     dev: true
@@ -3359,17 +3359,19 @@ packages:
       - vite
     dev: true
 
-  /unplugin-auto-import/0.15.0_@vueuse+core@9.13.0:
-    resolution: {integrity: sha512-TYlqpTiX1jlbc2+EVaM0jfwdvbIdDWLHAPqw/l+7+QRm9rkqK2j8LQGjY3tAPbe66r5EirgTlrrXQG/MNVTv7w==}
+  /unplugin-auto-import/0.15.1_@vueuse+core@9.13.0:
+    resolution: {integrity: sha512-xLS+BfVNy00Y3IkqBmEd0IThvjx8kSGIgSuf/1kETttiENK8sHrDA+poKkQxRCPTKYH4yWM6txGQANPTzwpUWQ==}
     engines: {node: '>=14'}
     peerDependencies:
+      '@nuxt/kit': ^3.2.2
       '@vueuse/core': '*'
     peerDependenciesMeta:
+      '@nuxt/kit':
+        optional: true
       '@vueuse/core':
         optional: true
     dependencies:
       '@antfu/utils': 0.7.2
-      '@nuxt/kit': 3.2.3
       '@rollup/pluginutils': 5.0.2
       '@vueuse/core': 9.13.0_vue@3.2.47
       local-pkg: 0.4.3
@@ -3379,7 +3381,6 @@ packages:
       unplugin: 1.1.0
     transitivePeerDependencies:
       - rollup
-      - supports-color
     dev: true
 
   /unplugin-vue-components/0.24.0_vue@3.2.47:

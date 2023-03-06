@@ -24,7 +24,7 @@ const isDisabled = computed(() => {
 
 const classList = computed(() => {
   const baseClass = [
-    `flex items-center px-4 py-1 b-rd b bg-${props.theme} hover:bg-h${props.theme}`,
+    `flex items-center px-4 py-1 b-rd b bg-${props.theme} hover:bg-${props.theme}Heavy`,
     props.theme == "default" ? `bg-op-10 hover:bg-op-50 hover:text-${props.theme}` : `text-gray-50`,
     props.disabled ? "cursor-not-allowed" : "",
     props.loading ? "cursor-wait" : "",

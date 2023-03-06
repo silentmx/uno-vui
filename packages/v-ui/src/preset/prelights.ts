@@ -2,75 +2,79 @@ import { parseColor } from '@unocss/preset-mini/utils';
 import type { Preflight } from "unocss";
 import { theme } from 'unocss/preset-mini';
 import type { Theme } from 'unocss/preset-uno';
-import { colorRegion } from '../composables/types';
-import { prefix, type PresetConfig } from "./config";
+import { colorRegion, type ColorRegionType, type ColorType } from '../composables/types';
+import { prefix, ThemeList, type PresetConfig, type ThemeConfig, type ThemeType } from "./config";
+
+const defaultThemes: ThemeConfig[] = [
+  { primary: "blue", accent: "purple", success: "green", warn: "yellow", error: "red" }
+];
+const defaultLight: ColorRegionType = "400";
+const defaultDark: ColorRegionType = "500";
+const defaultColor: {
+  [key: string]: ColorType
+} = {
+  success: "green",
+  warn: "yellow",
+  error: "red"
+}
 
 export function setPrelight(config?: PresetConfig): Preflight<Theme>[] {
-  config = {
-    themes: config?.themes ?? [{ primary: "blue", accent: "purple", success: "green", warn: "yellow", error: "red" }],
-    light: config?.light ?? "400",
-    dark: config?.dark ?? "500",
+  const _config = {
+    themes: config?.themes ?? defaultThemes,
+    light: config?.light ?? defaultLight,
+    dark: config?.dark ?? defaultDark,
   }
 
   // 添加可选颜色默认值
-  config.themes?.map(v => {
-    v.success = v.success || "green";
-    v.warn = v.warn || "yellow";
-    v.error = v.error || "red";
+  _config.themes = _config.themes?.map(v => {
+    v.success = v.success || defaultColor.success;
+    v.warn = v.warn || defaultColor.warn;
+    v.error = v.error || defaultColor.error;
     return v;
   });
 
   // 去重复
-  const strings = config.themes?.map(v => JSON.stringify(v).trim());
+  const strings = _config.themes?.map(v => JSON.stringify(v).trim());
   const removeDupList = Array.from(new Set(strings));
-  config.themes = removeDupList.map(v => JSON.parse(v));
-  const lightIndex = colorRegion.findIndex(v => v == config?.light);
-  const darkIndex = colorRegion.findIndex(v => v == config?.dark);
-  const hoverLight = colorRegion.at(lightIndex + 1) || colorRegion[9];
-  const hoverDark = colorRegion.at(darkIndex + 1) || colorRegion[9];
-
-  const css = config.themes.reduce((acc, cur, index) => {
-    // 默认主题
-    acc += `
-${index == 0 ? ':root' : `.${cur.primary}-${cur.accent}`} {
-  ${prefix}-default: ${parseColor(cur.primary + `-${config?.light}`, theme)?.cssColor?.components.join(',')};
-  ${prefix}-primary: ${parseColor(cur.primary + `-${config?.light}`, theme)?.cssColor?.components.join(',')};
-  ${prefix}-accent: ${parseColor(cur.accent + `-${config?.light}`, theme)?.cssColor?.components.join(',')};
-  ${prefix}-success: ${parseColor(cur.success + `-${config?.light}`, theme)?.cssColor?.components.join(',')};
-  ${prefix}-warn: ${parseColor(cur.warn + `-${config?.light}`, theme)?.cssColor?.components.join(',')};
-  ${prefix}-error: ${parseColor(cur.error + `-${config?.light}`, theme)?.cssColor?.components.join(',')};
-
-  ${prefix}-default-h: ${parseColor(cur.primary + `-${hoverLight}`, theme)?.cssColor?.components.join(',')};
-  ${prefix}-primary-h: ${parseColor(cur.primary + `-${hoverLight}`, theme)?.cssColor?.components.join(',')};
-  ${prefix}-accent-h: ${parseColor(cur.accent + `-${hoverLight}`, theme)?.cssColor?.components.join(',')};
-  ${prefix}-success-h: ${parseColor(cur.success + `-${hoverLight}`, theme)?.cssColor?.components.join(',')};
-  ${prefix}-warn-h: ${parseColor(cur.warn + `-${hoverLight}`, theme)?.cssColor?.components.join(',')};
-  ${prefix}-error-h: ${parseColor(cur.error + `-${hoverLight}`, theme)?.cssColor?.components.join(',')};
-}
-
-${index == 0 ? '.dark' : `.dark .${cur.primary}-${cur.accent}`}{
-  ${prefix}-default: ${parseColor(cur.primary + `-${config?.dark}`, theme)?.cssColor?.components.join(',')};
-  ${prefix}-primary: ${parseColor(cur.primary + `-${config?.dark}`, theme)?.cssColor?.components.join(',')};
-  ${prefix}-accent: ${parseColor(cur.accent + `-${config?.dark}`, theme)?.cssColor?.components.join(',')};
-  ${prefix}-success: ${parseColor(cur.success + `-${config?.dark}`, theme)?.cssColor?.components.join(',')};
-  ${prefix}-warn: ${parseColor(cur.warn + `-${config?.dark}`, theme)?.cssColor?.components.join(',')};
-  ${prefix}-error: ${parseColor(cur.error + `-${config?.dark}`, theme)?.cssColor?.components.join(',')};
-
-  ${prefix}-default-h: ${parseColor(cur.primary + `-${hoverDark}`, theme)?.cssColor?.components.join(',')};
-  ${prefix}-primary-h: ${parseColor(cur.primary + `-${hoverDark}`, theme)?.cssColor?.components.join(',')};
-  ${prefix}-accent-h: ${parseColor(cur.accent + `-${hoverDark}`, theme)?.cssColor?.components.join(',')};
-  ${prefix}-success-h: ${parseColor(cur.success + `-${hoverDark}`, theme)?.cssColor?.components.join(',')};
-  ${prefix}-warn-h: ${parseColor(cur.warn + `-${hoverDark}`, theme)?.cssColor?.components.join(',')};
-  ${prefix}-error-h: ${parseColor(cur.error + `-${hoverDark}`, theme)?.cssColor?.components.join(',')};
-}
-`;
-    return acc;
-  }, '');
+  _config.themes = removeDupList.map(v => JSON.parse(v));
 
   return [
     {
       layer: "theme",
-      getCSS: () => css,
+      getCSS: () => genPrelightCss(config?.themes || defaultThemes, config?.dark || defaultDark, config?.light || defaultLight),
     }
   ]
+}
+
+function genPrelightCss(themes: ThemeConfig[], dark: ColorRegionType, light: ColorRegionType): string {
+
+  const css = themes.reduce((acc, cur, index) => {
+    const items = index == 0 ? [':root', '.dark'] : [`.${cur.primary}-${cur.accent}`, `.dark .${cur.primary}-${cur.accent}`];
+    acc += items.map(item => {
+      let itemCss = `${item} {\n  `;
+      itemCss += ThemeList.map(key => {
+        const color = key == "default" ? cur.primary : cur[key] || defaultColor[key];
+        return genCssVar(key, color, `${item.includes('dark') ? dark : light}`);
+      }).join("\n  ")
+      itemCss += `\n}\n`;
+      return itemCss;
+    }).join("\n");
+    return acc;
+  }, "");
+
+  return css;
+}
+
+function genCssVar(key: ThemeType, color: ColorType, region: ColorRegionType): string {
+  return ["", "light", "heavy"].map(type => {
+    const regionIndex = colorRegion.findIndex(c => c == region);
+    let _region = region;
+    if (type == "light") {
+      _region = colorRegion.at(regionIndex - 1) || colorRegion[0];
+    }
+    if (type == "heavy") {
+      _region = colorRegion.at(regionIndex + 1) || colorRegion[9];
+    }
+    return `${prefix}-${key}${type ? `-${type}` : ""}: ${parseColor(color + "-" + _region, theme)?.cssColor?.components.join(",")};`;
+  }).join("\n  ");
 }

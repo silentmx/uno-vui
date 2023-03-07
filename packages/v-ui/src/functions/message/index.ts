@@ -1,8 +1,8 @@
 import { h, render } from 'vue';
-import { useTeleport } from '../../composables/use-teleport';
+import { useOverlay } from '../../composables/use-overlay';
 import MessageVue from './index.vue';
 
-const { teleportTarget } = useTeleport();
+const { overlayTarget } = useOverlay("message");
 
 const message = {
   success: () => {
@@ -11,7 +11,7 @@ const message = {
     const vnode = h(MessageVue);
     vnode.appContext = (message as any)._context;
     render(vnode, container);
-    (teleportTarget.value as any).appendChild(container.firstElementChild);
+    overlayTarget.value.appendChild(container.firstElementChild as Element);
   }
 };
 

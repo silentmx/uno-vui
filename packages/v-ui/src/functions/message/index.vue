@@ -24,7 +24,7 @@ function close() {
   <Transition name="fade" @after-leave="emit('destroy')">
     <div v-if="show">
       message component!
-      <v-btn>ok</v-btn>
+      <v-btn theme="primary">ok</v-btn>
     </div>
   </Transition>
 </template>

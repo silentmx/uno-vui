@@ -20,6 +20,12 @@ const components = [
     items: [
       { text: "消息", link: "/components/message" }
     ]
+  },
+  {
+    text: "指令",
+    items: [
+      { text: "弹出层", link: "/components/popup" }
+    ]
   }
 ];
 

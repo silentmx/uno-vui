@@ -26,8 +26,9 @@ export const withInstallFunction = <T>(fn: T, name: string) => {
 export const withInstallDirective = <T extends Directive>(directive: T, name: string) => {
 
   (directive as SFCWithInstall<T>).install = (app: App): void => {
+    (directive as SFCInstallWithContext<T>)._context = app._context;
     app.directive(name, directive);
   }
 
-  return directive as SFCWithInstall<T>;
+  return directive as SFCInstallWithContext<T>;
 }

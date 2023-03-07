@@ -16,7 +16,8 @@ export default defineConfig({
       external: ["vue"],
       output: {
         globals: {
-          vue: "Vue"
+          "vue": "Vue",
+          "@floating-ui/vue": "FloatingVue",
         }
       }
     }

@@ -1,5 +1,6 @@
 import type { App } from 'vue';
 import components from './components';
+import directives from './directives';
 import functions from './functions';
 
 export { VUiResolver } from './component-resolver';
@@ -11,5 +12,6 @@ export const vui = {
   install(app: App) {
     components.forEach(c => app.use(c));
     functions.forEach(f => app.use(f));
+    directives.forEach(d => app.use(d));
   }
 }

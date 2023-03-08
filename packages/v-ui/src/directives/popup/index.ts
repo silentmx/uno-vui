@@ -2,21 +2,34 @@ import { h, render, type DirectiveBinding, type FunctionDirective } from "vue";
 import { useOverlay } from "../../composables/use-overlay";
 import Popup from './index.vue';
 
-const { overlayTarget } = useOverlay("popup");
+const POPUP_KEY = new String("popup");
+const { overlayTarget } = useOverlay(POPUP_KEY);
 
-function showPopup(el: HTMLElement) {
-  const container = document.createElement("div");
-  const vnode = h(Popup, { el: el }, {
-    default: () => "tooltip"
-  });
-  vnode.appContext = (directive as any)._context;
-  render(vnode, container);
-  if (container.firstElementChild) {
-    overlayTarget.value.appendChild(container.firstElementChild);
+showPopup.cache = new WeakMap<Element, Element>();
+function showPopup(el: HTMLElement, trigger: "hover" | "click" | "context-menu" | "focus" = "hover") {
+  if (!showPopup.cache.has(el)) {
+    const container = document.createElement("div");
+    const vnode = h(Popup, {
+      el: el,
+      trigger: trigger,
+      onDestroy: () => {
+        showPopup.cache.delete(el);
+        render(null, container);
+      }
+    }, {
+      default: () => "tooltip"
+    });
+    vnode.appContext = (directive as any)._context;
+    render(vnode, container);
+    if (container.firstElementChild) {
+      overlayTarget.value.appendChild(container.firstElementChild);
+    }
+    showPopup.cache.set(el, container)
   }
+
 }
 
-const directive: FunctionDirective = (el: HTMLElement, binding: DirectiveBinding, vnode: VNode) => {
+const directive: FunctionDirective = (el: HTMLElement, binding: DirectiveBinding) => {
   switch (binding.arg) {
     case "click": {
       break;
@@ -29,7 +42,9 @@ const directive: FunctionDirective = (el: HTMLElement, binding: DirectiveBinding
       break;
     }
     default: {
-      showPopup(el);
+      el.onmouseenter = () => {
+        showPopup(el, "hover");
+      }
       break;
     }
   }

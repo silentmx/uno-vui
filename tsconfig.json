@@ -1,29 +1,14 @@
 {
-  "extends": "@vue/tsconfig/tsconfig.web.json",
-  "compilerOptions": {
-    "lib": [
-      "ESNext",
-      "DOM"
-    ],
-    "types": [
-      "vite/client",
-      "vitest/globals"
-    ],
-    "paths": {
-      "@silentmx/v-ui": [
-        "./packages/v-ui/src/index.ts"
-      ]
-    }
-  },
-  "exclude": [
-    "**/dist/**",
-    "**/node_modules/**",
-    "**/test/dts/**",
-    "**/docs/**"
-  ],
+  "files": [],
   "references": [
     {
-      "path": "./tsconfig.config.json"
+      "path": "./tsconfig.node.json"
+    },
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.vitest.json"
     }
   ]
 }

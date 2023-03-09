@@ -1,32 +1,15 @@
-import Vue from '@vitejs/plugin-vue';
-import { resolve } from 'node:path';
-import AutoImport from 'unplugin-auto-import/vite';
-import { defineConfig } from 'vitest/config';
+import { fileURLToPath } from 'node:url';
+import { mergeConfig } from 'vite';
+import { configDefaults, defineConfig } from 'vitest/config';
+import viteConfig from './vite.config';
 
-const r = (p: string) => resolve(__dirname, p);
-
-export default defineConfig({
-  plugins: [
-    Vue(),
-    AutoImport({
-      imports: ["vue", "@vueuse/core"],
-      dts: false,
-      vueTemplate: true
-    }),
-  ],
-  optimizeDeps: {
-    disabled: true,
-  },
-  test: {
-    clearMocks: true,
-    environment: 'jsdom',
-    transformMode: {
-      web: [/\.[jt]sx$/],
-    },
-  },
-  resolve: {
-    alias: {
-      "@silentmx/v-ui": r("./packages/v-ui/src")
-    },
-  },
-})
+export default mergeConfig(
+  viteConfig,
+  defineConfig({
+    test: {
+      environment: 'jsdom',
+      exclude: [...configDefaults.exclude, 'e2e/*'],
+      root: fileURLToPath(new URL('./', import.meta.url)),
+    }
+  })
+)

@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.json",
+  "include": [
+    "lib/**/*.ts",
+    "lib/**/*.d.ts",
+    "lib/**/*.vue"
+  ],
+  "compilerOptions": {
+    "declaration": false,
+    "outDir": "./dist/types"
+  }
+}

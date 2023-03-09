@@ -1,27 +1,13 @@
 {
-  "name": "@silentmx/v-ui-docs",
-  "version": "0.0.0",
-  "description": "V-Ui docs",
+  "name": "docs",
+  "version": "1.0.0",
   "private": true,
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "dev": "vitepress dev --host=0.0.0.0 --watch",
-    "build": "vitepress build",
-    "preview": "vitepress preview --host=0.0.0.0",
-    "serve": "vitepress serve"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [
-    "v-ui",
-    "docs"
-  ],
-  "author": "silentmx@outlook.com",
-  "license": "MIT",
-  "dependencies": {
-    "@iconify-json/carbon": "^1.1.16",
-    "@silentmx/v-ui": "workspace:*",
-    "markdown-it": "^13.0.1"
-  },
-  "devDependencies": {
-    "@types/markdown-it": "^12.2.3",
-    "vitepress": "1.0.0-alpha.49"
-  }
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

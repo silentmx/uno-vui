@@ -1,0 +1,45 @@
+{
+  "name": "uno-vui",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Vue3 base component library build on top of Unocss and Vueuse",
+  "main": "./dist/uno-vui.umd.cjs",
+  "module": "./dist/uno-vui.js",
+  "types": "./dist/types/main.d.ts",
+  "files": [
+    "dist",
+    "volar.d.ts"
+  ],
+  "exports": {
+    ".": {
+      "require": "./dist/uno-vui.umd.cjs",
+      "import": "./dist/uno-vui.js",
+      "types": "./dist/types/main.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "vite build && vue-tsc --declaration --emitDeclarationOnly"
+  },
+  "keywords": [
+    "Vue3",
+    "components",
+    "unocss",
+    "vueuse"
+  ],
+  "author": {
+    "email": "silentmx@outlook.com",
+    "name": "silentmx",
+    "url": "https://github.com/silentmx"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "directory": "packages/uno-vui",
+    "url": "git+https://github.com/silentmx/uno-vui.git"
+  },
+  "peerDependencies": {
+    "@vueuse/core": ">=9",
+    "vue": ">=3",
+    "unocss": ">0.50"
+  }
+}

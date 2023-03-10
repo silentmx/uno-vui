@@ -38,11 +38,11 @@ import 'uno.css'; // unocss
 ```ts
 ...
 import { createApp } from 'vue';
-import { UnoVui } from 'uno-vui';
+import { Unovui } from 'uno-vui';
 import App from './App.vue';
 
 const app = createApp(App);
-app.use(UnoVui);
+app.use(Unovui);
 ...
 ```
 

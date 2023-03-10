@@ -19,7 +19,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      'uno-vui': fileURLToPath(new URL('./packages/uno-vui', import.meta.url))
+      'uno-vui': fileURLToPath(new URL('./packages/uno-vui/lib', import.meta.url))
     }
   }
 })

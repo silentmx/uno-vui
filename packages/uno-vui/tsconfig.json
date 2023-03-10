@@ -1,12 +1,17 @@
 {
   "extends": "../../tsconfig.json",
+  "exclude": [
+    "**/dist/**"
+  ],
   "include": [
     "lib/**/*.ts",
     "lib/**/*.d.ts",
-    "lib/**/*.vue"
+    "lib/**/*.vue",
+    "volar.d.ts"
   ],
   "compilerOptions": {
     "declaration": false,
+    "composite": false,
     "outDir": "./dist/types"
   }
 }

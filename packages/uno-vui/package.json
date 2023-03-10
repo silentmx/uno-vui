@@ -43,7 +43,6 @@
     "url": "git+https://github.com/silentmx/uno-vui.git"
   },
   "peerDependencies": {
-    "@vueuse/core": ">=9",
     "vue": ">=3",
     "unocss": ">0.50"
   }

@@ -1,5 +1,7 @@
+import { Unovui } from 'uno-vui';
 import Theme from 'vitepress/theme';
-import { h } from 'vue';
+import { h, type App } from 'vue';
+import DemoBlock from '../components/demo-block.vue';
 import './main.css';
 
 // Unocss
@@ -12,4 +14,8 @@ export default {
       // 'home-features-after': () => h(TeamMember),
     })
   },
+  enhanceApp({ app }: { app: App }) {
+    app.use(Unovui);
+    app.component("Demo", DemoBlock);
+  }
 }

@@ -1,13 +1,21 @@
 {
-  "name": "docs",
+  "name": "@uno-vui/docs",
   "version": "1.0.0",
   "private": true,
-  "description": "",
-  "main": "index.js",
+  "description": "uno-vui docs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "vitepress dev --host --watch",
+    "build": "vitepress build",
+    "serve": "vitepress serve"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "keywords": [
+    "uno-vui",
+    "docs"
+  ],
+  "author": {
+    "email": "silentmx@outlook.com",
+    "name": "silentmx",
+    "url": "https://github.com/silentmx"
+  },
+  "license": "MIT"
 }

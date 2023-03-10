@@ -5,7 +5,7 @@
   "description": "Vue3 base component library build on top of Unocss and Vueuse",
   "main": "./dist/uno-vui.umd.cjs",
   "module": "./dist/uno-vui.js",
-  "types": "./dist/types/main.d.ts",
+  "types": "./dist/types/index.d.ts",
   "files": [
     "dist",
     "volar.d.ts"
@@ -14,11 +14,16 @@
     ".": {
       "require": "./dist/uno-vui.umd.cjs",
       "import": "./dist/uno-vui.js",
-      "types": "./dist/types/main.d.ts"
+      "types": "./dist/types/index.d.ts"
     }
   },
   "scripts": {
-    "build": "vite build && vue-tsc --declaration --emitDeclarationOnly"
+    "dev": "vite",
+    "build": "vite build && vue-tsc --declaration --emitDeclarationOnly",
+    "preview": "vite preview",
+    "test:unit": "vitest",
+    "build-only": "vite build",
+    "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false"
   },
   "keywords": [
     "Vue3",

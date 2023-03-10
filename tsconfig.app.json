@@ -10,8 +10,8 @@
     "composite": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./src/*"
+      "uno-vui/*": [
+        "./packages/uno-vui/*"
       ]
     }
   }

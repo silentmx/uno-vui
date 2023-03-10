@@ -1,3 +1,4 @@
+import Vue from '@vitejs/plugin-vue';
 import { resolve } from 'node:path';
 import { defineConfig, mergeConfig } from 'vite';
 import viteConfig from '../../vite.config';
@@ -7,7 +8,7 @@ export default mergeConfig(
   defineConfig({
     build: {
       lib: {
-        entry: resolve(__dirname, "lib/main.ts"),
+        entry: resolve(__dirname, "lib/index.ts"),
         name: "uno-vui",
         fileName: "uno-vui"
       },
@@ -21,6 +22,9 @@ export default mergeConfig(
           }
         }
       }
-    }
+    },
+    plugins: [
+      Vue(),
+    ]
   })
 );

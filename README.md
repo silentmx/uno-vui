@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./public/logo.svg" style="width: 100px;"/>
+  <img src="./public/logo.png" style="width: 100px;"/>
   <h1 align="center">Uno Vui(WIP)</h1>
   <p align="center">基于unocss和vueuse开发的vue3组件库</p>
 </p>

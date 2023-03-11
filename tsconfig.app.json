@@ -5,17 +5,17 @@
     "**/node_modules/**",
     "**/test/dts/**",
     "**/cache/**",
-    "**/__tests__/*"
+    "**/__tests__/*",
   ],
   "compilerOptions": {
     "composite": true,
-    "baseUrl": ".",
     "types": [
       "vite/client",
+      "vitest/globals"
     ],
     "paths": {
       "uno-vui": [
-        "./packages/uno-vui/lib/index.ts"
+        "./packages/uno-vui/lib"
       ],
       "uno-vui/*": [
         "./packages/uno-vui/lib/*"

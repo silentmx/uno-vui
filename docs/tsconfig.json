@@ -1,5 +1,5 @@
 {
-  "extends": "../tsconfig.json",
+  "extends": "../tsconfig.app.json",
   "exclude": [
     "**/dist/**"
   ],
@@ -7,8 +7,7 @@
     "**/*.ts",
     "**/*.d.ts",
     "**/*.vue",
-    "**/*.md",
-    ".vitepress/**/*",
+    ".vitepress/**/*"
   ],
   "compilerOptions": {
     "baseUrl": ".",
@@ -16,5 +15,5 @@
       "../packages/uno-vui/volar",
       "./auto-imports"
     ]
-  },
+  }
 }

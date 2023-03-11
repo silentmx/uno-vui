@@ -4,12 +4,10 @@ import {
   presetIcons,
   presetUno,
   transformerDirectives,
-  transformerVariantGroup,
-  type UserConfig
+  transformerVariantGroup
 } from 'unocss';
-import type { Theme } from 'unocss/preset-uno';
 
-export default defineConfig<Theme>({
+export default defineConfig({
   presets: [
     presetUno(),
     presetAttributify(),
@@ -19,4 +17,4 @@ export default defineConfig<Theme>({
     transformerVariantGroup(),
     transformerDirectives(),
   ]
-}) as UserConfig<Theme>;
+});

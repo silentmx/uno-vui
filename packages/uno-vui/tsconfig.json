@@ -1,17 +1,18 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "../../tsconfig.app.json",
   "exclude": [
-    "**/dist/**"
+    "**/dist/**",
+    "./vite.config.ts"
   ],
   "include": [
-    "lib/**/*.ts",
-    "lib/**/*.d.ts",
-    "lib/**/*.vue",
-    "volar.d.ts"
+    "**/*.ts",
+    "**/*.d.ts",
+    "**/*.vue",
+    "**/*.tsx"
   ],
   "compilerOptions": {
-    "declaration": false,
     "composite": false,
+    "declaration": false,
     "outDir": "./dist/types"
   }
 }

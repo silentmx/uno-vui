@@ -1,7 +1,7 @@
-import { Unovui } from 'uno-vui';
+// import { Unovui } from '@uno-vui';
 import Theme from 'vitepress/theme';
 import { h, type App } from 'vue';
-import DemoBlock from '../components/demo-block.vue';
+import { default as DemoBlock } from '../components/demo-block.vue';
 import './main.css';
 
 // Unocss
@@ -15,7 +15,7 @@ export default {
     })
   },
   enhanceApp({ app }: { app: App }) {
-    app.use(Unovui);
+    // app.use(Unovui);
     app.component("Demo", DemoBlock);
   }
 }

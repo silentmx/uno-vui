@@ -5,7 +5,7 @@ type SFCInstallWithContext<T> = SFCWithInstall<T> & {
   _context: AppContext | null;
 }
 
-export function withInstall<T>(component: T, name: string) {
+export function withInstall<T extends Record<string, any>>(component: T, name: string) {
   (component as SFCWithInstall<T>).install = (app: App) => {
     app.component(name, component);
   }
@@ -22,7 +22,7 @@ export function withInstallFunction<T>(fn: T, name: string) {
   return fn as SFCWithInstall<T>;
 }
 
-export function withInstallDirective<T>(directive: T, name: string) {
+export function withInstallDirective<T extends Record<string, any>>(directive: T, name: string) {
   (directive as SFCWithInstall<T>).install = (app: App) => {
     (directive as SFCInstallWithContext<T>)._context = app._context;
     app.directive(name, directive);

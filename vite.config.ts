@@ -1,4 +1,3 @@
-import { fileURLToPath, URL } from 'node:url';
 
 import Unocss from 'unocss/vite';
 import AutoImport from 'unplugin-auto-import/vite';
@@ -14,12 +13,12 @@ export default defineConfig({
       vueTemplate: true
     })
   ],
-  optimizeDeps: {
-    disabled: true
-  },
-  resolve: {
-    alias: {
-      'uno-vui': fileURLToPath(new URL('./packages/uno-vui/lib', import.meta.url))
-    }
-  }
+  // optimizeDeps: {
+  //   disabled: true
+  // },
+  // resolve: {
+  //   alias: {
+  //     '@uno-vui': fileURLToPath(new URL('./packages/uno-vui/lib', import.meta.url))
+  //   }
+  // }
 })

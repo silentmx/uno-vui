@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "docs:dev": "pnpm --filter @uno-vui/docs run dev"
+    "docs:dev": "pnpm --filter @uno-vui/docs run dev",
+    "test": "vitest"
   },
   "devDependencies": {
     "@floating-ui/vue": "^0.2.1",

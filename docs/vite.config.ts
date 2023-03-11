@@ -1,17 +1,21 @@
-// import { UnovuiResolver } from 'uno-vui/lib';
-// import Components from 'unplugin-vue-components/vite';
-import { defineConfig, mergeConfig } from 'vite';
-import viteConfig from '../vite.config';
+import { UnovuiResolver } from 'uno-vui';
+import Unocss from 'unocss/vite';
+import AutoImport from 'unplugin-auto-import/vite';
+import Components from 'unplugin-vue-components/vite';
+import { defineConfig } from 'vite';
 
-export default mergeConfig(
-  viteConfig,
-  defineConfig({
-    plugins: [
-      // Components({
-      //   resolvers: [
-      //     UnovuiResolver()
-      //   ]
-      // }),
-    ]
-  })
-);
+export default defineConfig({
+  plugins: [
+    Unocss(),
+    AutoImport({
+      imports: ["vue", "@vueuse/core"],
+      include: [/\.[jt]sx?$/, /\.vue\??/, /\.md$/],
+      vueTemplate: true
+    }),
+    Components({
+      resolvers: [
+        UnovuiResolver()
+      ]
+    }),
+  ]
+})

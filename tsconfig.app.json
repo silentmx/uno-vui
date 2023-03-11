@@ -4,7 +4,6 @@
     "**/dist/**",
     "**/node_modules/**",
     "**/test/dts/**",
-    "**/cache/**",
     "**/__tests__/*",
   ],
   "compilerOptions": {
@@ -14,10 +13,10 @@
       "vitest/globals"
     ],
     "paths": {
-      "uno-vui": [
+      "@uno-vui": [
         "./packages/uno-vui/lib"
       ],
-      "uno-vui/*": [
+      "@uno-vui/*": [
         "./packages/uno-vui/lib/*"
       ]
     }

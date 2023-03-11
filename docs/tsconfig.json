@@ -1,7 +1,8 @@
 {
-  "extends": "../tsconfig.app.json",
+  "extends": "@vue/tsconfig/tsconfig.web.json",
   "exclude": [
-    "**/dist/**"
+    "**/dist/**",
+    "**/cache/**",
   ],
   "include": [
     "**/*.ts",
@@ -12,8 +13,13 @@
   "compilerOptions": {
     "baseUrl": ".",
     "types": [
-      "../packages/uno-vui/volar",
-      "./auto-imports"
+      "vite/client",
+      "uno-vui/volar",
     ]
-  }
+  },
+  "references": [
+    {
+      "path": "../tsconfig.node.json"
+    }
+  ]
 }

@@ -2,7 +2,7 @@ import { defineConfig } from 'vitepress';
 import { applyPlugins } from './plugins';
 
 const guides = [
-  { text: '开始', link: '/guide/' },
+  { text: '快速开始', link: '/guide/' },
 ];
 
 const components = [

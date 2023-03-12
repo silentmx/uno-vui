@@ -1,6 +1,6 @@
 import Theme from 'vitepress/theme';
 import { h, type App } from 'vue';
-import { default as DemoBlock } from '../components/demo-block.vue';
+import DemoBlock from '../components/demo-block.vue';
 import './main.css';
 
 // Unocss

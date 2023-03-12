@@ -2,7 +2,7 @@
   "extends": "@vue/tsconfig/tsconfig.web.json",
   "exclude": [
     "**/dist/**",
-    "**/cache/**",
+    "**/cache/**"
   ],
   "include": [
     "**/*.ts",

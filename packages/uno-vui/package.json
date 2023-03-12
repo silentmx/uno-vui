@@ -18,12 +18,8 @@
     }
   },
   "scripts": {
-    "dev": "vite",
-    "build": "vite build && vue-tsc --declaration --emitDeclarationOnly",
-    "preview": "vite preview",
-    "test:unit": "vitest",
-    "build-only": "vite build",
-    "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false"
+    "dev": "concurrently \"vite build --watch\" \"vue-tsc --declaration --emitDeclarationOnly --watch\"",
+    "build": "vite build && vue-tsc --declaration --emitDeclarationOnly"
   },
   "keywords": [
     "Vue3",

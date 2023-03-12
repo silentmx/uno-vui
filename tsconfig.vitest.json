@@ -1,12 +1,25 @@
 {
-  "extends": "./tsconfig.app.json",
-  "exclude": [],
+  "extends": "@vue/tsconfig/tsconfig.web.json",
+  "include": [
+    "test/**/*",
+    "packages/**/*",
+    "./auto-imports"
+  ],
   "compilerOptions": {
     "composite": true,
+    "baseUrl": ".",
     "lib": [],
     "types": [
       "node",
       "jsdom"
-    ]
+    ],
+    "paths": {
+      "@uno-vui": [
+        "./packages/uno-vui/lib"
+      ],
+      "@uno-vui/*": [
+        "./packages/uno-vui/lib/*"
+      ]
+    }
   }
 }

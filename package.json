@@ -3,6 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "dev": "concurrently \"pnpm run vui:dev\" \"pnpm run docs:dev\"",
+    "vui:dev": "pnpm --filter uno-vui run dev",
     "docs:dev": "pnpm --filter @uno-vui/docs run dev",
     "test": "vitest"
   },
@@ -25,7 +27,7 @@
     "unplugin-auto-import": "^0.15.1",
     "unplugin-vue-components": "^0.24.1",
     "vite": "^4.1.4",
-    "vitepress": "1.0.0-alpha.51",
+    "vitepress": "1.0.0-alpha.52",
     "vitest": "^0.29.2",
     "vue": "^3.2.47",
     "vue-tsc": "^1.2.0"

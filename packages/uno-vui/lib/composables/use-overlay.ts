@@ -12,8 +12,8 @@ export function useOverlay(target: MaybeRef<String>) {
 
     const rootOverlayEl = useOverlay.cache.get(ROOT_TARGET_KEY) || (() => {
       const root = document.createElement("div");
-      root.id = "vui-overlay-container";
-      root.classList.add(...["vui-overlay-container"]);
+      root.id = "unovui-overlay-container";
+      root.classList.add(...["unovui-overlay-container"]);
       document.body.appendChild(root);
       useOverlay.cache.set(ROOT_TARGET_KEY, root);
       return root;
@@ -21,8 +21,8 @@ export function useOverlay(target: MaybeRef<String>) {
 
     return useOverlay.cache.get(_target) || (() => {
       const overlayEl = document.createElement("div");
-      overlayEl.id = `vui-overlay-${_target}`;
-      overlayEl.classList.add(...[`vui-overlay-${_target}`]);
+      overlayEl.id = `unovui-overlay-${_target}`;
+      overlayEl.classList.add(...[`unovui-overlay-${_target}`]);
       rootOverlayEl.appendChild(overlayEl);
       useOverlay.cache.set(_target, overlayEl);
       return overlayEl;

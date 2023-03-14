@@ -1,3 +1,4 @@
+import { presetUnoVui } from 'uno-vui';
 import {
   defineConfig,
   presetAttributify,
@@ -12,6 +13,13 @@ export default defineConfig({
     presetUno(),
     presetAttributify(),
     presetIcons(),
+    presetUnoVui({
+      themes: [
+        { primary: "blue", accent: "purple" },
+        { primary: "blue", accent: "purple" },
+        { primary: "pink", accent: "violet" },
+      ]
+    }),
   ],
   transformers: [
     transformerVariantGroup(),

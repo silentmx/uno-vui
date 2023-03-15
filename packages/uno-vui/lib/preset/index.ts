@@ -1,6 +1,9 @@
 import type { Preset } from "unocss";
 import type { Theme } from "unocss/preset-mini";
 import { setPreflights } from "./preflights";
+import { safelist } from "./safe-list";
+import { shortcuts } from "./shortcuts";
+import { theme } from "./theme";
 import { defaultConfig, defaultTheme, type PresetConfig } from "./types";
 
 export function presetUnoVui(config: PresetConfig = defaultConfig): Preset<Theme> {
@@ -20,6 +23,9 @@ export function presetUnoVui(config: PresetConfig = defaultConfig): Preset<Theme
 
   return {
     name: "uno-vui/preset",
+    theme,
+    safelist,
+    shortcuts,
     layers: {
       theme: 0,
       default: 1,

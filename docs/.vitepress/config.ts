@@ -1,10 +1,12 @@
 import { defineConfig } from 'vitepress';
 import { applyPlugins } from './plugins';
 
+// 指导
 const guides = [
   { text: '快速开始', link: '/guide/' },
 ];
 
+// 组件
 const components = [
   {
     text: '基础',
@@ -15,23 +17,17 @@ const components = [
       },
     ],
   },
-  {
-    text: "函数",
-    items: [
-      { text: "消息", link: "/components/message" }
-    ]
-  },
-  {
-    text: "指令",
-    items: [
-      { text: "弹出层", link: "/components/popup" }
-    ]
-  }
+];
+
+// 指令
+const directives = [
+  { text: "弹出/提示", link: "/directives/popup" }
 ];
 
 const nav = [
   { text: "指导", items: guides },
-  { text: '组件', items: components },
+  { text: "组件", items: components },
+  { text: "指令", items: directives },
 ];
 
 const sidebar = {
@@ -42,6 +38,7 @@ const sidebar = {
     },
   ],
   '/components/': components,
+  "/directives/": directives,
 }
 
 export default defineConfig({

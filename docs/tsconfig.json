@@ -16,6 +16,11 @@
       "vite/client",
       "uno-vui/volar",
     ],
+    "paths": {
+      "uno-vui": [
+        "../packages/uno-vui/lib"
+      ]
+    }
   },
   "references": [
     {

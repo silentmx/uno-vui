@@ -1,7 +1,7 @@
 import type { App, AppContext, Component, Directive, Plugin } from 'vue';
 
-type SFCWithInstall<T> = T & Plugin;
-type SFCInstallWithContext<T> = SFCWithInstall<T> & {
+export type SFCWithInstall<T> = T & Plugin;
+export type SFCInstallWithContext<T> = SFCWithInstall<T> & {
   _context: AppContext | null;
 }
 
@@ -16,7 +16,7 @@ export function withInstall<T extends Component>(component: T, name: string) {
 export function withInstallFunction<T extends Function>(fn: T, name: string) {
   (fn as SFCWithInstall<T>).install = (app: App) => {
     (fn as SFCInstallWithContext<T>)._context = app._context;
-    app.config.globalProperties[name] = fn;
+    app.config.globalProperties[`$${name}`] = fn;
   }
 
   return fn as SFCWithInstall<T>;

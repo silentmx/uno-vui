@@ -24,5 +24,6 @@ export default defineConfig({
   transformers: [
     transformerVariantGroup(),
     transformerDirectives(),
-  ]
+  ],
+  include: [/.*\/uno-vui\.js(.*)?$/, './**/*.vue', './**/*.md']
 });

@@ -5,7 +5,7 @@
   "description": "Vue3 base component library build on top of Unocss and Vueuse",
   "main": "./dist/uno-vui.umd.cjs",
   "module": "./dist/uno-vui.js",
-  "types": "./dist/types",
+  "types": "./dist/types/index.d.ts",
   "files": [
     "dist",
     "volar.d.ts"
@@ -14,7 +14,7 @@
     ".": {
       "require": "./dist/uno-vui.umd.cjs",
       "import": "./dist/uno-vui.js",
-      "types": "./dist/types"
+      "types": "./dist/types/index.d.ts"
     }
   },
   "scripts": {

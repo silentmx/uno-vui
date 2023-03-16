@@ -5,6 +5,7 @@
   ],
   "compilerOptions": {
     "baseUrl": ".",
+    "ignoreDeprecations": "5.0",
     "types": [
       "vite/client",
       "./auto-imports"

@@ -16,7 +16,7 @@ export interface UseUnoPopupOptions {
 
 export function unoPopup(el: MaybeComputedRef<EventTarget | null | undefined>, options: UseUnoPopupOptions): void {
   const {
-    element = "",
+    element,
     trigger = "hover",
     placement = "bottom"
   } = options;

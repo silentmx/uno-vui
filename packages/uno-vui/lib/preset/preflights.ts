@@ -1,12 +1,12 @@
 import type { Preflight } from "unocss";
 import { parseColor, theme, type Theme } from "unocss/preset-mini";
-import { ColorRegion, prefix, type ColorRegionType, type ColorType, type PresetConfig, type ThemeConfig } from "./types";
+import { ColorRegion, prefix, type ColorRegionType, type ColorType, type ThemeConfig } from "./types";
 
-export function setPreflights(config: PresetConfig): Preflight<Theme>[] {
+export function setPreflights(themes: ThemeConfig[], dark: ColorRegionType, light: ColorRegionType): Preflight<Theme>[] {
   return [
     {
       layer: "theme",
-      getCSS: () => genPrelightCss(config.themes || [], config.dark || 500, config?.light || 400),
+      getCSS: () => genPrelightCss(themes, dark, light),
     }
   ];
 }

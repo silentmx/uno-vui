@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "concurrently 'na vui:dev' 'na docs:dev'",
+    "dev": "pnpm vui:build && concurrently 'na vui:dev' 'na docs:dev'",
     "build": "pnpm vui:build && pnpm docs:build",
     "vui:dev": "pnpm --filter uno-vui run dev",
     "vui:build": "pnpm --filter uno-vui run build",

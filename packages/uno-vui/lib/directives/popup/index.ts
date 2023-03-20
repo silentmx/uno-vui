@@ -8,9 +8,11 @@ import PopupComponent from './index.vue';
 const POPUP_KEY = Symbol("popup");
 const { overlayTarget } = useOverlay(POPUP_KEY);
 
-export interface UseUnoPopupOptions {
+const TRIGGER = ["hover", "click", "contextmenu", "focus"] as const;
+
+interface UseUnoPopupOptions {
   element: string | VNode | Component,
-  trigger?: "hover" | "click" | "contextmenu" | "focus",
+  trigger?: typeof TRIGGER[number],
   placement?: Placement,
   arrow?: boolean,
 }
@@ -60,6 +62,11 @@ export function unoPopup(el: MaybeComputedRef<EventTarget | null | undefined>, o
   }, { passive: trigger != "contextmenu" });
 }
 
-const directive: FunctionDirective = (el: HTMLElement, binding: DirectiveBinding) => {
-
+export const directive: FunctionDirective = (el: HTMLElement, binding: DirectiveBinding) => {
+  unoPopup(el, {
+    element: binding.value,
+    // trigger: binding.arg || "hover",
+    // placement: binding.modifiers["bottom"] || "bottom",
+  })
 }
+

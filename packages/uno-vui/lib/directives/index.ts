@@ -1,10 +1,11 @@
 import type { Plugin } from 'vue';
-import { withInstallFunction } from '../composables/with-install';
+import { withInstallDirective, withInstallFunction } from '../composables/with-install';
 
-import { unoPopup } from './popup';
+import { PopupDirective, popupFn } from './popup';
 
-export const useUnoPopup = withInstallFunction(unoPopup, "unoPopup");
+export const usePopup = withInstallFunction(popupFn, "popup");
+export const vPopup = withInstallDirective(PopupDirective, "popup");
 
 export default [
-  useUnoPopup
+  usePopup
 ] as Plugin[];

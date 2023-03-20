@@ -8,16 +8,27 @@ import PopupComponent from './index.vue';
 const POPUP_KEY = Symbol("popup");
 const { overlayTarget } = useOverlay(POPUP_KEY);
 
-const TRIGGER = ["hover", "click", "contextmenu", "focus"] as const;
+type Trigger = "hover" | "click" | "contextmenu" | "focus";
 
 interface UseUnoPopupOptions {
   element: string | VNode | Component,
-  trigger?: typeof TRIGGER[number],
+  trigger?: Trigger,
   placement?: Placement,
   arrow?: boolean,
 }
 
-export function unoPopup(el: MaybeComputedRef<EventTarget | null | undefined>, options: UseUnoPopupOptions): void {
+function isTrigger(value: any): value is Trigger {
+  return value === "hover" || value === "click" || value === "contextment" || value === "focus";
+}
+
+function isPlacement(value: any): value is Placement {
+  return value === "top" || value === "top-start" || value === "top-end" ||
+    value === "right" || value === "right-start" || value === "right-end" ||
+    value === "left" || value === "left-start" || value === "left-end" ||
+    value === "bottom" || value === "bottom-start" || value === "bottom-end";
+}
+
+export function popupFn(el: MaybeComputedRef<EventTarget | null | undefined>, options: UseUnoPopupOptions): void {
   const {
     element,
     trigger = "hover",
@@ -62,11 +73,17 @@ export function unoPopup(el: MaybeComputedRef<EventTarget | null | undefined>, o
   }, { passive: trigger != "contextmenu" });
 }
 
-export const directive: FunctionDirective = (el: HTMLElement, binding: DirectiveBinding) => {
-  unoPopup(el, {
+export const PopupDirective: FunctionDirective = (el: HTMLElement, binding: DirectiveBinding) => {
+  popupFn(el, {
     element: binding.value,
-    // trigger: binding.arg || "hover",
-    // placement: binding.modifiers["bottom"] || "bottom",
+    trigger: isTrigger(binding.arg) ? binding.arg : "hover",
+    placement: Object.keys(binding.modifiers).reduce<Placement>((acc, cur) => {
+      if (isPlacement(cur)) {
+        acc = cur;
+      }
+      return acc;
+    }, "bottom"),
+    arrow: binding.modifiers["arrow"] || false,
   })
 }
 

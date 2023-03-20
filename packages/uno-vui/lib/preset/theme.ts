@@ -1,12 +1,16 @@
 import type { Theme } from "unocss/preset-mini";
-import { prefix, ThemeKeys } from "./types";
+import { prefix, type ThemeConfig } from "./types";
 
-export const theme: Theme = {
-  colors: {
-    ...ThemeKeys.reduce((obj, key) => {
-      obj = { ...obj, ...genThemeVar(key) };
-      return obj;
-    }, {})
+export function setTheme(theme: ThemeConfig): Theme {
+  const themeKeys = Object.keys(theme);
+  themeKeys.push("default");
+  return {
+    colors: {
+      ...themeKeys.reduce((obj, key) => {
+        obj = { ...obj, ...genThemeVar(key) };
+        return obj;
+      }, {})
+    }
   }
 }
 

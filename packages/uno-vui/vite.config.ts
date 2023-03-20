@@ -1,5 +1,6 @@
 import Vue from '@vitejs/plugin-vue';
 import { resolve } from 'node:path';
+import Unocss from 'unocss/vite';
 import AutoImport from 'unplugin-auto-import/vite';
 import { defineConfig } from 'vite';
 
@@ -24,6 +25,7 @@ export default defineConfig({
   },
   plugins: [
     Vue(),
+    Unocss(),
     AutoImport({
       imports: ["vue", "@vueuse/core"],
       ignore: ["h"],

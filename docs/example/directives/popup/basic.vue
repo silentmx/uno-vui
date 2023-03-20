@@ -2,10 +2,13 @@
 import { UnoBtn, useUnoPopup } from 'uno-vui';
 import { h } from 'vue';
 
-const element = ref<HTMLElement | null>(null);
-useUnoPopup(element, { element: h(UnoBtn, {}, { default: () => "button" }), trigger: 'hover' });
+const hoverEl = ref<HTMLElement | null>(null);
+const clickEl = ref<HTMLElement | null>(null);
+useUnoPopup(hoverEl, { element: h(UnoBtn, {}, { default: () => "hover tooltip" }), trigger: 'hover' });
+useUnoPopup(clickEl, { element: "click tooltip", trigger: "click", placement: "right" })
 </script>
 
 <template>
-  <uno-btn ref="element">popup</uno-btn>
+  <uno-btn ref="hoverEl">hover</uno-btn>
+  <uno-btn ref="clickEl">click</uno-btn>
 </template>

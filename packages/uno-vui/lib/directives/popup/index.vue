@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { autoUpdate, flip, offset, shift, useFloating, type Placement } from '@floating-ui/vue';
+import { arrow, autoUpdate, flip, offset, shift, useFloating, type Placement } from '@floating-ui/vue';
 import type { MaybeComputedRef } from '@vueuse/core';
 
 const props = defineProps({
@@ -14,6 +14,10 @@ const props = defineProps({
   trigger: {
     type: String as PropType<"hover" | "click" | "contextmenu" | "focus">,
     default: "hover"
+  },
+  arrow: {
+    type: Boolean,
+    default: true
   }
 });
 
@@ -59,17 +63,54 @@ const visiable = computed(() => {
   return isMounted.value || isHovered.value;
 });
 
-const { x, y, strategy, middlewareData } = useFloating(toRef(props, "el"), floatingEl, {
+const arrowEl = ref<HTMLElement | null>(null);
+const { x, y, strategy, middlewareData, placement } = useFloating(toRef(props, "el"), floatingEl, {
   placement: props.placement,
-  middleware: [offset(5), flip(), shift()],
+  middleware: [offset(props.arrow ? 10 : 5), flip(), shift(), arrow({ element: arrowEl })],
   whileElementsMounted: autoUpdate
+});
+
+const arrowStyle = computed(() => {
+  if (middlewareData.value.arrow) {
+    const { x, y } = middlewareData.value.arrow;
+    if (placement.value.includes("bottom")) {
+      return {
+        left: x ? `${x}px` : "",
+        top: "-5px",
+      }
+    }
+
+    if (placement.value.includes("top")) {
+      return {
+        left: x ? `${x}px` : "",
+        bottom: "-5px",
+      }
+    }
+
+    if (placement.value.includes("left")) {
+      return {
+        top: y ? `${y}px` : "",
+        right: "-5px",
+      }
+    }
+
+    if (placement.value.includes("right")) {
+      return {
+        top: y ? `${y}px` : "",
+        left: "-5px",
+      }
+    }
+  }
 });
 </script>
 
 <template>
   <Transition name="popup" @after-leave="emit('destroy')">
-    <div v-show="visiable" ref="floatingEl" class="bg-gray p-1 b-rd"
+    <div v-show="visiable" ref="floatingEl" class="bg-light-800 dark:bg-dark-200 py-1 px-2 b-rd shadow-md"
       :style="{ position: strategy, top: `${y ?? 0}px`, left: `${x ?? 0}px` }">
+      <div v-if="props.arrow" ref="arrowEl" class="absolute h-10px w-10px bg-light-800 dark:bg-dark-200 rotate-45"
+        :style="arrowStyle">
+      </div>
       <slot></slot>
     </div>
   </Transition>

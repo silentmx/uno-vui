@@ -12,13 +12,15 @@ export interface UseUnoPopupOptions {
   element: string | VNode | Component,
   trigger?: "hover" | "click" | "contextmenu" | "focus",
   placement?: Placement,
+  arrow?: boolean,
 }
 
 export function unoPopup(el: MaybeComputedRef<EventTarget | null | undefined>, options: UseUnoPopupOptions): void {
   const {
     element,
     trigger = "hover",
-    placement = "bottom"
+    placement = "bottom",
+    arrow = true,
   } = options;
 
   if (!defaultDocument) {
@@ -33,6 +35,7 @@ export function unoPopup(el: MaybeComputedRef<EventTarget | null | undefined>, o
         el: el,
         placement: placement,
         trigger: trigger,
+        arrow: arrow,
         onDestroy: () => {
           render(null, container);
           vm = null;

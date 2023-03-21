@@ -1,5 +1,5 @@
 import type { Placement } from '@floating-ui/vue';
-import { defaultDocument, type MaybeComputedRef } from "@vueuse/core";
+import { defaultDocument, type Fn, type MaybeComputedRef } from "@vueuse/core";
 import { h, render, type Component, type ComponentInternalInstance, type DirectiveBinding, type FunctionDirective, type VNode } from "vue";
 import { useOverlay } from "../../composables/use-overlay";
 import type { SFCInstallWithContext } from '../../composables/with-install';
@@ -18,7 +18,7 @@ interface UseUnoPopupOptions {
 }
 
 function isTrigger(value: any): value is Trigger {
-  return value === "hover" || value === "click" || value === "contextment" || value === "focus";
+  return value === "hover" || value === "click" || value === "contextmenu" || value === "focus";
 }
 
 function isPlacement(value: any): value is Placement {
@@ -56,7 +56,7 @@ export function popupFn(el: MaybeComputedRef<EventTarget | null | undefined>, op
       }, {
         default: () => typeof element == "string" ? element : h(element)
       });
-      vnode.appContext = (unoPopup as SFCInstallWithContext<VoidFunction>)._context;
+      vnode.appContext = (popupFn as SFCInstallWithContext<any>)._context;
       render(vnode, container);
       vm = vnode.component;
       if (container.firstElementChild) {
@@ -65,25 +65,29 @@ export function popupFn(el: MaybeComputedRef<EventTarget | null | undefined>, op
     }
   }
 
-  useEventListener(el, trigger == "hover" ? "mouseenter" : trigger, (evt) => {
+  if (popupFn.cache.has(el)) {
+    const cleanup = popupFn.cache.get(el);
+    if (cleanup) {
+      cleanup()
+    }
+  }
+  const cleanup = useEventListener(el, trigger == "hover" ? "mouseenter" : trigger, (evt) => {
     if (trigger == "contextmenu") {
       evt.preventDefault();
     }
     createPopup();
   }, { passive: trigger != "contextmenu" });
+  popupFn.cache.set(el, cleanup);
 }
+popupFn.cache = new WeakMap<any, Fn>();
 
-export const PopupDirective: FunctionDirective = (el: HTMLElement, binding: DirectiveBinding) => {
+type BindingValue = Omit<UseUnoPopupOptions, "trigger">;
+export const PopupDirective: FunctionDirective<Element, BindingValue> = (el: Element, binding: DirectiveBinding<BindingValue>) => {
   popupFn(el, {
-    element: binding.value,
+    element: binding.value.element,
     trigger: isTrigger(binding.arg) ? binding.arg : "hover",
-    placement: Object.keys(binding.modifiers).reduce<Placement>((acc, cur) => {
-      if (isPlacement(cur)) {
-        acc = cur;
-      }
-      return acc;
-    }, "bottom"),
-    arrow: binding.modifiers["arrow"] || false,
+    placement: binding.value.placement || "bottom",
+    arrow: binding.value.arrow != undefined ? binding.value.arrow : true,
   })
 }
 

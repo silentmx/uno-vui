@@ -2,5 +2,5 @@
 // import { UnoBtn } from 'uno-vui';
 </script>
 <template>
-  <uno-btn>default</uno-btn>
+  <uno-btn class="bg-red">default</uno-btn>
 </template>

@@ -11,5 +11,5 @@ usePopup(clickEl, { element: "click tooltip", trigger: "click", placement: "righ
 <template>
   <uno-btn ref="hoverEl">hover</uno-btn>
   <uno-btn ref="clickEl">click</uno-btn>
-  <uno-btn v-popup:click="{ element: 'test', arrow: false, placement: 'bottom-start' }">test</uno-btn>
+  <uno-btn v-popup="{ element: 'test' }">test</uno-btn>
 </template>

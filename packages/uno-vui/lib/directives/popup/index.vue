@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { arrow, autoUpdate, flip, offset, shift, useFloating, type Placement } from '@floating-ui/vue';
+import { arrow, autoUpdate, flip, offset, useFloating, type Placement } from '@floating-ui/vue';
 import type { MaybeComputedRef } from '@vueuse/core';
 
 const props = defineProps({
@@ -66,7 +66,7 @@ const visiable = computed(() => {
 const arrowEl = ref<HTMLElement | null>(null);
 const { x, y, strategy, middlewareData, placement } = useFloating(toRef(props, "el"), floatingEl, {
   placement: props.placement,
-  middleware: [offset(props.arrow ? 10 : 5), flip(), shift(), arrow({ element: arrowEl })],
+  middleware: [offset(props.arrow ? 10 : 5), flip(), arrow({ element: arrowEl })],
   whileElementsMounted: autoUpdate
 });
 
@@ -102,10 +102,31 @@ const arrowStyle = computed(() => {
     }
   }
 });
+
+const transformClass = computed(() => {
+  let classString = "op-0 scale-85 ";
+  if (placement.value.includes("bottom")) {
+    classString += "translate-y--50%";
+  }
+
+  if (placement.value.includes("top")) {
+    classString += "translate-y-50%";
+  }
+
+  if (placement.value.includes("left")) {
+    classString += "translate-x-4";
+  }
+
+  if (placement.value.includes("right")) {
+    classString += "translate-x--4";
+  }
+  return classString;
+})
 </script>
 
 <template>
-  <Transition name="popup" @after-leave="emit('destroy')">
+  <Transition :enter-from-class="transformClass" :leave-to-class="transformClass" enter-active-class="transition-300"
+    leave-active-class="transition-300" @after-leave="emit('destroy')">
     <div v-show="visiable" ref="floatingEl" class="bg-light-800 dark:bg-dark-200 py-1 px-2 b-rd shadow-md"
       :style="{ position: strategy, top: `${y ?? 0}px`, left: `${x ?? 0}px` }">
       <div v-if="props.arrow" ref="arrowEl" class="absolute h-10px w-10px bg-light-800 dark:bg-dark-200 rotate-45"

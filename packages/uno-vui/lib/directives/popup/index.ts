@@ -21,13 +21,6 @@ function isTrigger(value: any): value is Trigger {
   return value === "hover" || value === "click" || value === "contextmenu" || value === "focus";
 }
 
-function isPlacement(value: any): value is Placement {
-  return value === "top" || value === "top-start" || value === "top-end" ||
-    value === "right" || value === "right-start" || value === "right-end" ||
-    value === "left" || value === "left-start" || value === "left-end" ||
-    value === "bottom" || value === "bottom-start" || value === "bottom-end";
-}
-
 export function popupFn(el: MaybeComputedRef<EventTarget | null | undefined>, options: UseUnoPopupOptions): void {
   const {
     element,
@@ -82,7 +75,7 @@ export function popupFn(el: MaybeComputedRef<EventTarget | null | undefined>, op
 popupFn.cache = new WeakMap<any, Fn>();
 
 type BindingValue = Omit<UseUnoPopupOptions, "trigger">;
-export const PopupDirective: FunctionDirective<Element, BindingValue> = (el: Element, binding: DirectiveBinding<BindingValue>) => {
+export const PopupDirective: FunctionDirective<EventTarget, BindingValue> = (el: EventTarget, binding: DirectiveBinding<BindingValue>) => {
   popupFn(el, {
     element: binding.value.element,
     trigger: isTrigger(binding.arg) ? binding.arg : "hover",

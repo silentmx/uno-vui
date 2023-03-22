@@ -1,6 +1,10 @@
-<script setup lang="ts">
-// import { UnoBtn } from 'uno-vui';
-</script>
 <template>
-  <uno-btn class="bg-red">default</uno-btn>
+  <div class="flex flex-wrap gap-2">
+    <uno-btn>default</uno-btn>
+    <uno-btn type="primary">primary</uno-btn>
+    <uno-btn type="accent">accent</uno-btn>
+    <uno-btn type="success">success</uno-btn>
+    <uno-btn type="warn">warn</uno-btn>
+    <uno-btn type="error">error</uno-btn>
+  </div>
 </template>

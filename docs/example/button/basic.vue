@@ -1,10 +1,10 @@
 <template>
   <div class="flex flex-wrap gap-2">
-    <uno-btn>default</uno-btn>
-    <uno-btn type="primary">primary</uno-btn>
-    <uno-btn type="accent">accent</uno-btn>
-    <uno-btn type="success">success</uno-btn>
-    <uno-btn type="warn">warn</uno-btn>
-    <uno-btn type="error">error</uno-btn>
+    <uv-btn>default</uv-btn>
+    <uv-btn type="primary">primary</uv-btn>
+    <uv-btn type="accent">accent</uv-btn>
+    <uv-btn type="success">success</uv-btn>
+    <uv-btn type="warn">warn</uv-btn>
+    <uv-btn type="error">error</uv-btn>
   </div>
 </template>

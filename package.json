@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "pnpm vui:build && concurrently 'na vui:dev' 'na docs:dev'",
+    "dev": "pnpm vui:build && concurrently pnpm:vui:dev pnpm:docs:dev",
     "build": "pnpm vui:build && pnpm docs:build",
     "vui:dev": "pnpm --filter uno-vui run dev",
     "vui:build": "pnpm --filter uno-vui run build",
@@ -12,7 +12,6 @@
     "test": "vitest"
   },
   "devDependencies": {
-    "@antfu/ni": "^0.20.0",
     "@floating-ui/vue": "^0.2.1",
     "@types/fs-extra": "^11.0.1",
     "@types/jsdom": "^21.1.1",

@@ -17,9 +17,12 @@ const isDisabled = computed(() => {
 });
 
 const classList = computed(() => {
+
   return [
-    `transition-300 animate-shadow-ping`,
-    `flex items-center px-4 py-1 b-rd b bg-${props.type} hover:bg-${props.type}Heavy box-shadow`,
+    `after-content-none after-absolute after-inset-0 after-op-0 after-transition-800 after-rd-inherit`,
+    `after-shadow-[0_0_2px_7px_var(--un-shadow-color)] after-shadow-${props.type} dark:after-shadow-${props.type}Light`,
+    `after:active:( shadow-none op-50 transition-0 )`,
+    `relative flex items-center px-4 py-1 b-rd b bg-${props.type} hover:bg-${props.type}Heavy`,
     props.type == "default" ? `bg-op-10 hover:bg-op-30 hover:text-defaultHeavy dark:hover:text-defaultLight` : `text-light`,
     props.disabled ? "cursor-not-allowed bg-op-80" : "",
     props.loading ? "cursor-wait bg-op-80" : "",

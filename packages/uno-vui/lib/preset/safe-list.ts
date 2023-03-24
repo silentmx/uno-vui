@@ -8,6 +8,8 @@ export const safelist: string[] = [
       `hover:bg-${cur}`, `hover:text-${cur}`, `hover:b-${cur}`,
       `hover:bg-${cur}Light`, `hover:text-${cur}Light`, `hover:b-${cur}Light`,
       `hover:bg-${cur}Heavy`, `hover:text-${cur}Heavy`, `hover:b-${cur}Heavy`,
+      `shadow-${cur}`, `shadow-${cur}Light`, `shadow-${cur}Heavy`,
+      `after-shadow-${cur}`, `after-shadow-${cur}Light`, `after-shadow-${cur}Heavy`,
     ]);
     return acc;
   }, []).flat(2)

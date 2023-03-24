@@ -10,13 +10,15 @@ export const theme: Theme = {
   },
   animation: {
     keyframes: {
-      "shadow-ping": "{0%{transform:scale(1);opacity:1}75%,100%{transform:scale(2);opacity:0}}",
-    },
-    timingFns: {
-      'shadow-ping': 'cubic-bezier(0,0,.2,1)',
+      "shadow-ping": "{0%{box-shadow:0 0 0 5px rgba(0, 0, 0, 0.2);transition:0s;}75%,100%{box-shadow:none; transition: 0s;}}",
     },
     counts: {
-      'shadow-ping': 'infinite',
+      'shadow-ping': '1',
+    },
+    properties: {
+      'shadow-ping': {
+        transition: '0s'
+      }
     }
   }
 }

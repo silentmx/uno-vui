@@ -36,7 +36,7 @@ function genCssVar(key: string, color: ColorType, region: ColorRegionType): stri
     const regionIndex = ColorRegion.findIndex(c => c == `${region}`);
     let _region = `${region}`;
     if (type == "light") {
-      _region = ColorRegion.at(regionIndex - 2) || ColorRegion[0];
+      _region = ColorRegion.at(regionIndex - 1) || ColorRegion[0];
     }
     if (type == "heavy") {
       _region = ColorRegion.at(regionIndex + 1) || ColorRegion[9];

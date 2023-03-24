@@ -9,8 +9,8 @@ import { defaultTheme, type PresetConfig, type ThemeConfig } from "./types";
 export function presetUnoVui(config: PresetConfig): Preset<Theme> {
   const {
     themes = [defaultTheme],
-    light = 400,
-    dark = 500
+    light = 500,
+    dark = 600
   } = config;
 
   const _themes = themes.map(t => { return { ...defaultTheme, ...t } });

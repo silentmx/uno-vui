@@ -3,7 +3,7 @@ title: 图标
 ---
 
 # 图标
-在纯css中使用任何图标，更多信息请查看[@unocss/preset-icons](https://github.com/unocss/unocss/tree/main/packages/preset-icons)，
+以纯css的方式使用任何图标，更多信息请查看[@unocss/preset-icons](https://github.com/unocss/unocss/tree/main/packages/preset-icons)，
 如果IDE为[vscode](https://code.visualstudio.com/),推荐先安装[Iconify](https://marketplace.visualstudio.com/items?itemName=antfu.iconify)插件
 
 1.添加图标库, 图标可在[icones](https://icones.js.org/)进行查看, 自定义svg推荐存放在public/svgs目录中

@@ -16,14 +16,17 @@ const props = defineProps({
   text: Boolean,
 });
 
+const slots = useSlots();
 const binds = Object.assign({}, useAttrs(), props.to ? { href: props.to } : { type: "button" });
 const isDisabled = computed(() => {
   return props.loading || props.disabled;
 });
+const onlyIcon = computed(() => slots.icon && !slots.default);
 
 const classList = computed(() => [
   // 基础样式
-  `relative flex justify-center items-center gap-1 px-0.875em py-0.25em`,
+  `relative flex justify-center items-center gap-1`,
+  onlyIcon.value ? `aspect-square p-1` : `px-0.875em py-0.25em`,
   // 鼠标disabled状态
   props.disabled ? `cursor-not-allowed` : ``,
   // 鼠标loading状态
@@ -35,11 +38,12 @@ const classList = computed(() => [
   props.text ? `bg-op-0` :
     props.type == "default" || props.bs ? `bg-op-10` : `${isDisabled.value ? 'bg-op-70' : ''}`,
   // 背景色hover透明度
-  // 0.2: props.text=true
-  // 0.3: props.type=default
-  props.text ? `hover:bg-op-20` :
-    props.type == "default" ? `hover:bg-op-30` :
-      isDisabled.value && props.bs ? `hover:bg-op-20` : `hover:bg-op-70`,
+  // isDisable 不变
+  // 0.15: props.text=true
+  // 0.25: props.type=default
+  isDisabled.value ? `` :
+    props.text ? `hover:bg-op-15` :
+      props.type == "default" ? `hover:bg-op-25` : ``,
 
   // 边框
   props.bs ? `b b-${props.bs}` : ``,
@@ -64,11 +68,11 @@ const classList = computed(() => [
     "after:active:shadow-none after:active:transition-0 " +
     `${props.bs ? "after:shadow-[0_0_0_7px_var(--un-shadow-color)]" : "after:shadow-[0_0_0_6px_var(--un-shadow-color)]"} ` +
     // 颜色
-    `${containColor(binds.class as string, "after[:-]shadow(?:-(.+))?$") ? `` : `after:shadow-${props.type}Heavy`} ` +
+    `${containColor(binds.class as string, "after[:-]shadow") ? `` : `after:shadow-${props.type}Heavy`} ` +
     // 透明度
-    `${props.type == "default" && !props.bs ?
-      'after:active:op-40 dark:after:active:op-60' :
-      'after:active:op-60 dark:after:active:op-90'
+    `${(props.type == "default" || props.text) && !props.bs ?
+      'after:active:op-30 dark:after:active:op-40' :
+      'after:active:op-50 dark:after:active:op-90'
     }`
 ]);
 </script>

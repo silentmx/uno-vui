@@ -9,7 +9,7 @@ import { theme } from "unocss/preset-mini";
  * - b|border: 边框颜色
  * - shadow: 阴影颜色
  */
-type ColorPrefix = "bg" | "text|c" | "b|border" | "after[:-]shadow(?:-(.+))?$";
+type ColorPrefix = "bg" | "text|c" | "b|border" | "after[:-]shadow";
 
 /**
  * 判断THML class属性是否包含颜色描述
@@ -18,7 +18,7 @@ type ColorPrefix = "bg" | "text|c" | "b|border" | "after[:-]shadow(?:-(.+))?$";
  * @returns boolean
  */
 export function containColor(classString: string = "", prefix: ColorPrefix = "bg"): boolean {
-  const reg = new RegExp(`[${prefix}]-(.+)$`);
+  const reg = new RegExp(`(${prefix})-(.+)$`);
   return classString.split(" ").some(c => {
     return reg.test(c) && (
       c.includes("#") ||

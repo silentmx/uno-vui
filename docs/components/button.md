@@ -10,7 +10,7 @@ title: 按钮
 <demo src="../example/button/basic.vue"></demo>
 
 ## 圆角按钮
-按钮默认radius为0.25rem，可以通过```b-rd-xxx```来调整按钮的圆角
+按钮默认radius为0.25rem，可以通过```class="b-rd-xxx"```来调整按钮的圆角
 <demo src="../example/button/rounded.vue"></demo>
 
 ## 带图标

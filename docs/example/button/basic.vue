@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="flex flex-wrap gap-2">
-      <uv-btn class="b-r">default</uv-btn>
+      <uv-btn>default</uv-btn>
       <uv-btn type="primary">primary</uv-btn>
       <uv-btn type="accent">accent</uv-btn>
       <uv-btn type="success">success</uv-btn>

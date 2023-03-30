@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { containBrd, containColor } from '../../composables/use-class';
+import { containBrd, containColor, genCompClass } from '../../composables/use-class';
 import type { ThemeType } from '../../preset/types';
 
 const props = defineProps({
@@ -23,58 +23,115 @@ const isDisabled = computed(() => {
 });
 const onlyIcon = computed(() => slots.icon && !slots.default);
 
-const classList = computed(() => [
-  // 基础样式
-  `relative flex justify-center items-center gap-1`,
-  onlyIcon.value ? `aspect-square p-1` : `px-0.875em py-0.25em`,
-  // 鼠标disabled状态
-  props.disabled ? `cursor-not-allowed` : ``,
-  // 鼠标loading状态
-  props.loading ? `cursor-wait` : ``,
+const classList = computed(() => {
+  // 外部class是否包含背景色
+  const isContainBg = containColor(binds.class as string);
+  // 外部class包含边框颜色
+  const isContainBc = containColor(binds.class as string, "b|border");
+  // 外部class包含border-radius
+  const isContainBr = containBrd(binds.class as string);
+  // 外部class包含文字颜色
+  const isContainTc = containColor(binds.class as string, "text|c");
 
-  // 背景色, 如果外部class包含背景色，优先使用外部class
-  containColor(binds.class as string) ? `` : `bg-${props.type} ${isDisabled.value ? `` : `hover:bg-${props.type}Heavy`}`,
-  // 背景色透明度
-  props.text ? `bg-op-0` :
-    props.type == "default" || props.bs ? `bg-op-10` : `${isDisabled.value ? 'bg-op-70' : ''}`,
-  // 背景色hover透明度
-  // isDisable 不变
-  // 0.15: props.text=true
-  // 0.25: props.type=default
-  isDisabled.value ? `` :
-    props.text ? `hover:bg-op-15` :
-      props.type == "default" ? `hover:bg-op-25` : ``,
+  return [
+    // 基础样式
+    `relative flex justify-center items-center gap-1 transition-300`,
+    // 如果只有图标, padding值设置为0.25rem，并且长宽保持1:1
+    // 否则只设定常规padding
+    genCompClass([
+      { condition: onlyIcon.value, trueVal: "aspect-square p-1", falseVal: "px-0.875em py-0.25em" }
+    ]),
 
-  // 边框
-  props.bs ? `b b-${props.bs}` : ``,
-  // 边框颜色
-  containColor(binds.class as string, "b|border") ? `` : `b-${props.type}`,
-  // 边框radius
-  containBrd(binds.class as string) ? `` : `b-rd`,
+    // 鼠标disabled状态
+    genCompClass([
+      { condition: props.disabled, trueVal: "cursor-not-allowed" }
+    ]),
 
-  // 文字颜色
-  containColor(binds.class as string, "text|c") ? `` :
-    props.type == "default" ? `` :
-      props.bs || props.text ? `text-${props.type}` : `text-light`,
-  // 文字hover颜色
-  containColor(binds.class as string, "text|c") ? `` :
-    props.text || props.type == "default" ?
-      `hover:text-${props.type}Heavy` :
-      `${isDisabled.value ? '' : 'hover:text-light'}`,
+    // 鼠标loading状态
+    genCompClass([
+      { condition: props.loading, trueVal: "cursor-wait" }
+    ]),
 
-  //active shadow动画
-  isDisabled.value ? `` :
-    "after:content-none after:absolute after:inset-0 after:op-0 after:transition-600 after:rd-inherit " +
-    "after:active:shadow-none after:active:transition-0 " +
-    `${props.bs ? "after:shadow-[0_0_0_7px_var(--un-shadow-color)]" : "after:shadow-[0_0_0_6px_var(--un-shadow-color)]"} ` +
-    // 颜色
-    `${containColor(binds.class as string, "after[:-]shadow") ? `` : `after:shadow-${props.type}Heavy`} ` +
-    // 透明度
-    `${(props.type == "default" || props.text) && !props.bs ?
-      'after:active:op-30 dark:after:active:op-40' :
-      'after:active:op-50 dark:after:active:op-90'
-    }`
-]);
+    // 背景色, 如果外部class包含背景色，优先使用外部class
+    genCompClass([
+      { condition: isContainBg, falseVal: `bg-${props.type}` }
+    ]),
+    // 背景色透明度
+    genCompClass([
+      // 文本按钮，透明度为0
+      { condition: props.text, trueVal: "bg-op-0" },
+      // type为default或者有边框，透明度为0.15
+      { condition: props.type == "default" || props.bs, trueVal: "bg-op-15" },
+      // 按钮禁用状态下透明度为0.6
+      { condition: isDisabled.value, trueVal: "bg-op-60" }
+    ]),
+    // 背景色hover, 如果外部class包含背景色或在禁用状态下，hover无效
+    genCompClass([
+      { condition: isContainBg || isDisabled.value, falseVal: `hover:bg-${props.type}Heavy` }
+    ]),
+    // 背景色hover透明度
+    genCompClass([
+      // disabled状态下，保持不变
+      { condition: isDisabled.value, trueVal: " " },
+      // type为default时, 文本按钮, 0.20
+      { condition: props.type == "default" || props.text, trueVal: "hover:bg-op-20" },
+    ]),
+
+    // 边框
+    genCompClass([
+      { condition: props.bs, trueVal: `b b-${props.bs}` }
+    ]),
+    // 边框颜色
+    genCompClass([
+      { condition: isContainBc, falseVal: `b-${props.type}` }
+    ]),
+    // 边框radius
+    genCompClass([
+      { condition: isContainBr, falseVal: `b-rd` }
+    ]),
+
+    // 文字颜色
+    genCompClass([
+      { condition: isContainTc || props.type == "default", trueVal: " " },
+      { condition: props.bs || props.text, trueVal: `text-${props.type}`, falseVal: "text-light" }
+    ]),
+    // 文字hover颜色
+    genCompClass([
+      { condition: isContainTc || isDisabled.value, trueVal: " " },
+      { condition: props.text || props.type == "default", trueVal: `hover:text-${props.type}` },
+      { condition: true, trueVal: "hover:text-light" }
+    ]),
+
+    //active shadow动画
+    !isDisabled.value ? genCompClass([
+      {
+        condition: true,
+        trueVal: "after:content-none after:absolute after:inset-0 after:op-0 after:transition-600 after:rd-inherit"
+      },
+      {
+        condition: true,
+        trueVal: "after:active:shadow-none after:active:transition-0"
+      },
+      // 宽度
+      {
+        condition: props.bs,
+        trueVal: "after:shadow-[0_0_0_7px_var(--un-shadow-color)]",
+        falseVal: "after:shadow-[0_0_0_6px_var(--un-shadow-color)]"
+      },
+      // 颜色
+      {
+        condition: containColor(binds.class as string, "after[:-]shadow"),
+        falseVal: `after:shadow-${props.type}Heavy`
+      },
+      // 透明度
+      {
+        condition: (props.type == "default" || props.text) && !props.bs,
+        trueVal: "after:active:op-30 dark:after:active:op-40",
+        falseVal: "after:active:op-50 dark:after:active:op-90"
+      }
+    ], true) : "",
+  ];
+});
 </script>
 
 <template>

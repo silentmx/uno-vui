@@ -5,7 +5,7 @@ importers:
   .:
     specifiers:
       '@floating-ui/vue': ^0.2.1
-      '@iconify/json': ^2.2.40
+      '@iconify/json': ^2.2.41
       '@types/fs-extra': ^11.0.1
       '@types/jsdom': ^21.1.1
       '@types/node': ^18.15.11
@@ -25,13 +25,13 @@ importers:
       unplugin-auto-import: ^0.15.2
       unplugin-vue-components: ^0.24.1
       vite: ^4.2.1
-      vitepress: 1.0.0-alpha.63
+      vitepress: 1.0.0-alpha.64
       vitest: ^0.29.8
       vue: ^3.2.47
       vue-tsc: ^1.2.0
     devDependencies:
       '@floating-ui/vue': 0.2.1_vue@3.2.47
-      '@iconify/json': 2.2.40
+      '@iconify/json': 2.2.41
       '@types/fs-extra': 11.0.1
       '@types/jsdom': 21.1.1
       '@types/node': 18.15.11
@@ -51,7 +51,7 @@ importers:
       unplugin-auto-import: 0.15.2_@vueuse+core@9.13.0
       unplugin-vue-components: 0.24.1_vue@3.2.47
       vite: 4.2.1_@types+node@18.15.11
-      vitepress: 1.0.0-alpha.63_@types+node@18.15.11
+      vitepress: 1.0.0-alpha.64_@types+node@18.15.11
       vitest: 0.29.8_jsdom@21.1.1
       vue: 3.2.47
       vue-tsc: 1.2.0_typescript@5.0.2
@@ -508,8 +508,8 @@ packages:
       vue-demi: 0.13.11_vue@3.2.47
     dev: true
 
-  /@iconify/json/2.2.40:
-    resolution: {integrity: sha512-I6RVi9Y7xt1AXjJ4JKt3dnS5f/Jep1LyPUwDcc7ZlTgW5u7kcDoIjyAlE+ax5bBqxiR60s9qVVufMmjLSq5iUA==}
+  /@iconify/json/2.2.41:
+    resolution: {integrity: sha512-Ziqaythnji3Qeelgc/bUEuvZ5u0lu6nOg3yb6KkeAzbiZb+WT8StpR/cE/3Gznz1yrBvmEfI1UIR/bDnRleMHA==}
     dependencies:
       '@iconify/types': 2.0.0
       pathe: 1.1.0
@@ -2689,8 +2689,8 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /vitepress/1.0.0-alpha.63_@types+node@18.15.11:
-    resolution: {integrity: sha512-7QMwjT9888S64SkmJqSmRlP417yniCj4IqawIpzYSQMnlJ5CjBWOTbzXKvmzRZkjOJGTcaYr2C88+1/z8ERG+g==}
+  /vitepress/1.0.0-alpha.64_@types+node@18.15.11:
+    resolution: {integrity: sha512-u12wcDH4VzgxxkQfVQWkXumrL3WRetpenz4VuAtiMWXeZSCayWcJtieWOFxmX/RzS2KEuTJpXGbtJAXORyyJBQ==}
     hasBin: true
     dependencies:
       '@docsearch/css': 3.3.3

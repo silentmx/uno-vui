@@ -98,7 +98,8 @@ const classList = computed(() => {
     // 文字hover颜色
     genCompClass([
       { condition: isContainTc || isDisabled.value, trueVal: " " },
-      { condition: props.text || props.type == "default", trueVal: `hover:text-${props.type}` },
+      { condition: props.type == "default", trueVal: `hover:text-gray-500 dark:hover-text-gray` },
+      { condition: props.text, trueVal: `hover:text-${props.type}` },
       { condition: true, trueVal: "hover:text-light" }
     ]),
 

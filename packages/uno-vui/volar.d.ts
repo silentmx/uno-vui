@@ -3,7 +3,7 @@
  */
 declare module 'vue' {
   export interface GlobalComponents {
-    UvBtn: typeof import('uno-vui')['UvBtn']
+    UBtn: typeof import('uno-vui')['UBtn']
   }
 }
 

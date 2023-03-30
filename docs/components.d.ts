@@ -9,7 +9,7 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    UvBtn: typeof import('uno-vui')['UvBtn']
-    UvIcon: typeof import('uno-vui')['UvIcon']
+    UBtn: typeof import('uno-vui')['UBtn']
+    UIcon: typeof import('uno-vui')['UIcon']
   }
 }

@@ -26,5 +26,25 @@ title: 按钮
 可以通过设置文字大小来设置按钮的大小, 比如```class="text-2xl"```, 想要按钮占满整行添加类```class="block"```
 <demo src="../example/button/size.vue"></demo>
 
+## Link按钮
+使用```to```属性来指定跳转链接
+<demo src="../example/button/link.vue"></demo>
+
 ## 加载和禁用状态
 <demo src="../example/button/state.vue"></demo>
+
+## 组件```Props```
+| 名称 | 类型 | 默认值 | 描述 |
+| --- | --- | --- | --- |
+| type | `'default' \| 'primary' \| 'accent' \| 'success' \| 'warn' \| 'error'` | `default` | 主题颜色 |
+| bs | `'solid' \| 'dashed'` | `undefined` | 边框类型 |
+| to | `string` | `undefined` | 跳转链接地址 |
+| text | `boolean` | `false` | 是否为文本按钮,为true时没有背景色 |
+| loading | `boolean` | `false` | 是否为加载状态 |
+| disabled | `boolean` | `false` | 是否为禁用状态 |
+
+## 组件```Slots```
+| 名称 | 参数 | 描述 |
+| --- | --- | --- |
+| default | `()` | 自定义默认内容 |
+| icon | `()` | 图标组件 |

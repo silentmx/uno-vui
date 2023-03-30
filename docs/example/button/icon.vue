@@ -1,26 +1,26 @@
 <template>
   <div class="flex flex-wrap gap-2 items-start">
-    <uv-btn>
+    <u-btn>
       <template #icon>
-        <uv-icon name="i-mdi:github"></uv-icon>
+        <u-icon name="i-mdi:github"></u-icon>
       </template>
-    </uv-btn>
-    <uv-btn type="success" class="rd-full">
+    </u-btn>
+    <u-btn type="success" class="rd-full">
       <template #icon>
-        <uv-icon name="i-ic:baseline-wechat"></uv-icon>
+        <u-icon name="i-ic:baseline-wechat"></u-icon>
       </template>
-    </uv-btn>
-    <uv-btn type="primary">
+    </u-btn>
+    <u-btn type="primary">
       <template #icon>
-        <uv-icon name="i-mdi:github"></uv-icon>
+        <u-icon name="i-mdi:github"></u-icon>
       </template>
       primary
-    </uv-btn>
-    <uv-btn type="accent" bs="dashed">
+    </u-btn>
+    <u-btn type="accent" bs="dashed">
       <template #icon>
-        <uv-icon name="i-carbon:music"></uv-icon>
+        <u-icon name="i-carbon:music"></u-icon>
       </template>
       music
-    </uv-btn>
+    </u-btn>
   </div>
 </template>

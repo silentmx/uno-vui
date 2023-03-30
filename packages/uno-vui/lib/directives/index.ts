@@ -7,5 +7,6 @@ export const usePopup = withInstallFunction(popupFn, "popup");
 export const vPopup = withInstallDirective(PopupDirective, "popup");
 
 export default [
-  usePopup
+  usePopup,
+  vPopup
 ] as Plugin[];

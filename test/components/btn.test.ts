@@ -1,10 +1,10 @@
-import { UvBtn } from '@uno-vui';
+import { UBtn } from '@uno-vui';
 import { shallowMount } from '@vue/test-utils';
 import { describe, expect, test } from "vitest";
 
 describe("button component", () => {
   test("basic", () => {
-    const wrapper = shallowMount(UvBtn, {
+    const wrapper = shallowMount(UBtn, {
       props: {
         loading: false,
       },

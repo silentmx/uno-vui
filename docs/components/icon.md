@@ -86,4 +86,4 @@ export default defineConfig({
 | 名称 | 类型 | 默认值 | 描述 |
 | --- | --- | --- | --- |
 | name | `string` | `undefined` | 图标名称 |
-| type | `'primary' \| 'accent' \| 'success' \| 'warn' \| 'error'` | `` | 图标主题颜色 |
+| type | `'default' \| 'primary' \| 'accent' \| 'warn' \| 'success' \| 'error'` | `undefined` | 图标主题颜色 |

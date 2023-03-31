@@ -73,7 +73,7 @@ const classList = computed(() => {
     genCompClass([
       // disabled状态下，保持不变
       { condition: isDisabled.value, trueVal: " " },
-      // type为default时, 文本按钮, 0.20
+      // type为default时,0.20
       { condition: props.type == "default" || props.text, trueVal: "hover:bg-op-20" },
     ]),
 
@@ -83,6 +83,7 @@ const classList = computed(() => {
     ]),
     // 边框颜色
     genCompClass([
+      { condition: !isContainBc && props.type == "default", trueVal: "b-defaultLight" },
       { condition: isContainBc, falseVal: `b-${props.type}` }
     ]),
     // 边框radius
@@ -98,7 +99,7 @@ const classList = computed(() => {
     // 文字hover颜色
     genCompClass([
       { condition: isContainTc || isDisabled.value, trueVal: " " },
-      { condition: props.type == "default", trueVal: `hover:text-gray-500 dark:hover-text-gray` },
+      { condition: props.type == "default", trueVal: `hover:text-defaultHeavy dark:hover:text-gray-200` },
       { condition: props.text, trueVal: `hover:text-${props.type}` },
       { condition: true, trueVal: "hover:text-light" }
     ]),

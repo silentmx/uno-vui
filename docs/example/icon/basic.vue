@@ -1,6 +1,7 @@
 <template>
   <div class="flex flex-wrap gap-2">
     <u-icon name="i-material-symbols:dark-mode"></u-icon>
+    <u-icon name="i-material-symbols:dark-mode" type="default"></u-icon>
     <u-icon name="i-material-symbols:dark-mode" type="primary"></u-icon>
     <u-icon name="i-material-symbols:dark-mode" type="accent"></u-icon>
     <u-icon name="i-material-symbols:dark-mode" type="success"></u-icon>

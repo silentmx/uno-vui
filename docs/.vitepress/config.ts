@@ -9,7 +9,7 @@ const guides = [
 // 组件
 const components = [
   {
-    text: "基础",
+    text: "基础组件",
     items: [
       {
         text: "按钮",
@@ -21,6 +21,15 @@ const components = [
       }
     ],
   },
+  {
+    text: "表单组件",
+    items: [
+      {
+        text: "input输入框",
+        link: "/components/input",
+      }
+    ]
+  }
 ];
 
 // 指令

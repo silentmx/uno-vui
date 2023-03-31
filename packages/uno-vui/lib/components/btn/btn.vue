@@ -73,8 +73,9 @@ const classList = computed(() => {
     genCompClass([
       // disabled状态下，保持不变
       { condition: isDisabled.value, trueVal: " " },
+      { condition: props.text, trueVal: "hover:bg-op-15" },
       // type为default时,0.20
-      { condition: props.type == "default" || props.text, trueVal: "hover:bg-op-20" },
+      { condition: props.type == "default", trueVal: "hover:bg-op-20" },
     ]),
 
     // 边框

@@ -25,7 +25,7 @@ const components = [
     text: "表单组件",
     items: [
       {
-        text: "input输入框",
+        text: "input文本输入",
         link: "/components/input",
       }
     ]

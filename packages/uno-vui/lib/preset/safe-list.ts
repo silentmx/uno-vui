@@ -1,8 +1,6 @@
 import { ThemeKeys } from "./types";
 
 export const safelist: string[] = [
-  // border type
-  ...["b-dashed", "b-solid"],
   // theme color safe list
   ...ThemeKeys.reduce((acc: string[], cur) => {
     acc.push(...[

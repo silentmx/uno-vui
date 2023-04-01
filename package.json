@@ -13,7 +13,7 @@
   },
   "devDependencies": {
     "@floating-ui/vue": "^0.2.1",
-    "@iconify/json": "^2.2.42",
+    "@iconify/json": "^2.2.43",
     "@types/fs-extra": "^11.0.1",
     "@types/jsdom": "^21.1.1",
     "@types/node": "^18.15.11",

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useBorder } from '../../composables/use-border';
 import { containBrd, containColor, genCompClass } from '../../composables/use-class';
 import type { ThemeType } from '../../preset/types';
 
@@ -6,9 +7,6 @@ const props = defineProps({
   type: {
     type: String as PropType<ThemeType>,
     default: "default"
-  },
-  bs: { // 边框类型
-    type: String as PropType<"solid" | "dashed">
   },
   to: String,
   loading: Boolean,
@@ -22,6 +20,8 @@ const isDisabled = computed(() => {
   return props.loading || props.disabled;
 });
 const onlyIcon = computed(() => slots.icon && !slots.default);
+
+const { hasBorder, borderClass } = useBorder(binds.class as string, props.type);
 
 const classList = computed(() => {
   // 外部class是否包含背景色
@@ -61,7 +61,7 @@ const classList = computed(() => {
       // 文本按钮，透明度为0
       { condition: props.text, trueVal: "bg-op-0" },
       // type为default或者有边框，透明度为0.15
-      { condition: props.type == "default" || props.bs, trueVal: "bg-op-15" },
+      { condition: props.type == "default" || hasBorder.value, trueVal: "bg-op-15" },
       // 按钮禁用状态下透明度为0.6
       { condition: isDisabled.value, trueVal: "bg-op-60" }
     ]),
@@ -78,24 +78,10 @@ const classList = computed(() => {
       { condition: props.type == "default", trueVal: "hover:bg-op-20" },
     ]),
 
-    // 边框
-    genCompClass([
-      { condition: props.bs, trueVal: `b b-${props.bs}` }
-    ]),
-    // 边框颜色
-    genCompClass([
-      { condition: !isContainBc && props.type == "default", trueVal: "b-defaultLight" },
-      { condition: isContainBc, falseVal: `b-${props.type}` }
-    ]),
-    // 边框radius
-    genCompClass([
-      { condition: isContainBr, falseVal: `b-rd` }
-    ]),
-
     // 文字颜色
     genCompClass([
       { condition: isContainTc || props.type == "default", trueVal: " " },
-      { condition: props.bs || props.text, trueVal: `text-${props.type}`, falseVal: "text-light" }
+      { condition: hasBorder.value || props.text, trueVal: `text-${props.type}`, falseVal: "text-light" }
     ]),
     // 文字hover颜色
     genCompClass([
@@ -117,7 +103,7 @@ const classList = computed(() => {
       },
       // 宽度
       {
-        condition: props.bs,
+        condition: hasBorder.value,
         trueVal: "after:shadow-[0_0_0_7px_var(--un-shadow-color)]",
         falseVal: "after:shadow-[0_0_0_6px_var(--un-shadow-color)]"
       },
@@ -128,7 +114,7 @@ const classList = computed(() => {
       },
       // 透明度
       {
-        condition: (props.type == "default" || props.text) && !props.bs,
+        condition: (props.type == "default" || props.text) && !hasBorder.value,
         trueVal: "after:active:op-30 dark:after:active:op-40",
         falseVal: "after:active:op-50 dark:after:active:op-90"
       }
@@ -139,7 +125,7 @@ const classList = computed(() => {
 
 <template>
   <component :is="to ? 'a' : 'button'" v-bind="binds" :disabled="isDisabled" :aria-disabled="isDisabled"
-    :class="classList">
+    :class="[classList, borderClass]">
     <div v-if="loading" class="i-eos-icons:loading"></div>
     <slot v-else name="icon"></slot>
     <slot></slot>

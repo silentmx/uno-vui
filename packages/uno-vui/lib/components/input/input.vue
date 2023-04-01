@@ -16,7 +16,7 @@ const fieldClass = computed(() => {
     "flex flex-col",
 
     // 边框
-    "b b-solid b-default hover:b-accent b-rd"
+    "b-t-solid b-b-blue b b-6px"
   ];
 });
 

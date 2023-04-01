@@ -40,6 +40,6 @@
   },
   "peerDependencies": {
     "vue": ">=3",
-    "unocss": ">0.50"
+    "unocss": ">=0.50.6"
   }
 }

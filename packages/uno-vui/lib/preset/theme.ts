@@ -7,19 +7,6 @@ export const theme: Theme = {
       obj = { ...obj, ...genThemeVar(key) };
       return obj;
     }, {})
-  },
-  animation: {
-    keyframes: {
-      "shadow-ping": "{0%{box-shadow:0 0 0 5px rgba(0, 0, 0, 0.2);transition:0s;}75%,100%{box-shadow:none; transition: 0s;}}",
-    },
-    counts: {
-      'shadow-ping': '1',
-    },
-    properties: {
-      'shadow-ping': {
-        transition: '0s'
-      }
-    }
   }
 }
 

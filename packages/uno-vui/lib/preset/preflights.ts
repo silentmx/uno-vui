@@ -17,7 +17,7 @@ function genPrelightCss(themes: ThemeConfig[], dark: ColorRegionType, light: Col
     const items = index == 0 ? [':root', '.dark'] : [`.${cur.primary}-${cur.accent}`, `.dark .${cur.primary}-${cur.accent}`];
     acc += items.map(item => {
       let itemCss = `${item} {\n  `;
-      itemCss += Object.entries({ ...cur, ...{ default: "gray" as ColorType } }).map(([key, val]) => {
+      itemCss += Object.entries(cur).map(([key, val]) => {
         const color = val;
         return genCssVar(key, color, item.includes('dark') ? dark : light);
       }).join("\n  ")

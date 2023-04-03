@@ -28,7 +28,6 @@ export default defineConfig({
     Unocss(),
     AutoImport({
       imports: ["vue", "@vueuse/core"],
-      ignore: ["h"],
       vueTemplate: true
     })
   ]

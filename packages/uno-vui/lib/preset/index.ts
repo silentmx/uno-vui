@@ -4,16 +4,24 @@ import { setPreflights } from "./preflights";
 import { safelist } from "./safe-list";
 import { shortcuts } from "./shortcuts";
 import { theme } from "./theme";
-import { defaultTheme, type PresetConfig, type ThemeConfig } from "./types";
+import type { PresetConfig, ThemeConfig } from "./types";
 
-export function presetUnoVui(config: PresetConfig): Preset<Theme> {
+const defaultTheme: ThemeConfig = {
+  primary: "blue",
+  accent: "purple",
+  success: "green",
+  warn: "yellow",
+  error: "red"
+}
+
+export function presetUnoVui(config: PresetConfig = {}): Preset<Theme> {
   const {
     themes = [defaultTheme],
     light = 500,
     dark = 600
   } = config;
 
-  const _themes = themes.map(t => { return { ...defaultTheme, ...t } });
+  const _themes = themes.length > 0 ? themes.map(t => { return { ...defaultTheme, ...t } }) : [defaultTheme];
   // 去重复
   const themes_strings = _themes?.map(v => JSON.stringify(v).trim());
   const removeDupList = Array.from(new Set(themes_strings));

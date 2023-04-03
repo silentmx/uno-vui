@@ -11,6 +11,5 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     UBtn: typeof import('uno-vui')['UBtn']
     UIcon: typeof import('uno-vui')['UIcon']
-    UInput: typeof import('uno-vui')['UInput']
   }
 }

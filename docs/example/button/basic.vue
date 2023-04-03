@@ -9,8 +9,8 @@
       <u-btn type="error">error</u-btn>
     </div>
     <div class="flex flex-wrap gap-2 mt-2">
-      <u-btn class="b-solid">default</u-btn>
-      <u-btn class="b-solid" type="primary">primary</u-btn>
+      <u-btn class="b-solid" disabled>default</u-btn>
+      <u-btn class="b-solid" disabled type="primary">primary</u-btn>
       <u-btn class="b-solid" type="accent">accent</u-btn>
       <u-btn class="b-solid" type="success">success</u-btn>
       <u-btn class="b-solid" type="warn">warn</u-btn>

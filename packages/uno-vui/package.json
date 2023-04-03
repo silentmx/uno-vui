@@ -37,9 +37,5 @@
     "type": "git",
     "directory": "packages/uno-vui",
     "url": "git+https://github.com/silentmx/uno-vui.git"
-  },
-  "peerDependencies": {
-    "vue": ">=3",
-    "unocss": ">=0.50.6"
   }
 }

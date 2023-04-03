@@ -10,7 +10,6 @@ export default defineConfig({
     AutoImport({
       imports: ["vue", "@vueuse/core"],
       include: [/\.[jt]sx?$/, /\.vue\??/, /\.md$/],
-      ignore: ["h"],
       vueTemplate: true
     }),
     Components({

@@ -6,21 +6,14 @@ export type ColorRegionType = keyof (typeof theme.colors.light);
 export type ColorType = Exclude<keyof (typeof theme.colors), "inherit" | "current" | "transparent" | "black" | "white">;
 
 export const prefix = "--unovui";
-export const ThemeKeys = ["default", "primary", "accent", "success", "warn", "error"] as const;
-export type ThemeType = typeof ThemeKeys[number];
+export const ThemeKeys = ["primary", "accent", "success", "warn", "error"] as const;
+export type ThemeType = "default" | typeof ThemeKeys[number];
 export type ThemeConfig = {
   [key in Exclude<ThemeType, "default">]: ColorType;
 }
-export const defaultTheme: ThemeConfig = {
-  primary: "blue",
-  accent: "purple",
-  success: "green",
-  warn: "yellow",
-  error: "red"
-}
 
 export interface PresetConfig {
-  themes?: Partial<ThemeConfig>[];
+  themes?: (Partial<ThemeConfig> & Pick<ThemeConfig, "primary" | "accent">)[];
   light?: ColorRegionType;
   dark?: ColorRegionType;
 }

@@ -63,42 +63,42 @@ interface BorderProps {
 /**
  * 组件通用的关于border的class样式计算属性
  * 主要用来计算border的默认颜色，radius，border style, size
- * @param { string } extraClass 使用组件时在组件属性上添加的class样式,可以通过一下方式获取
+ * @param { string } attrsClass 使用组件时在组件属性上添加的class样式,可以通过一下方式获取
  * ```
  * import { useAttrs } from 'vue';
  * const attrs = useAttrs();
  * const extraClass = attrs.class;
  * ```
+ * @param `type` {@link ThemeType} 组件主题类型
+ * @param { ComputedRef<boolean> | Ref<boolean>} `disabled` 是否disabled状态
  * 
  * @returns `object` {@link BorderProps} 包含是否有border和class样式
  */
-export function useBorder(extraClass: string = "", type: ThemeType = "default"): BorderProps {
+export function useBorder(attrsClass: string = "", type: ThemeType = "default", disabled?: ComputedRef<boolean> | Ref<boolean>): BorderProps {
   const hasBorder = ref(false);
   const borderClass = computed(() => {
     // border style 匹配, 只有border style被设置了，border才生效
-    hasBorder.value = borderStyleRegList.some(reg => handlerBorderStyleReg(extraClass.match(reg)));
-    const hasBorderColor = borderColorRegList.some(reg => handlerBorderColorReg(extraClass.match(reg)))
-    const hasRounded = borderRoundedRegList.some(reg => reg.test(extraClass));
-
-    if (!hasBorder.value) {
-      return [
-        // border rounded
-        genCompClass([
-          { condition: hasRounded, falseVal: `b-rd` }
-        ]),
-      ]
-    }
+    hasBorder.value = borderStyleRegList.some(reg => handlerBorderStyleReg(attrsClass.match(reg)));
+    const hasBorderColor = borderColorRegList.some(reg => handlerBorderColorReg(attrsClass.match(reg)));
+    const hasRounded = borderRoundedRegList.some(reg => reg.test(attrsClass));
 
     return [
-      // border 默认宽度为1px
-      "b",
+      // border radius
+      genCompClass([
+        { condition: hasRounded, falseVal: `b-rd` },
+      ]),
+      // border size
+      genCompClass([
+        { condition: hasBorder.value, trueVal: "b" },
+      ]),
       // border color
       genCompClass([
-        { condition: hasBorderColor, falseVal: `b-${type}` }
-      ]),
-      // border rounded
-      genCompClass([
-        { condition: hasRounded, falseVal: `b-rd` }
+        { condition: hasBorder.value || hasBorderColor, falseVal: " " },
+        {
+          condition: type == "default",
+          trueVal: `b-gray-300 dark:b-gray-500 ${disabled && disabled.value ? '' : 'hover:b-primary dark:hover:b-primary'}`
+        },
+        { condition: true, trueVal: `b-${type}` }
       ]),
     ];
   });

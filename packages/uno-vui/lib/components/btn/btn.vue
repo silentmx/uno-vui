@@ -21,7 +21,7 @@ const isDisabled = computed(() => {
 });
 const onlyIcon = computed(() => slots.icon && !slots.default);
 
-const { hasBorder, borderClass } = useBorder(binds.class as string, props.type);
+const { hasBorder, borderClass } = useBorder(binds.class as string, props.type, isDisabled);
 
 const classList = computed(() => {
   // 外部class是否包含背景色

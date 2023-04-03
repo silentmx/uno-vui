@@ -13,7 +13,6 @@ const bgOpRegList = [
   /bg-op(?:acity)?-?(\S+)$/
 ];
 
-
 /**
  * @typedef { Object } 背景色 props
  * @prop { DeepReadonly<Ref<boolean>> } hasBg: 是否含有背景色

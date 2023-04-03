@@ -1,10 +1,11 @@
-import type { Preset } from "unocss";
-import type { Theme } from "unocss/preset-mini";
-import { setPreflights } from "./preflights";
+import type { Preset } from 'unocss';
+import type { Theme } from 'unocss/preset-mini';
+import { setPreflights } from './preflights';
 import { safelist } from "./safe-list";
-import { shortcuts } from "./shortcuts";
-import { theme } from "./theme";
-import type { PresetConfig, ThemeConfig } from "./types";
+import { shortcuts } from './shortcuts';
+import { theme } from './theme';
+import type { PresetConfig, ThemeConfig } from './types';
+export * from './types';
 
 const defaultTheme: ThemeConfig = {
   primary: "blue",

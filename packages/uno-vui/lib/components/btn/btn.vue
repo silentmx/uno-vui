@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import { useBg } from '../../composables/use-bg';
-import { useBorder } from '../../composables/use-border';
-import { genCompClass } from '../../composables/use-class';
-import type { ThemeType } from '../../preset/types';
+import { genCompClass, useBg, useBorder, useCursor } from '../../composables';
+import type { ThemeType } from '../../preset';
 
 const props = defineProps({
   type: {
@@ -23,7 +21,8 @@ const isDisabled = computed(() => {
 const onlyIcon = computed(() => slots.icon && !slots.default);
 
 const { hasBorder, borderClass } = useBorder(attrs.class as string, props.type, isDisabled);
-const { hasBg, bgClass } = useBg(attrs.class as string, props.type, hasBorder, props.text, isDisabled);
+const { bgClass } = useBg(attrs.class as string, props.type, hasBorder, props.text, isDisabled);
+const { cursorClass } = useCursor(props.disabled, props.disabled);
 
 const classList = computed(() => {
   // 外部class包含文字颜色
@@ -36,16 +35,6 @@ const classList = computed(() => {
     // 否则只设定常规padding
     genCompClass([
       { condition: onlyIcon.value, trueVal: "aspect-square p-1", falseVal: "px-0.875em py-0.25em" }
-    ]),
-
-    // 鼠标disabled状态
-    genCompClass([
-      { condition: props.disabled, trueVal: "cursor-not-allowed" }
-    ]),
-
-    // 鼠标loading状态
-    genCompClass([
-      { condition: props.loading, trueVal: "cursor-wait" }
     ]),
 
     // // 文字颜色
@@ -95,7 +84,7 @@ const classList = computed(() => {
 
 <template>
   <component :is="to ? 'a' : 'button'" v-bind="attrs" :disabled="isDisabled" :aria-disabled="isDisabled"
-    :class="[classList, borderClass, bgClass]">
+    :class="[classList, borderClass, bgClass, cursorClass]">
     <div v-if="loading" class="i-eos-icons:loading"></div>
     <slot v-else name="icon"></slot>
     <slot></slot>

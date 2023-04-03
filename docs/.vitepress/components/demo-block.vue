@@ -32,7 +32,7 @@ const [value, toggle] = useToggle();
 
 <template>
   <div>
-    <div class="p-6 rd b-solid b b-light-700 dark:b-dark-300 bg-light-300 dark:bg-dark-900">
+    <div class="p-6 rd b-solid b b-light-900 dark:b-dark-50">
       <slot></slot>
     </div>
     <div class="mt-2 flex flex-row-reverse">

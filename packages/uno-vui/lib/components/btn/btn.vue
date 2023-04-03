@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import { useBg } from '../../composables/use-bg';
 import { useBorder } from '../../composables/use-border';
-import { containBrd, containColor, genCompClass } from '../../composables/use-class';
+import { genCompClass } from '../../composables/use-class';
 import type { ThemeType } from '../../preset/types';
 
 const props = defineProps({
@@ -15,23 +16,18 @@ const props = defineProps({
 });
 
 const slots = useSlots();
-const binds = Object.assign({}, useAttrs(), props.to ? { href: props.to } : { type: "button" });
+const attrs = Object.assign({}, useAttrs(), props.to ? { href: props.to } : { type: "button" });
 const isDisabled = computed(() => {
   return props.loading || props.disabled;
 });
 const onlyIcon = computed(() => slots.icon && !slots.default);
 
-const { hasBorder, borderClass } = useBorder(binds.class as string, props.type, isDisabled);
+const { hasBorder, borderClass } = useBorder(attrs.class as string, props.type, isDisabled);
+const { hasBg, bgClass } = useBg(attrs.class as string, props.type, hasBorder, props.text, isDisabled);
 
 const classList = computed(() => {
-  // 外部class是否包含背景色
-  const isContainBg = containColor(binds.class as string);
-  // 外部class包含边框颜色
-  const isContainBc = containColor(binds.class as string, "b|border");
-  // 外部class包含border-radius
-  const isContainBr = containBrd(binds.class as string);
   // 外部class包含文字颜色
-  const isContainTc = containColor(binds.class as string, "text|c");
+  // const isContainTc = containColor(attrs.class as string, "text|c");
 
   return [
     // 基础样式
@@ -52,44 +48,18 @@ const classList = computed(() => {
       { condition: props.loading, trueVal: "cursor-wait" }
     ]),
 
-    // 背景色, 如果外部class包含背景色，优先使用外部class
-    genCompClass([
-      { condition: isContainBg, falseVal: `bg-${props.type}` }
-    ]),
-    // 背景色透明度
-    genCompClass([
-      // 文本按钮，透明度为0
-      { condition: props.text, trueVal: "bg-op-0" },
-      // type为default或者有边框，透明度为0.15
-      { condition: props.type == "default" || hasBorder.value, trueVal: "bg-op-15" },
-      // 按钮禁用状态下透明度为0.6
-      { condition: isDisabled.value, trueVal: "bg-op-60" }
-    ]),
-    // 背景色hover, 如果外部class包含背景色或在禁用状态下，hover无效
-    genCompClass([
-      { condition: isContainBg || isDisabled.value, falseVal: `hover:bg-${props.type}Heavy` }
-    ]),
-    // 背景色hover透明度
-    genCompClass([
-      // disabled状态下，保持不变
-      { condition: isDisabled.value, trueVal: " " },
-      { condition: props.text, trueVal: "hover:bg-op-15" },
-      // type为default时,0.20
-      { condition: props.type == "default", trueVal: "hover:bg-op-20" },
-    ]),
-
-    // 文字颜色
-    genCompClass([
-      { condition: isContainTc || props.type == "default", trueVal: " " },
-      { condition: hasBorder.value || props.text, trueVal: `text-${props.type}`, falseVal: "text-light" }
-    ]),
-    // 文字hover颜色
-    genCompClass([
-      { condition: isContainTc || isDisabled.value, trueVal: " " },
-      { condition: props.type == "default", trueVal: `hover:text-defaultHeavy dark:hover:text-gray-200` },
-      { condition: props.text, trueVal: `hover:text-${props.type}` },
-      { condition: true, trueVal: "hover:text-light" }
-    ]),
+    // // 文字颜色
+    // genCompClass([
+    //   { condition: isContainTc || props.type == "default", trueVal: " " },
+    //   { condition: hasBorder.value || props.text, trueVal: `text-${props.type}`, falseVal: "text-light" }
+    // ]),
+    // // 文字hover颜色
+    // genCompClass([
+    //   { condition: isContainTc || isDisabled.value, trueVal: " " },
+    //   { condition: props.type == "default", trueVal: `hover:text-defaultHeavy dark:hover:text-gray-200` },
+    //   { condition: props.text, trueVal: `hover:text-${props.type}` },
+    //   { condition: true, trueVal: "hover:text-light" }
+    // ]),
 
     //active shadow动画
     !isDisabled.value ? genCompClass([
@@ -108,10 +78,10 @@ const classList = computed(() => {
         falseVal: "after:shadow-[0_0_0_6px_var(--un-shadow-color)]"
       },
       // 颜色
-      {
-        condition: containColor(binds.class as string, "after[:-]shadow"),
-        falseVal: `after:shadow-${props.type}Heavy`
-      },
+      // {
+      //   condition: containColor(attrs.class as string, "after[:-]shadow"),
+      //   falseVal: `after:shadow-${props.type}Heavy`
+      // },
       // 透明度
       {
         condition: (props.type == "default" || props.text) && !hasBorder.value,
@@ -124,8 +94,8 @@ const classList = computed(() => {
 </script>
 
 <template>
-  <component :is="to ? 'a' : 'button'" v-bind="binds" :disabled="isDisabled" :aria-disabled="isDisabled"
-    :class="[classList, borderClass]">
+  <component :is="to ? 'a' : 'button'" v-bind="attrs" :disabled="isDisabled" :aria-disabled="isDisabled"
+    :class="[classList, borderClass, bgClass]">
     <div v-if="loading" class="i-eos-icons:loading"></div>
     <slot v-else name="icon"></slot>
     <slot></slot>

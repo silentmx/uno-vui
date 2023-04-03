@@ -1,5 +1,5 @@
-import type { ThemeType } from 'lib/preset/types';
 import type { ComputedRef, DeepReadonly, Ref } from 'vue';
+import type { ThemeType } from '../preset/types';
 import { genCompClass } from './use-class';
 import { globalKeywords, hasParseableColor } from './use-unocss';
 
@@ -53,7 +53,7 @@ const borderRoundedRegList = [
 /**
  * border属性
  * - hasBorder: 是否有边框
- * - borderClass: 边框class样式
+ * - borderClass: 边框样式class
  */
 interface BorderProps {
   hasBorder: DeepReadonly<Ref<boolean>>,
@@ -75,13 +75,12 @@ interface BorderProps {
  * @returns `object` {@link BorderProps} 包含是否有border和class样式
  */
 export function useBorder(attrsClass: string = "", type: ThemeType = "default", disabled?: ComputedRef<boolean> | Ref<boolean>): BorderProps {
-  const hasBorder = ref(false);
-  const borderClass = computed(() => {
-    // border style 匹配, 只有border style被设置了，border才生效
-    hasBorder.value = borderStyleRegList.some(reg => handlerBorderStyleReg(attrsClass.match(reg)));
-    const hasBorderColor = borderColorRegList.some(reg => handlerBorderColorReg(attrsClass.match(reg)));
-    const hasRounded = borderRoundedRegList.some(reg => reg.test(attrsClass));
+  // border style 匹配, 只有border style被设置了，border才生效
+  const hasBorder = ref(borderStyleRegList.some(reg => handlerBorderStyleReg(attrsClass.match(reg))));
+  const hasBorderColor = borderColorRegList.some(reg => handlerBorderColorReg(attrsClass.match(reg)));
+  const hasRounded = borderRoundedRegList.some(reg => reg.test(attrsClass));
 
+  const borderClass = computed(() => {
     return [
       // border radius
       genCompClass([
@@ -96,10 +95,15 @@ export function useBorder(attrsClass: string = "", type: ThemeType = "default", 
         { condition: hasBorder.value || hasBorderColor, falseVal: " " },
         {
           condition: type == "default",
-          trueVal: `b-gray-300 dark:b-gray-500 ${disabled && disabled.value ? '' : 'hover:b-primary dark:hover:b-primary'}`
+          trueVal: "b-light-900 dark:b-dark-50"
         },
         { condition: true, trueVal: `b-${type}` }
       ]),
+      // border hover color
+      genCompClass([
+        { condition: disabled?.value || hasBorderColor, trueVal: " " },
+        { condition: type == "default", trueVal: "hover:b-primary dark:hover:b-primary" }
+      ])
     ];
   });
 
@@ -125,5 +129,10 @@ function handlerBorderColorReg(matchArray: RegExpMatchArray | null): boolean {
   }
 
   const [, d = '', c]: string[] = matchArray;
+
+  if (d in directionMap && c.includes("url")) {
+    return true;
+  }
+
   return d in directionMap && hasParseableColor(c);
 }

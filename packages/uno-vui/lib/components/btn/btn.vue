@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { genCompClass, useBg, useBorder, useCursor } from '../../composables';
+import type { PropType } from 'vue';
+import { genCompClass, useBg, useBorder, useCursor, useText } from '../../composables';
 import type { ThemeType } from '../../preset';
 
 const props = defineProps({
@@ -7,48 +8,35 @@ const props = defineProps({
     type: String as PropType<ThemeType>,
     default: "default"
   },
-  to: String,
+  icon: String,
+  text: Boolean,
   loading: Boolean,
   disabled: Boolean,
-  text: Boolean,
+  to: String,
 });
 
+const btnRef = ref<Element>();
+const extraAttrs = Object.assign({}, props.to ? { href: props.to } : { type: "button" });
 const slots = useSlots();
-const attrs = Object.assign({}, useAttrs(), props.to ? { href: props.to } : { type: "button" });
+const onlyIcon = computed(() => props.icon && !slots.default);
+
 const isDisabled = computed(() => {
   return props.loading || props.disabled;
 });
-const onlyIcon = computed(() => slots.icon && !slots.default);
 
-const { hasBorder, borderClass } = useBorder(attrs.class as string, props.type, isDisabled);
-const { bgClass } = useBg(attrs.class as string, props.type, hasBorder, props.text, isDisabled);
-const { cursorClass } = useCursor(props.disabled, props.disabled);
+const { hasBorder, borderClass } = useBorder(toRef(props, "type"), isDisabled);
+const { hasBg, bgClass } = useBg(toRef(props, "type"), hasBorder, toRef(props, "text"), isDisabled);
+const { textClass } = useText(toRef(props, "type"), hasBg, hasBorder, toRef(props, "text"), isDisabled);
+const { cursorClass } = useCursor(toRef(props, "loading"), toRef(props, "disabled"));
 
-const classList = computed(() => {
-  // 外部class包含文字颜色
-  // const isContainTc = containColor(attrs.class as string, "text|c");
-
+const baseClass = computed(() => {
   return [
     // 基础样式
     `relative flex justify-center items-center gap-1 transition-300`,
-    // 如果只有图标, padding值设置为0.25rem，并且长宽保持1:1
-    // 否则只设定常规padding
+    // 如果只有图标, padding值设置为0.25rem，并且长宽保持1:1,否则只设定常规padding
     genCompClass([
       { condition: onlyIcon.value, trueVal: "aspect-square p-1", falseVal: "px-0.875em py-0.25em" }
     ]),
-
-    // // 文字颜色
-    // genCompClass([
-    //   { condition: isContainTc || props.type == "default", trueVal: " " },
-    //   { condition: hasBorder.value || props.text, trueVal: `text-${props.type}`, falseVal: "text-light" }
-    // ]),
-    // // 文字hover颜色
-    // genCompClass([
-    //   { condition: isContainTc || isDisabled.value, trueVal: " " },
-    //   { condition: props.type == "default", trueVal: `hover:text-defaultHeavy dark:hover:text-gray-200` },
-    //   { condition: props.text, trueVal: `hover:text-${props.type}` },
-    //   { condition: true, trueVal: "hover:text-light" }
-    // ]),
 
     //active shadow动画
     !isDisabled.value ? genCompClass([
@@ -61,32 +49,32 @@ const classList = computed(() => {
         trueVal: "after:active:shadow-none after:active:transition-0"
       },
       // 宽度
-      {
-        condition: hasBorder.value,
-        trueVal: "after:shadow-[0_0_0_7px_var(--un-shadow-color)]",
-        falseVal: "after:shadow-[0_0_0_6px_var(--un-shadow-color)]"
-      },
+      // {
+      //   condition: hasBorder.value,
+      //   trueVal: "after:shadow-[0_0_0_7px_var(--un-shadow-color)]",
+      //   falseVal: "after:shadow-[0_0_0_6px_var(--un-shadow-color)]"
+      // },
       // 颜色
       // {
       //   condition: containColor(attrs.class as string, "after[:-]shadow"),
       //   falseVal: `after:shadow-${props.type}Heavy`
       // },
       // 透明度
-      {
-        condition: (props.type == "default" || props.text) && !hasBorder.value,
-        trueVal: "after:active:op-30 dark:after:active:op-40",
-        falseVal: "after:active:op-50 dark:after:active:op-90"
-      }
+      // {
+      //   condition: (props.type == "default" || props.text) && !hasBorder.value,
+      //   trueVal: "after:active:op-30 dark:after:active:op-40",
+      //   falseVal: "after:active:op-50 dark:after:active:op-90"
+      // }
     ], true) : "",
   ];
 });
 </script>
 
 <template>
-  <component :is="to ? 'a' : 'button'" v-bind="attrs" :disabled="isDisabled" :aria-disabled="isDisabled"
-    :class="[classList, borderClass, bgClass, cursorClass]">
+  <component ref="btnRef" :is="to ? 'a' : 'button'" v-bind="extraAttrs" :disabled="isDisabled" :aria-disabled="isDisabled"
+    :class="[baseClass, borderClass, bgClass, textClass, cursorClass]">
     <div v-if="loading" class="i-eos-icons:loading"></div>
-    <slot v-else name="icon"></slot>
+    <div v-else-if="icon" :class="icon"></div>
     <slot></slot>
   </component>
 </template>

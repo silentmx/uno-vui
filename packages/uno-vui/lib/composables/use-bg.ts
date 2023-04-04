@@ -1,79 +1,83 @@
-import type { ComputedRef, DeepReadonly, Ref } from "vue";
-import type { ThemeType } from "../preset/types";
-import { genCompClass } from "./use-class";
-import { hasParseableColor } from "./use-unocss";
+import type { ComputedRef, DeepReadonly, Ref } from 'vue';
+import type { ThemeType } from '../preset/types';
+import { genCompClass, getAttrsClass } from './use-class';
+import { hasParseableColor } from './use-unocss';
 
 // bg color正则表达式
 const bgColorRegList = [
-  /bg-(\S+)$/
+  /bg-(\S+)/gm
 ];
 
 // bg opacity
 const bgOpRegList = [
-  /bg-op(?:acity)?-?(\S+)$/
+  /bg-op(?:acity)?-?(\S+)/gm
 ];
 
 /**
- * @typedef { Object } 背景色 props
- * @prop { DeepReadonly<Ref<boolean>> } hasBg: 是否含有背景色
- * @prop { DeepReadonly<ComputedRef<string[]>> } bgClass: 背景色样式class
+ * @typedef { Object } 背景色props
+ * @prop `hasBg` 是否含有背景色
+ * @prop `bgClass` 背景色样式class
  */
 type BgProps = {
-  hasBg: DeepReadonly<Ref<boolean>>,
+  hasBg: DeepReadonly<ComputedRef<boolean>>,
   bgClass: DeepReadonly<ComputedRef<string[]>>
 }
 
 /**
- * 计算组件背景色unocss class列表
- * @param { string} attrsClass 组件class attr  
- * @param { ThemeType } [type="default"] {@link ThemeType} 组件主题类型
- * @param { ComputedRef<boolean> | Ref<boolean> } hasBorder 组件是否有边框
- * @param { boolean } text 组件是否只显示文字, 此时背景色透明度为0
- * @param { ComputedRef<boolean> | Ref<boolean> } disabled  组件`disabled`状态
+ * 关于背景色的class计算属性
+ * @param type {@link ThemeType} 组件主题类型
+ * @param hasBorder 组件是否有边框
+ * @param text 组件是否只显示文字, 此时背景色透明度为0
+ * @param disabled  组件`disabled`状态
  * @return `bgprops` {@link BgProps} 组件背景色props
  */
-export function useBg(
-  attrsClass: string = "",
-  type: ThemeType = "default",
+export const useBg = (
+  type: Ref<ThemeType>,
   hasBorder?: ComputedRef<boolean> | Ref<boolean>,
-  text?: boolean,
+  text?: ComputedRef<boolean> | Ref<boolean>,
   disabled?: ComputedRef<boolean> | Ref<boolean>
-): BgProps {
-  const hasBg = ref(bgColorRegList.some(reg => handlerBgColorReg(attrsClass.match(reg))));
-  const hasOp = ref(bgOpRegList.some(reg => reg.test(attrsClass)));
+): BgProps => {
+
+  const hasBg = computed(() => {
+    return bgColorRegList.some(reg => handlerBgColorReg(getAttrsClass().matchAll(reg)));
+  });
 
   const bgClass = computed(() => {
+    const hasOp = bgOpRegList.some(reg => reg.test(getAttrsClass()));
+
     return [
       // bg color
       genCompClass([
-        { condition: hasBg.value, trueVal: " " },
+        { condition: hasBg.value, trueVal: "" },
         {
-          condition: type == "default",
-          trueVal: `bg-light-400 hover:bg-light-500 dark:bg-dark-400 dark:hover:bg-dark-300`
+          condition: type.value == "default",
+          trueVal: `bg-light-400 dark:bg-dark-400`
         },
-        { condition: true, trueVal: `bg-${type}` }
+        { condition: type.value, trueVal: `bg-${type.value}` }
       ]),
       // bg hover color
       genCompClass([
-        { condition: disabled?.value, trueVal: " " },
+        { condition: disabled?.value, trueVal: "" },
+        { condition: hasBg.value, trueVal: "" },
         {
-          condition: type == "default",
+          condition: type.value == "default",
           trueVal: `hover:bg-light-500 dark:hover:bg-dark-300`
         },
-        { condition: true, trueVal: `hover:bg-${type}Heavy` }
+        { condition: type.value, trueVal: `hover:bg-${type.value}Heavy` }
       ]),
       // bg opacity
       genCompClass([
-        { condition: hasOp.value, trueVal: " " },
-        { condition: text, trueVal: "bg-op-0" },
+        { condition: hasOp, trueVal: "" },
+        { condition: text?.value, trueVal: "bg-op-0" },
+        { condition: type.value == "default", trueVal: "" },
         { condition: hasBorder?.value, trueVal: "bg-op-10" },
         { condition: disabled?.value, trueVal: "bg-op-60" }
       ]),
       // bg hover opacity
       genCompClass([
-        { condition: disabled?.value, trueVal: " " },
-        { condition: type == "default", trueVal: " " },
-        { condition: text, trueVal: "hover:bg-op-10" },
+        { condition: disabled?.value, trueVal: "" },
+        { condition: type.value == "default", trueVal: "" },
+        { condition: text?.value, trueVal: "hover:bg-op-10" },
       ])
     ]
   });
@@ -84,16 +88,15 @@ export function useBg(
   }
 }
 
-function handlerBgColorReg(matchArray: RegExpMatchArray | null): boolean {
-  if (matchArray == null) {
+function handlerBgColorReg(matchAllArray: IterableIterator<RegExpMatchArray> | null): boolean {
+  if (matchAllArray == null) {
     return false;
   }
 
-  const [, c]: string[] = matchArray;
-
-  if (c.includes("url")) {
-    return true;
-  }
-
-  return hasParseableColor(c);
+  return Array.from(matchAllArray).some(match => {
+    const [, c]: string[] = match;
+    if (c.includes("url") || hasParseableColor(c)) {
+      return true;
+    }
+  })
 }

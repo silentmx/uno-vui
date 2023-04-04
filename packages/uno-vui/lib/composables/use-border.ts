@@ -1,6 +1,6 @@
 import type { ComputedRef, DeepReadonly, Ref } from 'vue';
 import type { ThemeType } from '../preset/types';
-import { genCompClass } from './use-class';
+import { genCompClass, getAttrsClass } from './use-class';
 import { globalKeywords, hasParseableColor } from './use-unocss';
 
 // border类型
@@ -25,62 +25,62 @@ const directionMap: Record<string, string[]> = {
 
 // border style正则表达式
 const borderStyleRegList = [
-  /(?:border|b)-(?:style-)?()(\S+)$/,
-  /(?:border|b)-([xy])-(?:style-)?(\S+)$/,
-  /(?:border|b)-([rltbse])-(?:style-)?(\S+)$/,
-  /(?:border|b)-(block|inline)-(?:style-)?(\S+)$/,
-  /(?:border|b)-([bi][se])-(?:style-)?(\S+)$/,
+  /(?:border|b)-(?:style-)?()(\S+)/gm,
+  /(?:border|b)-([xy])-(?:style-)?(\S+)/gm,
+  /(?:border|b)-([rltbse])-(?:style-)?(\S+)/gm,
+  /(?:border|b)-(block|inline)-(?:style-)?(\S+)/gm,
+  /(?:border|b)-([bi][se])-(?:style-)?(\S+)/gm,
 ];
 
 // border color正则表达式
 const borderColorRegList = [
-  /(?:border|b)-()(?:color-)?(\S+)$/,
-  /(?:border|b)-([xy])-(?:color-)?(\S+)$/,
-  /(?:border|b)-([rltbse])-(?:color-)?(\S+)$/,
-  /(?:border|b)-(block|inline)-(?:color-)?(\S+)$/,
-  /(?:border|b)-([bi][se])-(?:color-)?(\S+)$/,
+  /(?:border|b)-()(?:color-)?(\S+)/gm,
+  /(?:border|b)-([xy])-(?:color-)?(\S+)/gm,
+  /(?:border|b)-([rltbse])-(?:color-)?(\S+)/gm,
+  /(?:border|b)-(block|inline)-(?:color-)?(\S+)/gm,
+  /(?:border|b)-([bi][se])-(?:color-)?(\S+)/gm,
 ];
 
 // border rounded正则表达式
 const borderRoundedRegList = [
-  /(?:border-|b-)?(?:rounded|rd)()(?:-(\S+))?$/,
-  /(?:border-|b-)?(?:rounded|rd)-([rltbse])(?:-(\S+))?$/,
-  /(?:border-|b-)?(?:rounded|rd)-([rltb]{2})(?:-(\S+))?$/,
-  /(?:border-|b-)?(?:rounded|rd)-([bise][se])(?:-(\S+))?$/,
-  /(?:border-|b-)?(?:rounded|rd)-([bi][se]-[bi][se])(?:-(\S+))?$/,
+  /(?:border-|b-)?(?:rounded|rd)()(?:-(\S+))?/gm,
+  /(?:border-|b-)?(?:rounded|rd)-([rltbse])(?:-(\S+))?/gm,
+  /(?:border-|b-)?(?:rounded|rd)-([rltb]{2})(?:-(\S+))?/gm,
+  /(?:border-|b-)?(?:rounded|rd)-([bise][se])(?:-(\S+))?/gm,
+  /(?:border-|b-)?(?:rounded|rd)-([bi][se]-[bi][se])(?:-(\S+))?/gm,
 ];
 
 /**
- * border属性
- * - hasBorder: 是否有边框
- * - borderClass: 边框样式class
+ * @typedef { Object } 边框props
+ * @prop `hasBorder` 是否有边框
+ * @prop `borderClass` 边框样式class
  */
-interface BorderProps {
-  hasBorder: DeepReadonly<Ref<boolean>>,
+type BorderProps = {
+  hasBorder: DeepReadonly<ComputedRef<boolean>>,
   borderClass: DeepReadonly<ComputedRef<string[]>>,
 }
 
 /**
- * 组件通用的关于border的class样式计算属性
+ * 关于边框的class计算属性
  * 主要用来计算border的默认颜色，radius，border style, size
- * @param { string } attrsClass 使用组件时在组件属性上添加的class样式,可以通过一下方式获取
- * ```
- * import { useAttrs } from 'vue';
- * const attrs = useAttrs();
- * const extraClass = attrs.class;
- * ```
- * @param `type` {@link ThemeType} 组件主题类型
- * @param { ComputedRef<boolean> | Ref<boolean>} `disabled` 是否disabled状态
+ * @param type {@link ThemeType} 组件主题类型
+ * @param disabled 是否disabled状态
  * 
- * @returns `object` {@link BorderProps} 包含是否有border和class样式
+ * @returns `borderProps` {@link BorderProps} 包含是否有border和class样式
  */
-export function useBorder(attrsClass: string = "", type: ThemeType = "default", disabled?: ComputedRef<boolean> | Ref<boolean>): BorderProps {
-  // border style 匹配, 只有border style被设置了，border才生效
-  const hasBorder = ref(borderStyleRegList.some(reg => handlerBorderStyleReg(attrsClass.match(reg))));
-  const hasBorderColor = borderColorRegList.some(reg => handlerBorderColorReg(attrsClass.match(reg)));
-  const hasRounded = borderRoundedRegList.some(reg => reg.test(attrsClass));
+export const useBorder = (
+  type: Ref<ThemeType>,
+  disabled?: ComputedRef<boolean> | Ref<boolean>,
+): BorderProps => {
+
+  const hasBorder = computed(() => {
+    return borderStyleRegList.some(reg => handlerBorderStyleReg(getAttrsClass().matchAll(reg)));
+  });
 
   const borderClass = computed(() => {
+    const hasBorderColor = borderColorRegList.some(reg => handlerBorderColorReg(getAttrsClass().matchAll(reg)));
+    const hasRounded = borderRoundedRegList.some(reg => reg.test(getAttrsClass()));
+
     return [
       // border radius
       genCompClass([
@@ -92,17 +92,17 @@ export function useBorder(attrsClass: string = "", type: ThemeType = "default", 
       ]),
       // border color
       genCompClass([
-        { condition: hasBorder.value || hasBorderColor, falseVal: " " },
+        { condition: hasBorder.value, falseVal: "" },
+        { condition: hasBorderColor, trueVal: "" },
         {
-          condition: type == "default",
+          condition: type.value == "default",
           trueVal: "b-light-900 dark:b-dark-50"
         },
-        { condition: true, trueVal: `b-${type}` }
+        { condition: type.value, trueVal: `b-${type.value}` }
       ]),
       // border hover color
       genCompClass([
-        { condition: disabled?.value || hasBorderColor, trueVal: " " },
-        { condition: type == "default", trueVal: "hover:b-primary dark:hover:b-primary" }
+        { condition: disabled?.value || hasBorderColor, trueVal: "" },
       ])
     ];
   });
@@ -114,25 +114,28 @@ export function useBorder(attrsClass: string = "", type: ThemeType = "default", 
 }
 
 // 只有class样式指定了border style, 才算所border生效
-function handlerBorderStyleReg(matchArray: RegExpMatchArray | null): boolean {
-  if (matchArray == null) {
+function handlerBorderStyleReg(matchAllArray: IterableIterator<RegExpMatchArray> | null): boolean {
+  if (matchAllArray == null) {
     return false;
   }
 
-  const [, d = '', s]: string[] = matchArray;
-  return borderStyles.includes(s) && d in directionMap;
+  return Array.from(matchAllArray).some(match => {
+    const [, d = '', s]: string[] = match;
+    if (borderStyles.includes(s) && d in directionMap) {
+      return true;
+    }
+  });
 }
 
-function handlerBorderColorReg(matchArray: RegExpMatchArray | null): boolean {
-  if (matchArray == null) {
+function handlerBorderColorReg(matchAllArray: IterableIterator<RegExpMatchArray> | null): boolean {
+  if (matchAllArray == null) {
     return false;
   }
 
-  const [, d = '', c]: string[] = matchArray;
-
-  if (d in directionMap && c.includes("url")) {
-    return true;
-  }
-
-  return d in directionMap && hasParseableColor(c);
+  return Array.from(matchAllArray).some(match => {
+    const [, d = '', c]: string[] = match;
+    if (d in directionMap && (c.includes("url") || hasParseableColor(c))) {
+      return true;
+    }
+  });
 }

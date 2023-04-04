@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { containColor, genCompClass } from '../../composables/use-class';
+import { genCompClass } from '../../composables/use-class';
 import type { ThemeType } from '../../preset/types';
 
 const props = defineProps({
@@ -15,12 +15,12 @@ const props = defineProps({
 
 const binds = useAttrs();
 const classList = computed(() => {
-  const isContainTc = containColor(binds.class as string, "text|c");
+  // const isContainTc = containColor(binds.class as string, "text|c");
   return [
     `${props.name}`, // 图标名称,必须带前缀
     // 颜色
     genCompClass([
-      { condition: !isContainTc && props.type, trueVal: `text-${props.type}` },
+      { condition: false && props.type, trueVal: `text-${props.type}` },
     ]),
   ];
 });

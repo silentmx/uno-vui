@@ -2,14 +2,11 @@
 title: 按钮
 ---
 
-# 按钮
-按钮用来给用户执行操作或做出选择
-
 ## 基础用法
-使用```type```来改变按钮的色调，```bs```改变边框的样式，```text```消除按钮背景色
+使用```type```来更改背景色调。```class="bg-xxx"```给自定义背景色调，此时hover效果失效，需要```class="hover:bg-xxx"```来设置
 <demo src="../example/button/basic.vue"></demo>
 
-## 圆角按钮
+<!-- ## 圆角按钮
 按钮默认radius为0.25rem，可以通过```class="b-rd-xxx"```来调整按钮的圆角
 <demo src="../example/button/rounded.vue"></demo>
 
@@ -31,9 +28,9 @@ title: 按钮
 <demo src="../example/button/link.vue"></demo>
 
 ## 加载和禁用状态
-<demo src="../example/button/state.vue"></demo>
+<demo src="../example/button/state.vue"></demo> -->
 
-## 组件```Props```
+### 组件```Props```
 | 名称 | 类型 | 默认值 | 描述 |
 | --- | --- | --- | --- |
 | type | `'default' \| 'primary' \| 'accent' \| 'success' \| 'warn' \| 'error'` | `default` | 主题颜色 |

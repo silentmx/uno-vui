@@ -8,8 +8,8 @@ importers:
         specifier: ^0.2.1
         version: 0.2.1(vue@3.2.47)
       '@iconify/json':
-        specifier: ^2.2.44
-        version: 2.2.44
+        specifier: ^2.2.45
+        version: 2.2.45
       '@types/fs-extra':
         specifier: ^11.0.1
         version: 11.0.1
@@ -65,8 +65,8 @@ importers:
         specifier: ^4.2.1
         version: 4.2.1(@types/node@18.15.11)
       vitepress:
-        specifier: 1.0.0-alpha.64
-        version: 1.0.0-alpha.64(@types/node@18.15.11)
+        specifier: 1.0.0-alpha.65
+        version: 1.0.0-alpha.65(@types/node@18.15.11)
       vitest:
         specifier: ^0.29.8
         version: 0.29.8(jsdom@21.1.1)
@@ -527,8 +527,8 @@ packages:
       vue-demi: 0.13.11(vue@3.2.47)
     dev: true
 
-  /@iconify/json@2.2.44:
-    resolution: {integrity: sha512-b2nGHHjRLVT+OnT6x+u1aLP6HATM6PAzgoBt2VphPt7vLaspnrkAXl1iXFbNkP1VKovi92OhlhxYJwcq9k+epA==}
+  /@iconify/json@2.2.45:
+    resolution: {integrity: sha512-gSCDDAHnjCMN/n3BUStVS30Z375o/I++kQBLJy4n93FoL0Xv+UjQYcRo8+Vfjz0/Zw/bm8UdLIQbbxvblHafeA==}
     dependencies:
       '@iconify/types': 2.0.0
       pathe: 1.1.0
@@ -2525,8 +2525,8 @@ packages:
       jiti: 1.18.2
     dev: true
 
-  /unimport@3.0.4:
-    resolution: {integrity: sha512-eoof/HLiNJcIkVpnqc7sJbzKSLx39J6xTaP7E4ElgVQKeq2t9fPTkvJKcA55IJTaRPkEkDq8kcc/IZPmrypnFg==}
+  /unimport@3.0.5:
+    resolution: {integrity: sha512-enRW0sVcTBxUZY6R2iumWMUsPbGC5GW9jM89VtF0pFUz9vDPrvEmOAklbSE/a4fqhjW/7dMWBvfLw/IDlBaPdQ==}
     dependencies:
       '@rollup/pluginutils': 5.0.2
       escape-string-regexp: 5.0.0
@@ -2605,7 +2605,7 @@ packages:
       local-pkg: 0.4.3
       magic-string: 0.30.0
       minimatch: 7.4.5
-      unimport: 3.0.4
+      unimport: 3.0.5
       unplugin: 1.3.1
     transitivePeerDependencies:
       - rollup
@@ -2711,8 +2711,8 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /vitepress@1.0.0-alpha.64(@types/node@18.15.11):
-    resolution: {integrity: sha512-u12wcDH4VzgxxkQfVQWkXumrL3WRetpenz4VuAtiMWXeZSCayWcJtieWOFxmX/RzS2KEuTJpXGbtJAXORyyJBQ==}
+  /vitepress@1.0.0-alpha.65(@types/node@18.15.11):
+    resolution: {integrity: sha512-iGWC0AQC6WrfRZTJf5+TiGG4o8PLhqIJNyai8NVxZCY9YpmMJhddvQeqqjJdQniF/LQK/hQ5nQZ9HgSZDGRPGQ==}
     hasBin: true
     dependencies:
       '@docsearch/css': 3.3.3

@@ -57,7 +57,7 @@ export const useBg = (
       ]),
       // bg hover color
       genCompClass([
-        { condition: disabled?.value, trueVal: "" },
+        { condition: disabled?.value || hasOp, trueVal: "" },
         { condition: hasBg.value, trueVal: "" },
         {
           condition: type.value == "default",
@@ -75,8 +75,9 @@ export const useBg = (
       ]),
       // bg hover opacity
       genCompClass([
-        { condition: disabled?.value, trueVal: "" },
-        { condition: type.value == "default", trueVal: "" },
+        { condition: disabled?.value || hasOp, trueVal: "" },
+        { condition: hasBg.value && unref(unref(text)), trueVal: "hover:bg-op-10" },
+        { condition: unref(type) == "default", trueVal: "" },
         { condition: text?.value, trueVal: "hover:bg-op-10" },
       ])
     ]

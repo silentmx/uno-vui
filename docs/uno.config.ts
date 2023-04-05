@@ -14,7 +14,7 @@ export default defineConfig({
     presetUno(),
     presetAttributify(),
     presetIcons({
-      scale: 1.2,
+      // scale: 1.2,
       collections: {
         "svgs": (name) => {
           return fs.readFile(`./public/svgs/${name}.svg`, "utf-8");

@@ -65,16 +65,16 @@ export default defineConfig({
 ```
 
 ## 基础用法
-使用name属性定义图标名称, type属性来改变图标的颜色
+使用name属性定义图标名称, ```type```属性来改变图标的颜色
 <demo src="../example/icon/basic.vue"></demo>
 
 ## 任意颜色
-如果预设置的主题颜色不能满足需求，可以通过text-xxx类样式设置想要的颜色, 这时type无效,
+如果预设置的主题颜色不能满足需求，可以通过```class="text-xxx"```类样式设置想要的颜色, 这时type无效,
 [iconify](https://marketplace.visualstudio.com/items?itemName=antfu.iconify)图标库如果有颜色，颜色设置将无效,
 <demo src="../example/icon/colors.vue"></demo>
 
 ## 图标大小
-图标大小可通过 text-xxx类样式直接设置
+图标大小可通过```class="text-xxx"```类样式直接设置
 <demo src="../example/icon/size.vue"></demo>
 
 ## 自定义svg
@@ -86,4 +86,4 @@ export default defineConfig({
 | 名称 | 类型 | 默认值 | 描述 |
 | --- | --- | --- | --- |
 | name | `string` | `undefined` | 图标名称 |
-| type | `'default' \| 'primary' \| 'accent' \| 'warn' \| 'success' \| 'error'` | `undefined` | 图标主题颜色 |
+| type | `'default' \| 'primary' \| 'accent' \| 'warn' \| 'success' \| 'error'` | `default` | 图标主题颜色 |

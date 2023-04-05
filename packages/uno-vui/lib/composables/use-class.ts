@@ -18,14 +18,14 @@ export function genCompClass(params: {
   params.some(item => {
     if (item.condition) {
       if (item.trueVal != undefined) {
-        classVal += item.trueVal;
+        classVal += ` ${item.trueVal}`;
         if (!merge) {
           return true;
         }
       }
     } else {
       if (item.falseVal != undefined) {
-        classVal += item.falseVal;
+        classVal += ` ${item.falseVal}`;
         if (!merge) {
           return true;
         }

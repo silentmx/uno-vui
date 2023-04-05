@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { genCompClass } from '../../composables/use-class';
+import { useText } from '../../composables';
 import type { ThemeType } from '../../preset/types';
 
 const props = defineProps({
@@ -9,23 +9,13 @@ const props = defineProps({
   },
   type: {
     type: String as PropType<ThemeType>,
-    default: ""
+    default: "default"
   },
 });
 
-const binds = useAttrs();
-const classList = computed(() => {
-  // const isContainTc = containColor(binds.class as string, "text|c");
-  return [
-    `${props.name}`, // 图标名称,必须带前缀
-    // 颜色
-    genCompClass([
-      { condition: false && props.type, trueVal: `text-${props.type}` },
-    ]),
-  ];
-});
+const { textClass } = useText(toRef(props, "type"), false, true, true);
 </script>
 
 <template>
-  <div :class="classList" v-if="name"></div>
+  <div :class="[name, textClass]" v-if="name"></div>
 </template>

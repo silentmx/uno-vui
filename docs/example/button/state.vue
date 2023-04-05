@@ -19,20 +19,20 @@ const startLoading = () => {
       <u-btn disabled type="error">disabled</u-btn>
     </div>
     <div class="flex flex-wrap gap-2 mt-2">
-      <u-btn disabled bs="solid">disabled</u-btn>
-      <u-btn disabled type="primary" bs="solid">disabled</u-btn>
-      <u-btn disabled type="accent" bs="solid">disabled</u-btn>
-      <u-btn disabled type="success" bs="solid">disabled</u-btn>
-      <u-btn disabled type="warn" bs="solid">disabled</u-btn>
-      <u-btn disabled type="error" bs="solid">disabled</u-btn>
+      <u-btn disabled class="b-solid">disabled</u-btn>
+      <u-btn disabled type="primary" class="b-solid">disabled</u-btn>
+      <u-btn disabled type="accent" class="b-solid">disabled</u-btn>
+      <u-btn disabled type="success" class="b-solid">disabled</u-btn>
+      <u-btn disabled type="warn" class="b-solid">disabled</u-btn>
+      <u-btn disabled type="error" class="b-solid">disabled</u-btn>
     </div>
     <div class="flex flex-wrap gap-2 mt-2">
-      <u-btn loading bs="dashed">loading</u-btn>
-      <u-btn loading type="primary" bs="dashed">loading</u-btn>
-      <u-btn loading type="accent" bs="dashed">loading</u-btn>
-      <u-btn loading type="success" bs="dashed">loading</u-btn>
-      <u-btn loading type="warn" bs="dashed">loading</u-btn>
-      <u-btn loading type="error" bs="dashed">loading</u-btn>
+      <u-btn loading class="b-dashed">loading</u-btn>
+      <u-btn loading type="primary" class="b-dashed">loading</u-btn>
+      <u-btn loading type="accent" class="b-dashed">loading</u-btn>
+      <u-btn loading type="success" class="b-dashed">loading</u-btn>
+      <u-btn loading type="warn" class="b-dashed">loading</u-btn>
+      <u-btn loading type="error" class="b-dashed">loading</u-btn>
     </div>
     <div class="flex flex-wrap gap-2 mt-2">
       <u-btn type="primary" :loading="loading" @click="startLoading">

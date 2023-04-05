@@ -1,0 +1,6 @@
+{
+  "unocss.root": [
+    "packages/uno-vui",
+    "docs"
+  ]
+}

@@ -35,6 +35,7 @@ export const useText = (
       ]),
       // hover
       genCompClass([
+        { condition: unref(unref(hasBorder)) && unref(unref(text)), trueVal: "" },
         { condition: hasColor || unref(unref(disabled)) || unref(unref(hasBg)) || type.value == "default", trueVal: "" },
         { condition: unref(unref(text)), trueVal: `hover:text-${type.value}`, falseVal: "hover:text-light" },
       ]),

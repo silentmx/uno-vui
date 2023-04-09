@@ -4,7 +4,7 @@ import DemoBlock from '../components/demo-block.vue';
 import './main.css';
 
 // Unocss
-import 'uno.css';
+import 'virtual:uno.css';
 
 export default {
   ...Theme,

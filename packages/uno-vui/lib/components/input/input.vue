@@ -1,40 +1,29 @@
 <script setup lang="ts">
 import type { PropType } from 'vue';
+import { computUnoClassInfo } from '../../uno-utils';
 
 const props = defineProps({
   type: {
     type: String as PropType<"text" | "passowrd" | "email" | "password" | "tel" | "url">,
     default: "text"
-  }
+  },
+  disabled: Boolean
 });
 
-const binds = useAttrs();
-
-const fieldClass = computed(() => {
+const baseClass = computed(() => {
   return [
-    // 基础样式
-    "flex flex-col",
-
-    // 边框
-    "b-t-solid b-b-blue b b-6px"
+    "flex px-0.875em py-0.25em gap-1 items-center",
   ];
 });
-
-const inputClass = computed(() => {
-
-  return [
-    'px-0.875em py-0.25em'
-  ]
-});
-
+const a = computUnoClassInfo(baseClass);
 
 </script>
 
 <template>
-  <div :class="fieldClass">
-    <div>
-
-    </div>
-    <input :type="type" :class="inputClass" autocomplete="none" />
+  <div :class="[baseClass]">
+    <div>prefix</div>
+    <input :type="type" class="flex-auto" autocomplete="none" />
+    <div>suffix</div>
+    {{ a }}
   </div>
 </template>

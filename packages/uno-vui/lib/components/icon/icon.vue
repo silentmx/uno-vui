@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useText } from '../../composables';
 import type { ThemeType } from '../../preset/types';
+import { computUnoClassInfo, unoText } from '../../uno-utils';
 
 const props = defineProps({
   name: {
@@ -13,7 +13,8 @@ const props = defineProps({
   },
 });
 
-const { textClass } = useText(toRef(props, "type"), false, true, true);
+const unoClassInfo = computUnoClassInfo();
+const textClass = unoText(toRef(props, "type"), unoClassInfo);
 </script>
 
 <template>

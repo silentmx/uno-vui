@@ -10,6 +10,8 @@ export const unoBg = (
 ) => {
   return computed(() => {
     const unoInfo = unref(unref(unoClassInfo));
+    const disabledValue = unref(unref(disabled))
+
     return readonly([
       // bg color
       genUnoClass(!unoInfo.bg['normal']?.hasColor, [
@@ -19,33 +21,28 @@ export const unoBg = (
           falseVal: `bg-${theme.value}`
         }
       ]),
+
+      // hover bg color
+      disabledValue ? [] : genUnoClass(!unoInfo.bg['hover']?.hasColor, [
+        { condition: unoInfo.bg['normal']?.hasColor, trueVal: "" },
+        { condition: theme.value != "default", trueVal: `hover:bg-${theme.value}Heavy` }
+      ]),
+
       // bg opacity
-      genUnoClass(!unoInfo.bg['normal']?.op && !unref(unref(disabled)), [
-        {
-          condition: unoInfo.border['normal']?.hasBorder,
-          trueVal: "bg-op-10",
-        },
-        {
-          condition: theme.value == "default" && !unoInfo.bg['normal']?.hasColor,
-          trueVal: "bg-op-20"
-        }
+      disabledValue ? genUnoClass(!unoInfo.bg['normal']?.op, [
+        { condition: unoInfo.border['normal']?.hasBorder, trueVal: "bg-op-10" },
+        { condition: unoInfo.bg['normal']?.hasColor, trueVal: "bg-op-60" },
+        { condition: theme.value == "default", trueVal: "bg-op-10", falseVal: "bg-op-80" },
+      ]) : genUnoClass(!unoInfo.bg['normal']?.op, [
+        { condition: unoInfo.border['normal']?.hasBorder, trueVal: "bg-op-10" },
+        { condition: unoInfo.bg['normal']?.hasColor, trueVal: "bg-op-90" },
+        { condition: theme.value == "default", trueVal: "bg-op-10" },
       ]),
-      // bg hover color
-      genUnoClass(!unoInfo.bg['hover']?.hasColor || !unref(unref(disabled)), [
-        { condition: unoInfo.bg['normal']?.hasColor, trueVal: "" },
-        {
-          condition: theme.value == "default",
-          trueVal: "hover:bg-gray-500",
-          falseVal: `hover:bg-${theme.value}Heavy`
-        }
-      ]),
+
       // bg hover opacity
-      genUnoClass(!unoInfo.bg['hover']?.op || !unref(unref(disabled)), [
-        { condition: unoInfo.bg['normal']?.hasColor, trueVal: "" },
-        {
-          condition: theme.value == "default",
-          trueVal: "hover:bg-op-25"
-        }
+      disabledValue ? [] : genUnoClass(!unoInfo.bg['hover']?.op, [
+        { condition: unoInfo.bg['normal']?.hasColor, trueVal: "hover:bg-op-100" },
+        { condition: theme.value == "default", trueVal: "hover:bg-op-20" }
       ]),
     ]);
   });

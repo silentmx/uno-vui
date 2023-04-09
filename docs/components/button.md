@@ -1,10 +1,10 @@
 ---
 title: 按钮
 ---
+# 按钮
 
 ## 背景色
-使用```type```来更改背景色调。```class="bg-xxx"```给自定义背景色调，此时hover效果失效，需要```class="hover:bg-xxx"```来设置
-hover背景色,```class="after:shadow-xxx"```设置active动画颜色
+使用```theme```来更改背景色调。```class="bg-xxx"```给自定义背景色调。
 <demo src="../example/button/basic.vue"/>
 
 ## 边框

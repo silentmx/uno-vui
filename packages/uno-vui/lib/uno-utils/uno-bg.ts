@@ -51,14 +51,14 @@ export const unoBg = (
         classVal: "bg-op-10",
         conditions: [
           !unoInfo.bg['normal']?.op,
-          theme.value == "default" || unoInfo.border['normal']?.hasBorder,
-          !unoInfo.bg['normal']?.hasColor
+          unoInfo.border['normal']?.hasBorder || theme.value == "default",
         ]
       },
       {
         classVal: "bg-op-85",
         conditions: [
           !disabledValue,
+          !unoInfo.border['normal']?.hasBorder,
           unoInfo.bg['normal']?.hasColor
         ]
       },
@@ -85,6 +85,16 @@ export const unoBg = (
         conditions: [
           !disabledValue,
           !unoInfo.bg['hover']?.op,
+          !unoInfo.bg['normal']?.op,
+          unoInfo.bg['normal']?.hasColor || unoInfo.border['normal']?.hasBorder
+        ]
+      },
+      {
+        classVal: "hover:bg-op-10",
+        conditions: [
+          !disabledValue,
+          !unoInfo.bg['hover']?.op,
+          unoInfo.bg['normal']?.op,
           unoInfo.bg['normal']?.hasColor || unoInfo.border['normal']?.hasBorder
         ]
       }

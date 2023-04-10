@@ -8,8 +8,7 @@ title: 按钮
 <demo src="../example/button/basic.vue"/>
 
 ## 边框
-可以使用```class="b-xxx"```来定制按钮的边框, 在没有通过```class="bg-xxx"```来设置背景的情况下，背景色会有透明的效果.
-边框颜色默认跟随```type```
+可以使用```class="b-xxx"```来定制按钮的边框类型大小和颜色, 边框颜色默认跟随背景色, 背景色会有透明的效果.
 <demo src="../example/button/border.vue"/>
 
 ## 文本按钮

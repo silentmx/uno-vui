@@ -9,35 +9,15 @@ const startLoading = () => {
 </script>
 
 <template>
-  <div>
-    <div class="flex flex-wrap gap-2">
-      <u-btn disabled>disabled</u-btn>
-      <u-btn disabled type="primary">disabled</u-btn>
-      <u-btn disabled type="accent">disabled</u-btn>
-      <u-btn disabled type="success">disabled</u-btn>
-      <u-btn disabled type="warn">disabled</u-btn>
-      <u-btn disabled type="error">disabled</u-btn>
-    </div>
-    <div class="flex flex-wrap gap-2 mt-2">
-      <u-btn disabled class="b-solid">disabled</u-btn>
-      <u-btn disabled type="primary" class="b-solid">disabled</u-btn>
-      <u-btn disabled type="accent" class="b-solid">disabled</u-btn>
-      <u-btn disabled type="success" class="b-solid">disabled</u-btn>
-      <u-btn disabled type="warn" class="b-solid">disabled</u-btn>
-      <u-btn disabled type="error" class="b-solid">disabled</u-btn>
-    </div>
-    <div class="flex flex-wrap gap-2 mt-2">
-      <u-btn loading class="b-dashed">loading</u-btn>
-      <u-btn loading type="primary" class="b-dashed">loading</u-btn>
-      <u-btn loading type="accent" class="b-dashed">loading</u-btn>
-      <u-btn loading type="success" class="b-dashed">loading</u-btn>
-      <u-btn loading type="warn" class="b-dashed">loading</u-btn>
-      <u-btn loading type="error" class="b-dashed">loading</u-btn>
-    </div>
-    <div class="flex flex-wrap gap-2 mt-2">
-      <u-btn type="primary" :loading="loading" @click="startLoading">
-        {{ loading ? 'Loading~~' : 'Click Me' }}
-      </u-btn>
-    </div>
+  <div class="flex flex-wrap gap-2">
+    <u-btn theme="primary" :loading="loading" @click="startLoading">
+      {{ loading ? 'Loading~~' : 'Click Me' }}
+    </u-btn>
+    <u-btn theme="accent" class="b-solid" :loading="loading" @click="startLoading">
+      {{ loading ? 'Loading~~' : 'Click Me' }}
+    </u-btn>
+    <u-btn theme="accent" class="b-solid bg-op-0" :loading="loading" @click="startLoading">
+      {{ loading ? 'Loading~~' : 'Click Me' }}
+    </u-btn>
   </div>
 </template>

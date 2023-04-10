@@ -52,6 +52,7 @@ export const unoShadowAnimation = (
         conditions: [
           !disabledValue,
           !unoInfo.bg['normal']?.hasColor,
+          !unoInfo.border['normal']?.hasBorder,
           theme.value == "default"
         ]
       },
@@ -59,6 +60,16 @@ export const unoShadowAnimation = (
         classVal: "after:active:op-100",
         conditions: [
           !disabledValue,
+          unoInfo.border['normal']?.hasBorder || parseInt(unoInfo.bg['normal']?.op || '100') > 50,
+          theme.value != "default" || unoInfo.bg['normal']?.hasColor
+        ]
+      },
+      {
+        classVal: "after:active:op-40",
+        conditions: [
+          !disabledValue,
+          !unoInfo.border['normal']?.hasBorder,
+          parseInt(unoInfo.bg['normal']?.op || '100') < 50,
           theme.value != "default" || unoInfo.bg['normal']?.hasColor
         ]
       }

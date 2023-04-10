@@ -1,12 +1,21 @@
 <template>
-  <div class="flex flex-wrap gap-2">
-    <u-btn text>default</u-btn>
-    <u-btn type="primary" text>primary</u-btn>
-    <u-btn type="accent" text class="b-solid">accent</u-btn>
-    <u-btn type="success" text class="b-dashed">success</u-btn>
-    <u-btn type="warn" text>warn</u-btn>
-    <u-btn type="error" text>error</u-btn>
-    <u-btn type="primary" class="bg-cyan after:shadow-cyan" text>cyan</u-btn>
-    <u-btn type="primary" class="bg-#787878 after:shadow-#787878" text>#787878</u-btn>
+  <div>
+    <div class="flex flex-wrap gap-2">
+      <u-btn class="bg-op-0">default</u-btn>
+      <u-btn theme="primary" class="bg-op-0">primary</u-btn>
+      <u-btn theme="accent" class="b-solid bg-op-0">accent</u-btn>
+      <u-btn theme="success" class="b-dashed bg-op-0">success</u-btn>
+      <u-btn class="bg-cyan bg-op-0 b-solid">cyan</u-btn>
+      <u-btn class="bg-#787878 bg-op-0">#787878</u-btn>
+    </div>
+    <div class="mt-4 text-sm">禁用状态:</div>
+    <div class="flex flex-wrap gap-2">
+      <u-btn disabled class="bg-op-0">default</u-btn>
+      <u-btn disabled theme="primary" class="bg-op-0">primary</u-btn>
+      <u-btn disabled theme="accent" class="b-solid bg-op-0">accent</u-btn>
+      <u-btn disabled theme="success" class="b-dashed bg-op-0">success</u-btn>
+      <u-btn disabled class="bg-cyan bg-op-0 b-solid">cyan</u-btn>
+      <u-btn disabled class="bg-#787878 bg-op-0">#787878</u-btn>
+    </div>
   </div>
 </template>

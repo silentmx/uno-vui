@@ -1,4 +1,4 @@
-import type { DeepReadonly, Ref } from "vue";
+import type { ComputedRef, DeepReadonly, Ref } from "vue";
 import type { ThemeType } from "../preset";
 import { genUnoClassString } from "./uno-class";
 import type { UnoClassInfo } from "./uno-type";
@@ -49,7 +49,7 @@ export const unoBorder = (
         classVal: `b-${theme.value}`,
         conditions: [
           !unoInfo.border['normal']?.hasColor,
-          !unoInfo.border['normal']?.hasBorder,
+          unoInfo.border['normal']?.hasBorder,
           theme.value != "default" || !unoInfo.bg['normal']?.hasColor
         ]
       },

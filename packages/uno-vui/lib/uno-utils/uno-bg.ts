@@ -59,6 +59,7 @@ export const unoBg = (
         conditions: [
           !disabledValue,
           !unoInfo.border['normal']?.hasBorder,
+          !unoInfo.bg['normal']?.op,
           unoInfo.bg['normal']?.hasColor
         ]
       },
@@ -67,6 +68,7 @@ export const unoBg = (
         conditions: [
           disabledValue,
           !unoInfo.border['normal']?.hasBorder,
+          !unoInfo.bg['normal']?.op,
           unoInfo.bg['normal']?.hasColor || theme.value != "default",
         ],
       },
@@ -85,7 +87,7 @@ export const unoBg = (
         conditions: [
           !disabledValue,
           !unoInfo.bg['hover']?.op,
-          !unoInfo.bg['normal']?.op,
+          parseInt(unoInfo.bg['normal']?.op || '100') > 50,
           unoInfo.bg['normal']?.hasColor || unoInfo.border['normal']?.hasBorder
         ]
       },
@@ -95,11 +97,12 @@ export const unoBg = (
           !disabledValue,
           !unoInfo.bg['hover']?.op,
           unoInfo.bg['normal']?.op,
-          unoInfo.bg['normal']?.hasColor || unoInfo.border['normal']?.hasBorder
+          unoInfo.bg['normal']?.hasColor || unoInfo.border['normal']?.hasBorder || parseInt(unoInfo.bg['normal']?.op || '100') < 10
         ]
       }
     ]);
   });
+
 
   return readonly(bgClass);
 }

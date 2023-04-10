@@ -1,4 +1,4 @@
-import type { DeepReadonly, Ref } from "vue";
+import type { ComputedRef, DeepReadonly, Ref } from "vue";
 import type { ThemeType } from "../preset";
 import { genUnoClassString } from "./uno-class";
 import type { UnoClassInfo } from "./uno-type";
@@ -37,7 +37,7 @@ export const unoText = (
         conditions: [
           !unoInfo.text['normal']?.hasColor,
           !unoInfo.bg['normal']?.hasColor,
-          unoInfo.border['normal']?.hasBorder,
+          unoInfo.border['normal']?.hasBorder || parseInt(unoInfo.bg['normal']?.op || '100') < 50,
           theme.value != "default",
         ]
       },
@@ -46,6 +46,7 @@ export const unoText = (
         conditions: [
           !unoInfo.text['normal']?.hasColor,
           !unoInfo.border['normal']?.hasBorder,
+          !unoInfo.bg['normal']?.op,
           theme.value != "default" || unoInfo.bg['normal']?.hasColor,
         ]
       },
@@ -53,7 +54,7 @@ export const unoText = (
         classVal: `text-[var(--un-text-color)]`,
         conditions: [
           !unoInfo.text['normal']?.hasColor,
-          unoInfo.border['normal']?.hasBorder,
+          unoInfo.border['normal']?.hasBorder || parseInt(unoInfo.bg['normal']?.op || '100') < 50,
           unoInfo.bg['normal']?.hasColor
         ]
       },
@@ -62,10 +63,11 @@ export const unoText = (
         classVal: "hover:text-light",
         conditions: [
           !disabledValue,
-          theme.value != "default" || unoInfo.bg['normal']?.hasColor,
           !unoInfo.text['normal']?.hasColor,
           !unoInfo.text['hover']?.hasColor,
+          parseInt(unoInfo.bg['normal']?.op || '100') > 50,
           unoInfo.border['normal']?.hasBorder,
+          theme.value != "default" || unoInfo.bg['normal']?.hasColor,
         ]
       }
     ]);

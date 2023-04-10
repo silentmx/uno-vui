@@ -12,12 +12,8 @@ title: 按钮
 <demo src="../example/button/border.vue"/>
 
 ## 文本按钮
-按钮设置```text```属性后会变成文本按钮，默认情况下背景色会变成透明
+按钮设置```class="bg-op-0"```来使按钮背景变成透明
 <demo src="../example/button/text.vue" />
-
-## 圆角按钮
-按钮默认radius为0.25rem，可以通过```class="b-rd-xxx"```来调整按钮的圆角
-<demo src="../example/button/rounded.vue"/>
 
 ## 带图标
 首先需要配置[图标](/components/icon), 加载状态下只会显示加载图标
@@ -31,7 +27,7 @@ title: 按钮
 使用```to```属性来指定跳转链接
 <demo src="../example/button/link.vue" />
 
-## 加载和禁用状态
+## 加载状态
 <demo src="../example/button/state.vue" />
 
 ### 组件```Props```
@@ -39,7 +35,6 @@ title: 按钮
 | --- | --- | --- | --- |
 | type | `'default' \| 'primary' \| 'accent' \| 'success' \| 'warn' \| 'error'` | `default` | 主题颜色 |
 | icon | `string` | `undefined` | [图标名称](/components/icon) |
-| text | `boolean` | `false` | 是否为文本按钮,为true时没有背景色 |
 | loading | `boolean` | `false` | 是否为加载状态 |
 | disabled | `boolean` | `false` | 是否为禁用状态 |
 | to | `string` | `undefined` | 跳转链接地址 |

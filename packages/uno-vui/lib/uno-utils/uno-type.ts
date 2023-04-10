@@ -1,3 +1,5 @@
+import type { ComputedRef, Ref } from 'vue';
+
 type borderInfo = {
   hasBorder?: boolean;
   hasColor?: boolean;
@@ -6,8 +8,13 @@ type borderInfo = {
   direction?: string[];
 }
 
+export type Condition = ComputedRef<boolean | string | undefined | null> |
+  Ref<boolean | string | undefined | null> |
+  boolean | string | undefined | null;
+
 type BgInfo = {
   hasColor?: boolean,
+  color?: string,
   op?: string,
 }
 

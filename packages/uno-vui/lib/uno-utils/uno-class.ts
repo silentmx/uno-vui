@@ -1,6 +1,7 @@
-import { theme } from "unocss/preset-mini";
+import { parseColor, theme } from "unocss/preset-mini";
 import type { ComputedRef, Ref } from "vue";
-import type { UnoClassInfo } from "./uno-type";
+import { prefix } from "../preset";
+import type { Condition, UnoClassInfo } from "./uno-type";
 
 const borderStyles = ["solid", "dashed", "dotted", "double", "groove", "ridge", "inset", "outset"];
 
@@ -12,10 +13,11 @@ const borderStyles = ["solid", "dashed", "dotted", "double", "groove", "ridge", 
  * - 2: 描述类型 `border | bg | text | shadow`
  * - 2: 属性的其他值
  */
-const regexp = new RegExp(/^([^b.]+)?(border|b|rd|bg|text|color|c|after[:-]shadow)(?:-(.+))?$/);
+const regexp = new RegExp(/^([^b.]+)?(border|b|rd|bg|text|color|c)(?:-(.+))?$/);
 const sizeRegexp = new RegExp(/(\d+(px|rem|em)?)$/);
 const directRegexp = new RegExp(/(?:.+-)?([xy])?([rltbse])?(block|inline)?([bi][se])-(?:.+)?/);
 const opRegexp = new RegExp(/(?:.+-)?op(?:acity)?-(\d{1,3})$/);
+const colorRegexp = new RegExp(/(rgb[a]?\(.+\))?(url\(.+\))?(#\d+)?(primary|accent|success|warn|error)?(Heavy|Light)?$/);
 
 /**
  * 对unocss class进行分析
@@ -122,6 +124,7 @@ export const computUnoClassInfo = (
             // has bg color
             if (hasColor(val)) {
               unoClassInfo.bg[prefixKey].hasColor = true;
+              unoClassInfo.bg[prefixKey].color = getColor(val);
             }
 
             // bg opacity
@@ -145,19 +148,6 @@ export const computUnoClassInfo = (
 
             break;
           }
-          // afterShadow
-          case "after:shadow":
-          case "after-shadow": {
-            if (!unoClassInfo.afterShadow[prefixKey]) {
-              unoClassInfo.afterShadow[prefixKey] = {};
-            }
-
-            if (hasColor(val)) {
-              unoClassInfo.afterShadow[prefixKey].hasColor = true;
-            }
-
-            break;
-          }
           default: {
             break;
           }
@@ -169,44 +159,38 @@ export const computUnoClassInfo = (
   });
 }
 
-type Condition = ComputedRef<boolean | string | undefined | null> | Ref<boolean | string | undefined | null> | boolean | string | undefined | null;
-
 /**
- * 按照条件生成对应的unocss class
- * @param preCondition 先决条件
- * @param params 参数列表
- * @param merge 是否合并
- * - true: 依次取值合并
- * - false: 优先级从高到低排列, 一旦获取到class值, 就不再往下执行
+ * 按照约束条件过滤字符串
+ * @param configs 参数，是一个数组
+ * - classVal: 需要约束的值
+ * - conditions {@link Condition} 约束条件数组
+ * - relation: 约束条件之间的关系，and ｜ or， 默认值是and
+ * 
+ * @returns string
  */
-export const genUnoClass = (
-  preCondition: Condition,
-  params: { condition: Condition, trueVal?: string, falseVal?: string }[] = [],
-  merge: boolean = false,
-): string => {
-  let classVal = "";
-  if (unref(unref(preCondition))) {
-    params.some(item => {
-      if (unref(unref(item.condition))) {
-        if (item.trueVal != undefined) {
-          classVal += ` ${item.trueVal}`;
-          if (!merge) {
-            return true;
-          }
-        }
-      } else {
-        if (item.falseVal != undefined) {
-          classVal += ` ${item.falseVal}`;
-          if (!merge) {
-            return true;
-          }
-        }
-      }
-    });
-  }
-  return classVal;
-}
+export const genUnoClassString = (configs: {
+  classVal: string,
+  conditions?: Condition[],
+  relation?: "and" | "or"
+}[] = []): string => {
+  return configs.map(config => {
+    const { classVal = "", conditions = [], relation = "and" } = config;
+    // 如果没有约束条件，直接返回classvVal的值
+    if (conditions.length <= 0) {
+      return classVal;
+    }
 
+    // 对约束条件进行and或者or的测试
+    const condition = relation == "and" ?
+      conditions.every(c => unref(unref(c))) :
+      conditions.some(c => unref(unref(c)));
+
+    // 如果满足约束条件, 返回值
+    if (condition) {
+      return classVal;
+    }
+  }).filter(v => !!v).toString().replace(/,/g, " ");
+}
 
 function getSize(val: string): string | undefined {
   const sizeMatch = sizeRegexp.exec(val);
@@ -219,9 +203,9 @@ function getSize(val: string): string | undefined {
 }
 
 function getDirection(val: string): string | undefined {
-  const directMath = directRegexp.exec(val);
-  if (directMath) {
-    const [, d1, d2, d3, d4] = directMath;
+  const directMatch = directRegexp.exec(val);
+  if (directMatch) {
+    const [, d1, d2, d3, d4] = directMatch;
     return d1 || d2 || d3 || d4;
   }
 
@@ -229,9 +213,9 @@ function getDirection(val: string): string | undefined {
 }
 
 function getOp(val: string): string | undefined {
-  const opMath = opRegexp.exec(val);
-  if (opMath) {
-    const [, op] = opMath;
+  const opMatch = opRegexp.exec(val);
+  if (opMatch) {
+    const [, op] = opMatch;
     return op;
   }
   return undefined;
@@ -248,4 +232,27 @@ function hasColor(val: string): boolean {
     "primary", "accent", "success", "wan", "error",
     ...Object.keys(theme.colors)
   ].some(c => val.includes(c));
+}
+
+/**
+ * 获取颜色
+ * @param val unocss class 字符串
+ */
+function getColor(val: string): string {
+  let color = "";
+  const match = val.match(colorRegexp);
+
+  if (match) {
+    const [input, rgb, url, num, themeKey, themeSuffix] = match;
+    if (input) {
+      color = rgb || url || num || `rgb(var(${prefix}-${themeKey}-${themeSuffix ? themeSuffix.toLowerCase() : ''}))`;
+    } else {
+      const colorString = Object.keys(theme.colors).find(c => val.includes(c));
+      if (colorString) {
+        color = parseColor(colorString, theme)?.color || '';
+      }
+    }
+  }
+
+  return color;
 }

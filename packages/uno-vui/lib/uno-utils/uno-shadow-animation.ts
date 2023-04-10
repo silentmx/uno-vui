@@ -1,6 +1,6 @@
 import type { ComputedRef, DeepReadonly, Ref } from "vue";
-import type { ThemeType } from "../preset";
-import { genUnoClass } from "./uno-class";
+import { prefix, type ThemeType } from "../preset";
+import { genUnoClassString } from "./uno-class";
 import type { UnoClassInfo } from "./uno-type";
 
 /**
@@ -9,10 +9,17 @@ import type { UnoClassInfo } from "./uno-type";
  * @prop `shadowAnimateStyle` width变量
  */
 type ShadowAnimationProps = {
-  shadowAnimateClass: DeepReadonly<ComputedRef<string[]>>;
+  shadowAnimateClass: DeepReadonly<ComputedRef<string>>;
   shadowAnimateStyle: DeepReadonly<ComputedRef<string>>;
 }
 
+/**
+ * 生成关于阴影动画的unocss class string
+ * @param theme {@link ThemeType} 主体色调
+ * @param unoClassInfo {@link UnoClassInfo} 基础unocss class 分析结果
+ * @param disabled 是否被禁用
+ * @returns {DeepReadonly<ComputedRef<string>>} 返回结果
+ */
 export const unoShadowAnimation = (
   theme: Ref<ThemeType>,
   unoClassInfo: DeepReadonly<ComputedRef<UnoClassInfo>>,
@@ -21,40 +28,66 @@ export const unoShadowAnimation = (
 
   const shadowAnimateClass = computed(() => {
     const unoInfo = unref(unref(unoClassInfo));
-    return [
-      genUnoClass(!unref(unref(disabled)), [
-        {
-          condition: true,
-          trueVal: "relative after:content-none after:absolute after:inset-0 after:op-0 after:transition-600 after:rd-inherit"
-        },
-        {
-          condition: true,
-          trueVal: "after:active:shadow-none after:active:transition-0 after:shadow-[0_0_0_var(--un-shadowAnimation-size)_var(--un-shadow-color)]"
-        },
-      ], true),
-      genUnoClass(!unref(unref(disabled)), [
-        // color
-        { condition: unoInfo.afterShadow['normal']?.hasColor, trueVal: `` },
-        { condition: theme.value == "default", trueVal: "after:shadow-gray", falseVal: `after:shadow-${theme.value}Heavy` },
-      ]),
-      genUnoClass(!unref(unref(disabled)), [
-        // opacity
-        {
-          condition: theme.value == "default",
-          trueVal: "after:active:op-20 dark:after:active:op-30",
-          falseVal: `after:active:op-50 dark:after:active:op-90`
-        },
-      ]),
-    ];
+    const disabledValue = unref(unref(disabled));
+
+    return genUnoClassString([
+      // base class
+      {
+        classVal: "relative after:content-none after:absolute after:inset-0 after:op-0 after:transition-600 after:rd-inherit",
+        conditions: [!disabledValue]
+      },
+      // base active class
+      {
+        classVal: "after:active:shadow-none after:active:transition-0",
+        conditions: [!disabledValue]
+      },
+      // color and size var
+      {
+        classVal: "after:shadow-[0_0_0_var(--un-shadowAnimation-size)_var(--un-shadowAnimation-color)]",
+        conditions: [!disabledValue]
+      },
+      // active opacity
+      {
+        classVal: "after:active:op-40",
+        conditions: [
+          !disabledValue,
+          !unoInfo.bg['normal']?.hasColor,
+          theme.value == "default"
+        ]
+      },
+      {
+        classVal: "after:active:op-100",
+        conditions: [
+          !disabledValue,
+          theme.value != "default" || unoInfo.bg['normal']?.hasColor
+        ]
+      }
+    ]);
   });
 
   const shadowAnimateStyle = computed(() => {
     const unoInfo = unref(unref(unoClassInfo));
+    let style = "";
+    // size
     if (unoInfo.border['normal']?.size) {
-      return `--un-shadowAnimation-size: calc( ${unoInfo.border['normal']?.size} + 6px )`;
+      style += `--un-shadowAnimation-size: calc( ${unoInfo.border['normal']?.size} + 6px );`;
     } else {
-      return `--un-shadowAnimation-size: 6px;`
+      style += `--un-shadowAnimation-size: 6px;`
     }
+
+    // color
+    if (unoInfo.bg['normal']?.color) {
+      style += `--un-shadowAnimation-color: ${unoInfo.bg['normal']?.color}`;
+    } else {
+      if (theme.value == "default") {
+        // gray
+        style += `--un-shadowAnimation-color: rgb(156, 163, 175)`;
+      } else {
+        style += `--un-shadowAnimation-color: rgb(var(${prefix}-${theme.value}))`;
+      }
+    }
+
+    return style;
   });
 
   return {

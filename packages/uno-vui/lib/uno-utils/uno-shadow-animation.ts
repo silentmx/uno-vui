@@ -29,56 +29,53 @@ export const unoShadowAnimation = (
   const shadowAnimateClass = computed(() => {
     const unoInfo = unref(unref(unoClassInfo));
     const disabledValue = unref(unref(disabled));
+    const isSingleBorder = unoInfo.border["normal"]?.direction && !(
+      ['x', 'y'].every(d => unoInfo.border["normal"]?.direction?.includes(d)) ||
+      ['r', 'l', 't', 'b'].every(d => unoInfo.border["normal"]?.direction?.includes(d)) ||
+      ['block', 'inline'].every(d => unoInfo.border["normal"]?.direction?.includes(d)) ||
+      ['bs', 'be', 'is', 'ie'].every(d => unoInfo.border["normal"]?.direction?.includes(d))
+    );
 
     return genUnoClassString([
       // base class
       {
         classVal: "relative after:content-none after:absolute after:inset-0 after:op-0 after:transition-600 after:rd-inherit",
-        conditions: [!disabledValue]
+        conditions: [!disabledValue && !isSingleBorder]
       },
       // base active class
       {
         classVal: "after:active:shadow-none after:active:transition-0",
-        conditions: [!disabledValue]
+        conditions: [!disabledValue && !isSingleBorder]
       },
       // color and size var
       {
         classVal: "after:shadow-[0_0_0_var(--un-shadowAnimation-size)_var(--un-shadowAnimation-color)]",
-        conditions: [!disabledValue]
+        conditions: [!disabledValue && !isSingleBorder]
       },
       // active opacity
       {
         classVal: "after:active:op-40",
         conditions: [
-          !disabledValue,
-          !unoInfo.bg['normal']?.hasColor,
-          !unoInfo.border['normal']?.hasBorder,
-          theme.value == "default"
+          !disabledValue && !isSingleBorder,
+          !unoInfo.border['normal']?.hasBorder &&
+          (theme.value == "default" || parseInt(unoInfo.bg['normal']?.op || '100') < 50),
         ]
       },
       {
         classVal: "after:active:op-100",
         conditions: [
-          !disabledValue,
-          unoInfo.border['normal']?.hasBorder || parseInt(unoInfo.bg['normal']?.op || '100') > 50,
-          theme.value != "default" || unoInfo.bg['normal']?.hasColor
+          !disabledValue && !isSingleBorder,
+          unoInfo.border['normal']?.hasBorder ||
+          (theme.value != "default" && parseInt(unoInfo.bg['normal']?.op || '100') > 50),
         ]
       },
-      {
-        classVal: "after:active:op-40",
-        conditions: [
-          !disabledValue,
-          !unoInfo.border['normal']?.hasBorder,
-          parseInt(unoInfo.bg['normal']?.op || '100') < 50,
-          theme.value != "default" || unoInfo.bg['normal']?.hasColor
-        ]
-      }
     ]);
   });
 
   const shadowAnimateStyle = computed(() => {
     const unoInfo = unref(unref(unoClassInfo));
     let style = "";
+
     // size
     if (unoInfo.border['normal']?.size) {
       style += `--un-shadowAnimation-size: calc( ${unoInfo.border['normal']?.size} + 6px );`;

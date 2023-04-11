@@ -10,12 +10,12 @@ const borderStyles = ["solid", "dashed", "dotted", "double", "groove", "ridge", 
  * matchArray
  * - 0: 原字符串
  * - 1: prefix 比如:hover dark after等
- * - 2: 描述类型 `border | bg | text | shadow`
+ * - 2: 描述类型 `border | bg | text`
  * - 2: 属性的其他值
  */
 const regexp = new RegExp(/^([^b.]+)?(border|b|rd|bg|text|color|c)(?:-(.+))?$/);
 const sizeRegexp = new RegExp(/(\d+(px|rem|em)?)$/);
-const directRegexp = new RegExp(/(?:.+-)?([xy])?([rltbse])?(block|inline)?([bi][se])-(?:.+)?/);
+const directRegexp = new RegExp(/(?:.+-)?([xy])?([rltbse])?(block|inline)?([bi][se])?-(?:.+)?/);
 const opRegexp = new RegExp(/(?:.+-)?op(?:acity)?-(\d{1,3})$/);
 const colorRegexp = new RegExp(/(rgb[a]?\(.+\))?(url\(.+\))?(#\d+)?(primary|accent|success|warn|error)?(Heavy|Light)?$/);
 

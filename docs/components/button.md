@@ -33,7 +33,7 @@ title: 按钮
 ### 组件```Props```
 | 名称 | 类型 | 默认值 | 描述 |
 | --- | --- | --- | --- |
-| type | `'default' \| 'primary' \| 'accent' \| 'success' \| 'warn' \| 'error'` | `default` | 主题颜色 |
+| theme | `'default' \| 'primary' \| 'accent' \| 'success' \| 'warn' \| 'error'` | `default` | 主题颜色 |
 | icon | `string` | `undefined` | [图标名称](/components/icon) |
 | loading | `boolean` | `false` | 是否为加载状态 |
 | disabled | `boolean` | `false` | 是否为禁用状态 |

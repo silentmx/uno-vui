@@ -65,7 +65,7 @@ export default defineConfig({
 ```
 
 ## 基础用法
-使用name属性定义图标名称, ```type```属性来改变图标的颜色
+使用name属性定义图标名称, ```theme```来更改背景色调。```class="text-xxx"```给自定义背景色调。
 <demo src="../example/icon/basic.vue"></demo>
 
 ## 任意颜色
@@ -86,4 +86,4 @@ export default defineConfig({
 | 名称 | 类型 | 默认值 | 描述 |
 | --- | --- | --- | --- |
 | name | `string` | `undefined` | 图标名称 |
-| type | `'default' \| 'primary' \| 'accent' \| 'warn' \| 'success' \| 'error'` | `default` | 图标主题颜色 |
+| theme | `'default' \| 'primary' \| 'accent' \| 'warn' \| 'success' \| 'error'` | `default` | 图标主题颜色 |

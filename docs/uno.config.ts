@@ -1,4 +1,8 @@
-import { promises as fs } from 'node:fs';
+import {
+  deOptimisePaths,
+  importDirectory,
+  runSVGO,
+} from '@iconify/tools';
 import { presetUnoVui } from 'uno-vui';
 import {
   defineConfig,
@@ -16,19 +20,22 @@ export default defineConfig({
     presetIcons({
       // scale: 1.2,
       collections: {
-        "svgs": (name) => {
-          return fs.readFile(`./public/svgs/${name}.svg`, "utf-8");
-        },
-        "csvgs": (name) => {
-          return fs.readFile(`./public/svgs/${name}.svg`, 'utf-8');
-        }
-      },
-      customizations: {
-        transform(svg, collection) {
-          if (collection == "csvgs") {
-            return svg;
-          }
-          return svg.replace(/fill=[\'\"]\S*[\'\"]/, "fill=\"currentColor\"");
+        // Loading custon icon set
+        "csvg": async () => {
+          // load icons
+          const iconSet = await importDirectory("./public/svgs", {
+            prefix: "svg",
+          });
+          // Clean up each icon
+          await iconSet.forEach(async (name) => {
+            const svg = iconSet.toSVG(name)!;
+            // Optimise
+            runSVGO(svg);
+            // Update paths for compatibility with old software
+            await deOptimisePaths(svg);
+          });
+          // Export as IconifyJSON
+          return iconSet.export();
         }
       },
       extraProperties: {

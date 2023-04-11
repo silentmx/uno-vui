@@ -23,12 +23,14 @@ type TextProps = {
 export const unoText = (
   theme: Ref<ThemeType>,
   unoClassInfo: DeepReadonly<ComputedRef<UnoClassInfo>>,
-  disabled?: ComputedRef<boolean> | Ref<boolean> | boolean
+  disabled?: ComputedRef<boolean> | Ref<boolean> | boolean,
+  onlyText?: ComputedRef<boolean> | Ref<boolean> | boolean,
 ): TextProps => {
 
   const textClass = computed(() => {
     const unoInfo = unref(unref(unoClassInfo));
     const disabledValue = unref(unref(disabled));
+    const isOnlyText = unref(unref(onlyText));
 
     return genUnoClassString([
       // text color
@@ -37,7 +39,7 @@ export const unoText = (
         conditions: [
           !unoInfo.text['normal']?.hasColor,
           !unoInfo.bg['normal']?.hasColor,
-          unoInfo.border['normal']?.hasBorder || parseInt(unoInfo.bg['normal']?.op || '100') < 50,
+          (unoInfo.border['normal']?.hasBorder || parseInt(unoInfo.bg['normal']?.op || '100') < 50 || isOnlyText),
           theme.value != "default",
         ]
       },
@@ -46,14 +48,17 @@ export const unoText = (
         conditions: [
           !unoInfo.text['normal']?.hasColor,
           !unoInfo.border['normal']?.hasBorder,
-          !unoInfo.bg['normal']?.op,
-          theme.value != "default" || unoInfo.bg['normal']?.hasColor,
+          !isOnlyText,
+          !unoInfo.bg['normal']?.hasColor,
+          !unoInfo.bg['normal']?.op || parseInt(unoInfo.bg['normal']?.op || '100') > 50,
+          theme.value != "default"
         ]
       },
       {
         classVal: `text-[var(--un-text-color)]`,
         conditions: [
           !unoInfo.text['normal']?.hasColor,
+          !isOnlyText,
           unoInfo.border['normal']?.hasBorder || parseInt(unoInfo.bg['normal']?.op || '100') < 50,
           unoInfo.bg['normal']?.hasColor
         ]
@@ -65,6 +70,7 @@ export const unoText = (
           !disabledValue,
           !unoInfo.text['normal']?.hasColor,
           !unoInfo.text['hover']?.hasColor,
+          !isOnlyText,
           parseInt(unoInfo.bg['normal']?.op || '100') > 50,
           unoInfo.border['normal']?.hasBorder,
           theme.value != "default" || unoInfo.bg['normal']?.hasColor,

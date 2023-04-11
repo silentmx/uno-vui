@@ -32,7 +32,6 @@ export const computUnoClassInfo = (
       border: {},
       bg: {},
       text: {},
-      afterShadow: {}
     };
 
     // 从组件attrs获取有效的unocss

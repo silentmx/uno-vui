@@ -25,8 +25,8 @@ export const unoBg = (
       {
         classVal: `bg-${theme.value}`,
         conditions: [
+          !unoInfo.bg['normal']?.hasColor,
           theme.value != "default",
-          !unoInfo.bg['normal']?.hasColor
         ]
       },
       {
@@ -40,10 +40,10 @@ export const unoBg = (
       {
         classVal: `hover:bg-${theme.value}Heavy`,
         conditions: [
-          !disabledValue,
-          theme.value != "default",
+          !unoInfo.bg['normal']?.hasColor,
           !unoInfo.bg['hover']?.hasColor,
-          !unoInfo.bg['normal']?.hasColor
+          theme.value != "default",
+          !disabledValue,
         ]
       },
       // bg opacity
@@ -55,15 +55,6 @@ export const unoBg = (
         ]
       },
       {
-        classVal: "bg-op-85",
-        conditions: [
-          !disabledValue,
-          !unoInfo.border['normal']?.hasBorder,
-          !unoInfo.bg['normal']?.op,
-          unoInfo.bg['normal']?.hasColor
-        ]
-      },
-      {
         classVal: "bg-op-70",
         conditions: [
           disabledValue,
@@ -72,14 +63,31 @@ export const unoBg = (
           unoInfo.bg['normal']?.hasColor || theme.value != "default",
         ],
       },
+      {
+        classVal: "bg-op-85",
+        conditions: [
+          !disabledValue,
+          !unoInfo.border['normal']?.hasBorder,
+          !unoInfo.bg['normal']?.op,
+          unoInfo.bg['normal']?.hasColor
+        ]
+      },
       // bg hover opacity
+      {
+        classVal: "hover:bg-op-10",
+        conditions: [
+          !disabledValue,
+          !unoInfo.bg['hover']?.op,
+          parseInt(unoInfo.bg['normal']?.op || '100') < 10
+        ]
+      },
       {
         classVal: "hover:bg-op-20",
         conditions: [
           !disabledValue,
-          theme.value == "default",
           !unoInfo.bg['hover']?.op,
-          !unoInfo.bg['normal']?.hasColor
+          !unoInfo.bg['normal']?.hasColor,
+          theme.value == "default",
         ]
       },
       {
@@ -91,15 +99,6 @@ export const unoBg = (
           unoInfo.bg['normal']?.hasColor || unoInfo.border['normal']?.hasBorder
         ]
       },
-      {
-        classVal: "hover:bg-op-10",
-        conditions: [
-          !disabledValue,
-          !unoInfo.bg['hover']?.op,
-          unoInfo.bg['normal']?.op,
-          unoInfo.bg['normal']?.hasColor || unoInfo.border['normal']?.hasBorder || parseInt(unoInfo.bg['normal']?.op || '100') < 10
-        ]
-      }
     ]);
   });
 

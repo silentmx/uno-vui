@@ -7,14 +7,14 @@ const props = defineProps({
     type: String,
     required: true,
   },
-  type: {
+  theme: {
     type: String as PropType<ThemeType>,
     default: "default"
   },
 });
 
 const unoClassInfo = computUnoClassInfo();
-const textClass = unoText(toRef(props, "type"), unoClassInfo);
+const { textClass } = unoText(toRef(props, "theme"), unoClassInfo, false, true);
 </script>
 
 <template>

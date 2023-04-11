@@ -22,10 +22,6 @@ type TextInfo = {
   hasColor?: boolean
 }
 
-type AfterShadowInfo = {
-  hasColor?: boolean
-}
-
 export type UnoClassInfo = {
   border: {
     [prefix: string]: borderInfo
@@ -36,7 +32,4 @@ export type UnoClassInfo = {
   text: {
     [prefix: string]: TextInfo
   },
-  afterShadow: {
-    [prefix: string]: AfterShadowInfo,
-  }
 }

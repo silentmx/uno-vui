@@ -30,13 +30,13 @@ export const unoBorder = (
     const disabledValue = unref(unref(disabled));
 
     return genUnoClassString([
-      // border radius
+      // radius
       {
         classVal: "b-rd", conditions: [
           !unoInfo.border['normal']?.hasRadius
         ]
       },
-      // border size
+      // size
       {
         classVal: "b",
         conditions: [
@@ -44,7 +44,7 @@ export const unoBorder = (
           !unoInfo.border['normal']?.size
         ]
       },
-      // border color
+      // color
       {
         classVal: `b-${theme.value}`,
         conditions: [

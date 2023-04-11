@@ -7,7 +7,6 @@ export * from './components';
 export * from './directives';
 export { presetUnoVui } from './preset';
 
-
 export const Unovui = {
   install(app: App) {
     components.forEach(c => app.use(c));

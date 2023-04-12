@@ -13,7 +13,7 @@
   },
   "devDependencies": {
     "@floating-ui/vue": "^0.2.1",
-    "@iconify/json": "^2.2.47",
+    "@iconify/json": "^2.2.48",
     "@iconify/tools": "^2.2.6",
     "@types/fs-extra": "^11.0.1",
     "@types/jsdom": "^21.1.1",
@@ -29,12 +29,12 @@
     "tsx": "^3.12.6",
     "typescript": "~5.0.4",
     "uno-vui": "workspace:*",
-    "unocss": "^0.51.2",
+    "unocss": "^0.51.4",
     "unplugin-auto-import": "^0.15.2",
     "unplugin-vue-components": "^0.24.1",
     "vite": "^4.2.1",
     "vitepress": "1.0.0-alpha.65",
-    "vitest": "^0.30.0",
+    "vitest": "^0.30.1",
     "vue": "^3.2.47",
     "vue-tsc": "^1.2.0"
   },

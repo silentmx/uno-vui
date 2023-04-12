@@ -67,13 +67,13 @@ export default defineConfig({
     presetIcons({
       // scale: 1.2,
       collections: {
-        // 自定义svg图标,这里配置图标存放地址/public/svgs
+        // 自定义svg图标,这里配置图标存放地址assets/svgs
         // 使用: <u-icon name="i-[name]"></u-icon> 或者<div class="i-[name]"></div>
 
         // Loading custon icon set
         "csvg": async () => {
           // load icons
-          const iconSet = await importDirectory("./public/svgs", {
+          const iconSet = await importDirectory("assets/svgs", {
             prefix: "svg",
           });
           // Clean up each icon

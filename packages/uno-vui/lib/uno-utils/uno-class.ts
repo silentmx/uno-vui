@@ -160,33 +160,48 @@ export const computUnoClassInfo = (
 
 /**
  * 按照约束条件过滤字符串
- * @param configs 参数，是一个数组
+ * @param commonCondition 公共条件
+ * @param options 参数，是一个数组
  * - classVal: 需要约束的值
  * - conditions {@link Condition} 约束条件数组
  * - relation: 约束条件之间的关系，and ｜ or， 默认值是and
  * 
  * @returns string
  */
-export const genUnoClassString = (configs: {
-  classVal: string,
-  conditions?: Condition[],
-  relation?: "and" | "or"
-}[] = []): string => {
+export const genUnoClass = (
+  configs: {
+    commonCondition: Condition,
+    options?: {
+      classVal: string,
+      conditions?: {
+        condition: Condition,
+        prefix?: "not" | ""
+      }[],
+      relation?: "and" | "or"
+    }[]
+  }[] = []
+): string => {
   return configs.map(config => {
-    const { classVal = "", conditions = [], relation = "and" } = config;
-    // 如果没有约束条件，直接返回classvVal的值
-    if (conditions.length <= 0) {
-      return classVal;
-    }
+    const { commonCondition, options = [] } = config;
+    if (unref(unref(commonCondition))) {
+      return options.map(option => {
+        const { classVal = "", conditions = [], relation = "and" } = option;
+        // 如果没有约束条件，直接返回classvVal的值
+        if (conditions.length <= 0) {
+          return classVal;
+        }
+        // 对约束条件进行and或者or的测试
+        const condition = relation == "and" ?
+          conditions.every(c => c.prefix != "not" ? unref(unref(c.condition)) : !unref(unref(c.condition))) :
+          conditions.some(c => c.prefix != "not" ? unref(unref(c.condition)) : !unref(unref(c.condition)));
 
-    // 对约束条件进行and或者or的测试
-    const condition = relation == "and" ?
-      conditions.every(c => unref(unref(c))) :
-      conditions.some(c => unref(unref(c)));
-
-    // 如果满足约束条件, 返回值
-    if (condition) {
-      return classVal;
+        // 如果满足约束条件, 返回值
+        if (condition) {
+          return classVal;
+        }
+      }).filter(v => !!v).toString().replace(/,/g, " ");
+    } else {
+      return "";
     }
   }).filter(v => !!v).toString().replace(/,/g, " ");
 }

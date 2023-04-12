@@ -31,18 +31,17 @@ const baseClass = computed(() => {
   ];
 });
 const unoClassInfo = computUnoClassInfo(baseClass);
-
-const bgClass = unoBg(toRef(props, "theme"), unoClassInfo, isDisabled);
-const { borderClass, borderStyle } = unoBorder(toRef(props, "theme"), unoClassInfo, isDisabled);
-const { textClass, textStyle } = unoText(toRef(props, "theme"), unoClassInfo, isDisabled);
-const cursorClass = unoCursor(toRef(props, "loading"), toRef(props, "disabled"));
-const { shadowAnimateClass, shadowAnimateStyle } = unoShadowAnimation(toRef(props, "theme"), unoClassInfo, isDisabled);
+const { bgClass, bgStyle } = unoBg(toRef(props, "theme"), unoClassInfo, isDisabled);
+const { borderClass } = unoBorder(toRef(props, "theme"), unoClassInfo, isDisabled);
+const { textClass } = unoText(toRef(props, "theme"), unoClassInfo, isDisabled);
+const { cursorClass } = unoCursor(toRef(props, "loading"), toRef(props, "disabled"));
+const { shadowAnimateClass, shadowAnimateStyle } = unoShadowAnimation(toRef(props, "theme"), unoClassInfo, toRef(props, "disabled"));
 </script>
 
 <template>
   <component :is="to ? 'a' : 'button'" v-bind="extraAttrs" :disabled="isDisabled" :aria-disabled="isDisabled"
-    :class="[baseClass, borderClass, bgClass, textClass, cursorClass, shadowAnimateClass]"
-    :style="[shadowAnimateStyle, textStyle, borderStyle]">
+    :class="[baseClass, bgClass, borderClass, textClass, cursorClass, shadowAnimateClass]"
+    :style="[shadowAnimateStyle, bgStyle]">
     <div v-if="loading" class="i-eos-icons:loading"></div>
     <div v-else-if="icon" :class="icon"></div>
     <slot></slot>

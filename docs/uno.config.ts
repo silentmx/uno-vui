@@ -23,7 +23,7 @@ export default defineConfig({
         // Loading custon icon set
         "csvg": async () => {
           // load icons
-          const iconSet = await importDirectory("./public/svgs", {
+          const iconSet = await importDirectory("assets/svgs", {
             prefix: "svg",
           });
           // Clean up each icon

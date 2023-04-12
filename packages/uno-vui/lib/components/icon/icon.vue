@@ -14,8 +14,12 @@ const props = defineProps({
   },
 });
 
-const unoClassInfo = computUnoClassInfo(toRef(props, "name"));
-const { textClass } = unoText(toRef(props, "theme"), unoClassInfo, false, true);
+// 这里添加边框只是为了使图标的颜色默认使用theme的设置
+const baseClass = computed(() => {
+  return [props.name, "b-solid"];
+});
+const unoClassInfo = computUnoClassInfo(baseClass);
+const { textClass } = unoText(toRef(props, "theme"), unoClassInfo);
 </script>
 
 <template>

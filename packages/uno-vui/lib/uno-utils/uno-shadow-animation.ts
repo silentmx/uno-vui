@@ -1,16 +1,15 @@
 import type { ComputedRef, DeepReadonly, Ref } from "vue";
 import { prefix, type ThemeType } from "../preset";
-import { genUnoClassString } from "./uno-class";
+import { genUnoClass } from "./uno-class";
 import type { UnoClassInfo } from "./uno-type";
 
 /**
  * @typedef { Object } 阴影动画props
  * @prop `shadowAnimateClass` 阴影动画class
- * @prop `shadowAnimateStyle` width变量
  */
 type ShadowAnimationProps = {
   shadowAnimateClass: DeepReadonly<ComputedRef<string>>;
-  shadowAnimateStyle: DeepReadonly<ComputedRef<string>>;
+  shadowAnimateStyle: DeepReadonly<ComputedRef<string>>,
 }
 
 /**
@@ -21,12 +20,13 @@ type ShadowAnimationProps = {
  * @returns {DeepReadonly<ComputedRef<string>>} 返回结果
  */
 export const unoShadowAnimation = (
-  theme: Ref<ThemeType>,
+  theme: Ref<ThemeType> | ThemeType,
   unoClassInfo: DeepReadonly<ComputedRef<UnoClassInfo>>,
   disabled?: ComputedRef<boolean> | Ref<boolean> | boolean,
 ): ShadowAnimationProps => {
 
   const shadowAnimateClass = computed(() => {
+    const themeVal = unref(theme);
     const unoInfo = unref(unref(unoClassInfo));
     const disabledValue = unref(unref(disabled));
     const isSingleBorder = unoInfo.border["normal"]?.direction && !(
@@ -36,39 +36,32 @@ export const unoShadowAnimation = (
       ['bs', 'be', 'is', 'ie'].every(d => unoInfo.border["normal"]?.direction?.includes(d))
     );
 
-    return genUnoClassString([
-      // base class
+    return genUnoClass([
       {
-        classVal: "relative after:content-none after:absolute after:inset-0 after:op-0 after:transition-600 after:rd-inherit",
-        conditions: [!disabledValue && !isSingleBorder]
-      },
-      // base active class
-      {
-        classVal: "after:active:shadow-none after:active:transition-0",
-        conditions: [!disabledValue && !isSingleBorder]
-      },
-      // color and size var
-      {
-        classVal: "after:shadow-[0_0_0_var(--un-shadowAnimation-size)_var(--un-shadowAnimation-color)]",
-        conditions: [!disabledValue && !isSingleBorder]
+        commonCondition: !disabledValue && !isSingleBorder,
+        options: [
+          { classVal: "relative after:content-none after:absolute after:inset-0 after:op-0 after:transition-600 after:rd-inherit" },
+          { classVal: "after:active:shadow-none after:active:transition-0" },
+          { classVal: `after:shadow-[0_0_0_var(--unovui-shadowAnimation-size)_var(--unovui-bg-color)]` },
+          // active opacity
+          {
+            classVal: "after:active:op-40",
+            conditions: [
+              { condition: unoInfo.border['normal']?.hasBorder, prefix: "not" },
+              { condition: !(themeVal != "default" || unoInfo.bg['normal']?.hasColor) || unoInfo.bg['normal']?.op }
+            ]
+          },
+          {
+            classVal: "after:active:op-100",
+            conditions: [
+              { condition: unoInfo.border['normal']?.hasBorder },
+              { condition: (themeVal != "default" || unoInfo.bg['normal']?.hasColor) && !unoInfo.bg['normal']?.op }
+            ],
+            relation: "or"
+          },
+        ]
       },
       // active opacity
-      {
-        classVal: "after:active:op-40",
-        conditions: [
-          !disabledValue && !isSingleBorder,
-          !unoInfo.border['normal']?.hasBorder &&
-          (theme.value == "default" || parseInt(unoInfo.bg['normal']?.op || '100') < 50),
-        ]
-      },
-      {
-        classVal: "after:active:op-100",
-        conditions: [
-          !disabledValue && !isSingleBorder,
-          unoInfo.border['normal']?.hasBorder ||
-          (theme.value != "default" && parseInt(unoInfo.bg['normal']?.op || '100') > 50),
-        ]
-      },
     ]);
   });
 
@@ -78,21 +71,9 @@ export const unoShadowAnimation = (
 
     // size
     if (unoInfo.border['normal']?.size) {
-      style += `--un-shadowAnimation-size: calc( ${unoInfo.border['normal']?.size} + 6px );`;
+      style += `${prefix}-shadowAnimation-size: calc( ${unoInfo.border['normal']?.size} + 6px );`;
     } else {
-      style += `--un-shadowAnimation-size: 6px;`
-    }
-
-    // color
-    if (unoInfo.bg['normal']?.color) {
-      style += `--un-shadowAnimation-color: ${unoInfo.bg['normal']?.color}`;
-    } else {
-      if (theme.value == "default") {
-        // gray
-        style += `--un-shadowAnimation-color: rgb(156, 163, 175)`;
-      } else {
-        style += `--un-shadowAnimation-color: rgb(var(${prefix}-${theme.value}))`;
-      }
+      style += `${prefix}-shadowAnimation-size: 6px;`
     }
 
     return style;

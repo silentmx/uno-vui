@@ -19,7 +19,7 @@ const baseClass = computed(() => {
   return [props.name, "b-solid"];
 });
 const unoClassInfo = computUnoClassInfo(baseClass);
-const { textClass } = unoText(toRef(props, "theme"), unoClassInfo);
+const { textClass } = unoText(toRef(props, "theme"), unoClassInfo, true);
 </script>
 
 <template>

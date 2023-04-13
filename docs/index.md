@@ -13,7 +13,7 @@
     alt: uno-vui
     actions:
       - theme: brand
-        text: 快速上手
+        text: 快速开始
         link: /guide/
       - theme: alt
         text: 组件

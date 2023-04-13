@@ -5,6 +5,10 @@ title: 图标
 # 图标
 以纯css的方式使用任何图标，更多信息请查看[@unocss/preset-icons](https://unocss.dev/presets/icons)，
 如果IDE为[vscode](https://code.visualstudio.com/),推荐先安装[Iconify](https://marketplace.visualstudio.com/items?itemName=antfu.iconify)插件
+::: tip 提示
+使用前需要对图标进行配置，配置说明请看[快速开始](/guide/)。
+图标名称一定要加上前缀, 默认前缀为`i-`
+:::
 
 ## 基础用法
 使用name属性定义图标名称, ```theme```来更改背景色调。```class="text-xxx"```给自定义背景色调。

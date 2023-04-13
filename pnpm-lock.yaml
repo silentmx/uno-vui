@@ -8,8 +8,8 @@ importers:
         specifier: ^0.2.1
         version: 0.2.1(vue@3.2.47)
       '@iconify/json':
-        specifier: ^2.2.48
-        version: 2.2.48
+        specifier: ^2.2.49
+        version: 2.2.49
       '@iconify/tools':
         specifier: ^2.2.6
         version: 2.2.6
@@ -530,8 +530,8 @@ packages:
       vue-demi: 0.13.11(vue@3.2.47)
     dev: true
 
-  /@iconify/json@2.2.48:
-    resolution: {integrity: sha512-UIx3Gja7Gdqs0ACvDIVhBUKCxOupMBsVcLwRDhIXskRxA/MZs7zNyoQM560ZHpQBcp2DklzvavjYro5tlifsIQ==}
+  /@iconify/json@2.2.49:
+    resolution: {integrity: sha512-s0KqXftC4jgxqXvihQWHadxX8tHe3HHdARgd32Y3otWEhGMBl/ZkneBvYFlYKkh1LEAKDJXkkV35U3nCDnBmBA==}
     dependencies:
       '@iconify/types': 2.0.0
       pathe: 1.1.0
@@ -2052,7 +2052,7 @@ packages:
       http-proxy-agent: 5.0.0
       https-proxy-agent: 5.0.1
       is-potential-custom-element-name: 1.0.1
-      nwsapi: 2.2.3
+      nwsapi: 2.2.4
       parse5: 7.1.2
       rrweb-cssom: 0.6.0
       saxes: 6.0.0
@@ -2331,8 +2331,8 @@ packages:
       boolbase: 1.0.0
     dev: true
 
-  /nwsapi@2.2.3:
-    resolution: {integrity: sha512-jscxIO4/VKScHlbmFBdV1Z6LXnLO+ZR4VMtypudUdfwtKxUN3TQcNFIHLwKtrUbDyHN4/GycY9+oRGZ2XMXYPw==}
+  /nwsapi@2.2.4:
+    resolution: {integrity: sha512-NHj4rzRo0tQdijE9ZqAx6kYDcoRwYwSYzCA8MY3JzfxlrvEU0jhnhJT9BhqhJs7I/dKcrDm6TyulaRqZPIhN5g==}
     dev: true
 
   /ofetch@1.0.1:

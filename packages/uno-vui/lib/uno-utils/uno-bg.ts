@@ -98,7 +98,7 @@ export const unoBg = (
           {
             classVal: "hover:bg-op-10",
             conditions: [
-              { condition: parseInt(unoInfo.bg['normal']?.op || '100') < 10 }
+              { condition: parseInt(unoInfo.bg['normal']?.op || '100') <= 10 }
             ]
           },
           {
@@ -111,7 +111,7 @@ export const unoBg = (
           {
             classVal: "hover:bg-op-100",
             conditions: [
-              { condition: parseInt(unoInfo.bg['normal']?.op || '100') > 70 },
+              { condition: parseInt(unoInfo.bg['normal']?.op || '100') >= 70 },
               { condition: unoInfo.bg['normal']?.hasColor },
             ]
           }

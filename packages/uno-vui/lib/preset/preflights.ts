@@ -7,7 +7,7 @@ export function setPreflights(themes: ThemeConfig[], dark: ColorRegionType, ligh
     {
       layer: "theme",
       getCSS: () => genPrelightCss(themes, dark, light),
-    }
+    },
   ];
 }
 

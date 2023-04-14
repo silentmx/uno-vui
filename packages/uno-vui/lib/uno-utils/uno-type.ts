@@ -8,10 +8,6 @@ type borderInfo = {
   direction?: string[];
 }
 
-export type Condition = ComputedRef<boolean | string | undefined | null> |
-  Ref<boolean | string | undefined | null> |
-  boolean | string | undefined | null;
-
 type BgInfo = {
   hasColor?: boolean,
   color?: string,
@@ -24,7 +20,7 @@ type TextInfo = {
 
 export type UnoClassInfo = {
   border: {
-    [prefix: string]: borderInfo
+    [prefix: string]: borderInfo,
   },
   bg: {
     [prefix: string]: BgInfo,
@@ -33,3 +29,7 @@ export type UnoClassInfo = {
     [prefix: string]: TextInfo
   },
 }
+
+export type Condition = ComputedRef<boolean | string | undefined | null> |
+  Ref<boolean | string | undefined | null> |
+  boolean | string | undefined | null;

@@ -1,5 +1,5 @@
 import { parseColor, theme } from "unocss/preset-mini";
-import type { ComputedRef, Ref } from "vue";
+import type { ComputedRef, DeepReadonly, Ref } from "vue";
 import { prefix } from "../preset";
 import type { Condition, UnoClassInfo } from "./uno-type";
 
@@ -19,15 +19,27 @@ const directRegexp = new RegExp(/(?:.+-)?([xy])?([rltbse])?(block|inline)?([bi][
 const opRegexp = new RegExp(/(?:.+-)?op(?:acity)?-(\d{1,3})$/);
 const colorRegexp = new RegExp(/(rgb[a]?\(.+\))?(url\(.+\))?(#\d+)?(primary|accent|success|warn|error)?(Heavy|Light)?$/);
 
+
+/**
+ * @typedef { Object } 文本props
+ * @prop `textClass` text class
+ */
+type UnoProps = {
+  unoClass: DeepReadonly<Ref<string>>;
+  unoClassInfo: DeepReadonly<ComputedRef<UnoClassInfo>>
+}
+
 /**
  * 对unocss class进行分析
  * @param extraClass 
- * @returns `unoClassInfo` {@link UnoClassInfo}
+ * @returns `UnoProps` {@link UnoProps}
  */
 export const computUnoClassInfo = (
   baseClass?: ComputedRef<string | string[]> | Ref<string | string[]> | string | string[],
-) => {
-  return computed(() => {
+): UnoProps => {
+  const unoClass = ref("");
+
+  const unoClassInfo = computed(() => {
     const unoClassInfo: UnoClassInfo = {
       border: {},
       bg: {},
@@ -63,6 +75,7 @@ export const computUnoClassInfo = (
     classList.forEach(item => {
       const matchArray = regexp.exec(item);
       if (matchArray) {
+        unoClass.value += ` ${item}`;
         const [, prefix = "normal", type, val = ""] = matchArray;
         const prefixKey = prefix.split(/[:-]/g).sort().filter(v => !!v).toString();
 
@@ -156,6 +169,11 @@ export const computUnoClassInfo = (
 
     return readonly(unoClassInfo);
   });
+
+  return {
+    unoClass: readonly(unoClass),
+    unoClassInfo: readonly(unoClassInfo),
+  }
 }
 
 /**

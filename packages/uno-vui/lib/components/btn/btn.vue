@@ -30,7 +30,7 @@ const baseClass = computed(() => {
     onlyIcon.value ? "aspect-square p-1" : "px-0.875em py-0.25em"
   ];
 });
-const unoClassInfo = computUnoClassInfo(baseClass);
+const { unoClassInfo } = computUnoClassInfo(baseClass);
 const { bgClass, bgStyle } = unoBg(toRef(props, "theme"), unoClassInfo, isDisabled);
 const { borderClass } = unoBorder(toRef(props, "theme"), unoClassInfo, isDisabled);
 const { textClass } = unoText(toRef(props, "theme"), unoClassInfo, isDisabled);
@@ -42,8 +42,8 @@ const { shadowAnimateClass, shadowAnimateStyle } = unoShadowAnimation(toRef(prop
   <component :is="to ? 'a' : 'button'" v-bind="extraAttrs" :disabled="isDisabled" :aria-disabled="isDisabled"
     :class="[baseClass, bgClass, borderClass, textClass, cursorClass, shadowAnimateClass]"
     :style="[shadowAnimateStyle, bgStyle]">
-    <div v-if="loading" class="i-eos-icons:loading"></div>
-    <div v-else-if="icon" :class="icon"></div>
+    <i v-if="loading" class="i-eos-icons:loading"></i>
+    <i v-else-if="icon" :class="icon"></i>
     <slot></slot>
   </component>
 </template>

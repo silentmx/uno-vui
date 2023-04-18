@@ -1,5 +1,5 @@
 import type { Placement } from '@floating-ui/vue';
-import { defaultDocument, type Fn, type MaybeComputedRef } from "@vueuse/core";
+import { defaultDocument, type Fn, type MaybeRef } from "@vueuse/core";
 import { h, render, type Component, type ComponentInternalInstance, type DirectiveBinding, type FunctionDirective, type VNode } from "vue";
 import { useOverlay } from "../../composables/use-overlay";
 import type { SFCInstallWithContext } from '../../composables/with-install';
@@ -21,7 +21,7 @@ function isTrigger(value: any): value is Trigger {
   return value === "hover" || value === "click" || value === "contextmenu" || value === "focus";
 }
 
-export function popupFn(el: MaybeComputedRef<EventTarget | null | undefined>, options: UseUnoPopupOptions): void {
+export function popupFn(el: MaybeRef<EventTarget | null | undefined>, options: UseUnoPopupOptions): void {
   const {
     element,
     trigger = "hover",

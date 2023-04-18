@@ -1,8 +1,4 @@
-import {
-  deOptimisePaths,
-  importDirectory,
-  runSVGO,
-} from '@iconify/tools';
+import { deOptimisePaths, importDirectory, runSVGO } from '@iconify/tools';
 import { presetUnoVui } from 'uno-vui';
 import {
   defineConfig,
@@ -20,21 +16,31 @@ export default defineConfig({
     presetIcons({
       // scale: 1.2,
       collections: {
-        // Loading custon icon set
+        // Loading custom icon set
         "csvg": async () => {
           // load icons
           const iconSet = await importDirectory("assets/svgs", {
             prefix: "svg",
           });
-          // Clean up each icon
-          await iconSet.forEach(async (name) => {
-            const svg = iconSet.toSVG(name)!;
-            // Optimise
-            runSVGO(svg);
-            // Update paths for compatibility with old software
-            await deOptimisePaths(svg);
+
+          await iconSet.forEach(async (name, type) => {
+            if (type !== "icon") {
+              return;
+            }
+
+            const svg = iconSet.toSVG(name);
+            if (svg) {
+              // Optimise
+              runSVGO(svg);
+
+              // Update paths for compatibility with old software
+              await deOptimisePaths(svg);
+            } else {
+              iconSet.remove(name);
+              return;
+            }
           });
-          // Export as IconifyJSON
+          // Export as IconifyJson
           return iconSet.export();
         }
       },

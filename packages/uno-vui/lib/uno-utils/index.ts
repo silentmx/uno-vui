@@ -1,3 +1,4 @@
+export * from './uno-attrs';
 export * from './uno-bg';
 export * from './uno-border';
 export * from './uno-class';

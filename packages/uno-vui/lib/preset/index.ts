@@ -37,6 +37,6 @@ export function presetUnoVui(config: PresetConfig = {}): Preset<Theme> {
       theme: 0,
       default: 1,
     },
-    preflights: setPreflights(res_themes, dark, light)
+    preflights: setPreflights(res_themes, dark, light),
   }
 }

@@ -1,18 +1,68 @@
 import { defaultIgnoreAttributes } from 'unocss/preset-attributify';
+import type { Ref } from "vue";
+import type { ThemeType } from '../preset';
 
 const ignoreAttributes = [
   ...defaultIgnoreAttributes,
-  ...["on", "model", "id", "style", ":", "key", "is", "aria", "accesskey", "about", "#"]
+  ...["on", "model", "id", "style", ":", "key", "is", "aria", "accesskey", "about", "#", "ref"]
 ];
 
-export const unoAttrs = () => {
-  return computed(() => {
-    const { attrs, classObj } = attrsToClass();
-    return {
-      attrs,
-      classObj
-    }
+type UnoAttrConfig = {
+  theme: Ref<ThemeType>,
+  class?: string,
+  loading?: Ref<boolean>,
+  disabled?: Ref<boolean>,
+  state?: Ref<"success" | "error">
+}
+
+type ClassObj = {
+  border: string,
+  bg: string,
+  text: string,
+  cursor: string,
+  base: string,
+}
+
+export const unoAttrs = (config?: UnoAttrConfig) => {
+  const originClassObj = ref<ClassObj>({
+    border: "",
+    bg: "",
+    text: "",
+    cursor: "",
+    base: "",
   });
+  const styleVar = ref<string>("");
+
+  const attrs = computed(() => {
+    const { attrs, classObj } = attrsToClass();
+    originClassObj.value = classObj;
+    return attrs;
+  });
+
+  const isDisabled = computed(() => {
+    return unref(config?.loading) || unref(config?.disabled);
+  });
+
+  const classObj = computed<ClassObj>(() => {
+    const theme = unref(config?.theme) || "default";
+    const loading = unref(config?.loading) || false;
+    const disabled = unref(config?.disabled) || false;
+    const state = unref(config?.state);
+    const baseClassObj = groupClassSet(
+      (config?.class || "").split(" ").filter(v => !!v).reduce((acc, cur) => {
+        acc.add(cur);
+        return acc;
+      }, new Set<string>())
+    );
+    return mergeClassObj(theme, unref(originClassObj), baseClassObj, loading, disabled, state);
+  });
+
+  return {
+    attrs: readonly(attrs),
+    classObj: readonly(classObj),
+    styleVar: readonly(styleVar),
+    isDisabled: readonly(isDisabled),
+  }
 }
 
 /**
@@ -44,18 +94,19 @@ function attrsToClass() {
   return {
     attrs,
     classObj: groupClassSet(classSet),
-  }
+  };
 }
 
 /**
  * 对class set 按作用进行分组
  */
-function groupClassSet(classset: Set<string>) {
-  const classObj = {
-    base: "",
+function groupClassSet(classset: Set<string>): ClassObj {
+  const classObj: ClassObj = {
     border: "",
     bg: "",
-    text: ""
+    text: "",
+    cursor: "",
+    base: "",
   };
 
   for (const val of classset) {
@@ -79,6 +130,34 @@ function groupClassSet(classset: Set<string>) {
 
     classObj.base = ` ${val}`;
   }
+
+  return classObj;
+}
+
+function mergeClassObj(
+  theme: ThemeType,
+  original: ClassObj,
+  base: ClassObj,
+  loading: boolean,
+  disabled: boolean,
+  state?: "success" | "error"
+): ClassObj {
+  const classObj: ClassObj = {
+    border: "",
+    bg: "",
+    text: "",
+    cursor: "",
+    base: "",
+  }
+
+  // cursor
+  if (loading && !disabled) {
+    classObj.cursor = "cursor-wait";
+  } else if (disabled) {
+    classObj.cursor = "cursor-not-allowed";
+  }
+
+  // border
 
   return classObj;
 }

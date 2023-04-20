@@ -1,46 +1,50 @@
 import type { Preflight } from "unocss";
 import { parseColor, theme, type Theme } from "unocss/preset-mini";
-import { ColorRegion, prefix, type ColorRegionType, type ColorType, type ThemeConfig } from "./types";
+import { prefix, type PresetConfig, type ThemeConfig } from "./types";
 
-export function setPreflights(themes: ThemeConfig[], dark: ColorRegionType, light: ColorRegionType): Preflight<Theme>[] {
+const cssContent = `:root {
+  ${prefix}-config: $config;
+  $vars
+}`;
+
+/**
+ * :root 生成css变量,只生成一组变量，通过改变变量的值来达到切换主题颜色的目的
+ * @param config {@link PresetConfig}
+ * @returns {Preflight<Theme>[]} {@link Preflight}
+ */
+export const setPreflights = (config: PresetConfig): Preflight<Theme>[] => {
   return [
     {
       layer: "theme",
-      getCSS: () => genPrelightCss(themes, dark, light),
+      getCSS: () => genPrelightCss(config),
     },
   ];
 }
 
-function genPrelightCss(themes: ThemeConfig[], dark: ColorRegionType, light: ColorRegionType): string {
+/**
+ * 生成结果如下
+ * ```css
+ * :root {
+ *   --unovui-config: $config;
+ *   --unovui-primary-50: #faf5ff;
+ *   --unovui-primary-100: #f3e8ff;
+ *   ...
+ * }
+ * ```
+ * @param config {@link PresetConfig}
+ * @returns {string}
+ */
+function genPrelightCss(config: PresetConfig): string {
+  // 保存config到css变量
+  const configContents = cssContent.replace("$config", JSON.stringify(config));
 
-  const css = themes.reduce((acc, cur, index) => {
-    const items = index == 0 ? [':root', '.dark'] : [`.${cur.primary}-${cur.accent}`, `.dark .${cur.primary}-${cur.accent}`];
-    acc += items.map(item => {
-      let itemCss = `${item} {\n  `;
-      itemCss += Object.entries(cur).map(([key, val]) => {
-        const color = val;
-        return genCssVar(key, color, item.includes('dark') ? dark : light);
-      }).join("\n  ")
-      itemCss += `\n}\n`;
-      return itemCss;
-    }).join("\n");
-    acc += "\n";
-    return acc;
-  }, "");
+  // 默认主题为第一个
+  const defaultTheme = config.themes![0] as ThemeConfig;
+  const vars = Object.entries(defaultTheme).map(([key, val]) => {
+    return Object.keys(theme.colors[val]).map(region => {
+      return `${prefix}-${key}-${region}: ${parseColor(`${val}-${region}`, theme)?.cssColor?.components.join(",")};`;
+    }).join("\n  ");
+  });
 
-  return css;
-}
-
-function genCssVar(key: string, color: ColorType, region: ColorRegionType): string {
-  return ["", "light", "heavy"].map(type => {
-    const regionIndex = ColorRegion.findIndex(c => c == `${region}`);
-    let _region = `${region}`;
-    if (type == "light") {
-      _region = ColorRegion.at(regionIndex - 1) || ColorRegion[0];
-    }
-    if (type == "heavy") {
-      _region = ColorRegion.at(regionIndex + 1) || ColorRegion[9];
-    }
-    return `${prefix}-${key}${type ? `-${type}` : ""}: ${parseColor(color + "-" + _region, theme)?.cssColor?.components.join(",")};`;
-  }).join("\n  ");
+  return configContents.replace('$vars', vars.join("\n  "));
 }

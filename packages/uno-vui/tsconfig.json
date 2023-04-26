@@ -1,20 +1,18 @@
 {
-  "extends": "@vue/tsconfig/tsconfig.web.json",
+  "extends": "../../tsconfig.json",
+  "exclude": [
+    "**/dist/**",
+    "preset.d.ts",
+    "vite.config.ts",
+  ],
   "include": [
-    "lib/**/*",
+    "**/*.ts",
+    "**/*.d.ts",
+    "**/*.vue",
   ],
   "compilerOptions": {
-    "baseUrl": ".",
-    "ignoreDeprecations": "5.0",
-    "types": [
-      "vite/client",
-      "./auto-imports"
-    ],
+    "declaration": false,
+    "composite": false,
     "outDir": "./dist/types"
-  },
-  "references": [
-    {
-      "path": "./tsconfig.node.json"
-    }
-  ]
+  }
 }

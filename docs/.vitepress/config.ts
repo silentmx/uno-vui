@@ -1,9 +1,14 @@
+import { UnovuiResolver } from '@uno-vui/preset';
+import Unocss from 'unocss/vite';
+import AutoImport from 'unplugin-auto-import/vite';
+import Components from 'unplugin-vue-components/vite';
 import { defineConfig } from 'vitepress';
-import { applyPlugins } from './plugins';
+import { applyPlugins } from './theme/plugins';
 
 // 指导
 const guides = [
   { text: "快速开始", link: "/guide/" },
+  { text: "主题", link: "/guide/theme" }
 ];
 
 // 组件
@@ -12,58 +17,33 @@ const components = [
     text: "基础组件",
     items: [
       {
-        text: "按钮",
-        link: "/components/button",
-      },
-      {
         text: "图标",
-        link: "/components/icon",
-      }
-    ],
-  },
-  {
-    text: "表单组件",
-    items: [
-      {
-        text: "input文本输入",
-        link: "/components/input",
+        link: "/components/icon"
       }
     ]
   }
 ];
 
-// 指令
-const directives = [
-  { text: "弹出/提示", link: "/directives/popup" }
-];
-
 const nav = [
   { text: "指导", items: guides },
   { text: "组件", items: components },
-  { text: "指令", items: directives },
 ];
-
 const sidebar = {
-  '/guide/': [
-    {
-      text: '开发指南',
-      items: guides,
-    },
-  ],
-  '/components/': components,
-  "/directives/": directives,
+  "/guide/": guides,
+  "/components/": components
 }
 
+// https://vitepress.dev/reference/site-config
 export default defineConfig({
+  // app level config options
   lang: "zh-Hans",
   title: "uno-vui",
-  description: "Vue3 Unocss components library",
+  description: "Vue3 components library build on top of Unocss and Vueuse",
+  lastUpdated: true,
+  cleanUrls: true,
   head: [
-    ['link', { rel: 'icon', href: '/logo.svg', type: 'image/svg+xml' }],
-    ['meta', {
-      property: 'og:description',
-      content: 'Vue3 Unocss components library',
-    }],
+    ["link", { rel: "icon", href: "/logo.svg", type: "image/svg+xml" }],
+    ["meta", { property: "og:description", content: "Vue3 components library" }],
   ],
   themeConfig: {
     logo: "/logo.png",
@@ -84,13 +64,34 @@ export default defineConfig({
       copyright: "Copyright © 2023-present @silentmx"
     }
   },
+  vite: {
+    optimizeDeps: {
+      exclude: [
+        "vitepress"
+      ]
+    },
+    server: {
+      hmr: {
+        overlay: false
+      }
+    },
+    plugins: [
+      Unocss(),
+      AutoImport({
+        imports: ["vue", "@vueuse/core"],
+        ignore: ["h"],
+        vueTemplate: true
+      }),
+      Components({
+        resolvers: [
+          UnovuiResolver()
+        ]
+      })
+    ]
+  },
   markdown: {
     config: (md) => {
       applyPlugins(md);
-    },
-    theme: {
-      light: "vitesse-light",
-      dark: "vitesse-dark"
     }
   }
-});
+})

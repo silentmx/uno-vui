@@ -1,8 +1,25 @@
 {
   "name": "uno-vui",
   "version": "1.0.0",
-  "type": "module",
+  "private": false,
   "description": "Vue3 base component library build on top of Unocss and Vueuse",
+  "keywords": [
+    "vue3",
+    "components",
+    "unocss"
+  ],
+  "author": {
+    "email": "silentmx@outlook.com",
+    "name": "silentmx",
+    "url": "https://github.com/silentmx"
+  },
+  "repository": {
+    "type": "git",
+    "directory": "packages/uno-vui",
+    "url": "git+https://github.com/silentmx/uno-vui.git"
+  },
+  "license": "MIT",
+  "type": "module",
   "main": "./dist/uno-vui.umd.cjs",
   "module": "./dist/uno-vui.js",
   "types": "./dist/types/index.d.ts",
@@ -10,32 +27,11 @@
     "dist",
     "volar.d.ts"
   ],
-  "exports": {
-    ".": {
-      "require": "./dist/uno-vui.umd.cjs",
-      "import": "./dist/uno-vui.js",
-      "types": "./dist/types/index.d.ts"
-    }
-  },
   "scripts": {
-    "dev": "concurrently 'vite build --watch' 'vue-tsc --declaration --emitDeclarationOnly --watch'",
-    "build": "vite build && vue-tsc --declaration --emitDeclarationOnly"
+    "stub": "vue-tsc --declaration --emitDeclarationOnly --skipLibCheck && vite build --watch",
+    "build": "vite build && vue-tsc --declaration --emitDeclarationOnly --skipLibCheck"
   },
-  "keywords": [
-    "Vue3",
-    "components",
-    "unocss",
-    "vueuse"
-  ],
-  "author": {
-    "email": "silentmx@outlook.com",
-    "name": "silentmx",
-    "url": "https://github.com/silentmx"
-  },
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "directory": "packages/uno-vui",
-    "url": "git+https://github.com/silentmx/uno-vui.git"
+  "publishConfig": {
+    "access": "public"
   }
 }

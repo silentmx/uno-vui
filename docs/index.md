@@ -1,50 +1,41 @@
 ---
-  layout: home
-  sidebar: false
+layout: home
+title: "vue3组件库"
 
-  title: uno-vui
-  titleTemplate: Vue3 组件库
+hero:
+  image:
+    src: /logo.svg
+    alt: Uno-vui
+  name: "Uno vui"
+  text: Vue3 UI组件库,基于unocss和vueuse开发
+  tagline: 自定义 · 精美 · 快速
+  actions:
+    - theme: brand
+      text: 快速开始
+      link: /guide/
+    - theme: alt
+      text: 组件
+      link: /components/
+    - theme: alt
+      text: 在Github上查看
+      link: https://github.com/silentmx/uno-vui
+      target: _blank
 
-  hero:
-    name: Uno-Vui
-    text: vue3 UI 组件库
-    tagline: 基于unocss和vueuse开发的vue3组件库
-    image: /logo.svg
-    alt: uno-vui
-    actions:
-      - theme: brand
-        text: 快速开始
-        link: /guide/
-      - theme: alt
-        text: 组件
-        link: /components/
-      - theme: alt
-        text: 在Github上查看
-        link: https://github.com/silentmx/uno-vui
-
-  features:
-    - icon: ⚙️
-      title: 多颜色主题
-      details: 通过Unocss预设, 提过多套颜色主题
-    - icon: 🌈
-      title: 组件
-      details: 提供丰富、精美的ui组件, 使用任意svg图标
-    - icon: 🔑
-      title: 完全类型化的API
-      details: 灵活的 API 和完整的 TypeScript 类型
-
+features:
+  - icon: <span class="i-vscode-icons:folder-type-theme"></span>
+    title: 自定义多套颜色主题
+    details: 通过presetUnoVui(),可以配置多套颜色主题
+    link: /guide/theme
+    linkText: 主题
+  - icon: <span class="i-vscode-icons:file-type-svg"></span>
+    title: 纯css图标
+    details: 通过class方式使用任意图标
+    link: /components/icon
+    linkText: 图标
+  - icon: <span class="i-vscode-icons:folder-type-typescript"></span>
+    title: 使用Vue3 setup script开发
+    details: 灵活的 API 和完整的 TypeScript 类型
+    link: https://cn.vuejs.org/guide/typescript/composition-api.html
+    linkText: vue3 setup script
+    target: _blank
 ---
-<script setup lang="ts">
-import { version } from "../packages/uno-vui/package.json";
-
-onMounted(() => {
-  if(version && !document.querySelector("#version-samp")) {
-    const tagLineParagragh = document.querySelector('div.VPHero.has-image.VPHomeHero > div > div.main > p.tagline');
-    const docsReleaseTagSpan = document.createElement('samp');
-    docsReleaseTagSpan.id = "version-samp";
-    docsReleaseTagSpan.classList.add(...["bg-primary", "px-2", "py-1", "text-sm", "rd-3", "text-gray-100", "v-mid", "ml-1"]);
-    docsReleaseTagSpan.innerText = `v${version}`;
-    tagLineParagragh?.appendChild(docsReleaseTagSpan);
-  }
-});
-</script>

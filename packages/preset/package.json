@@ -1,0 +1,45 @@
+{
+  "name": "@uno-vui/preset",
+  "version": "1.0.0",
+  "private": false,
+  "description": "Unocss preset for UnoVui",
+  "keywords": [
+    "uno-vui",
+    "@uno-vui/prest",
+    "unocss"
+  ],
+  "author": {
+    "name": "silentmx",
+    "email": "silentmx@outlook.com",
+    "url": "https://github.com/silentmx"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/silentmx/uno-vui.git",
+    "directory": "packages/preset"
+  },
+  "license": "MIT",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "stub": "tsup --watch --onSuccess \"pnpm --filter '../../docs' run docs:dev\"",
+    "build": "tsup"
+  },
+  "dependencies": {
+    "@iconify/tools": "*"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

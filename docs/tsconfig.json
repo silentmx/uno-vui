@@ -1,31 +1,21 @@
 {
-  "extends": "@vue/tsconfig/tsconfig.web.json",
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "types": [
+      "./auto-imports",
+      "./components"
+    ],
+    "paths": {},
+  },
   "exclude": [
     "**/dist/**",
-    "**/cache/**",
+    "**/cache/**"
   ],
   "include": [
     "**/*.ts",
     "**/*.d.ts",
     "**/*.vue",
-    ".vitepress/**/*"
-  ],
-  "compilerOptions": {
-    "baseUrl": ".",
-    "ignoreDeprecations": "5.0",
-    "types": [
-      "vite/client",
-      "uno-vui/volar",
-    ],
-    "paths": {
-      "uno-vui": [
-        "../packages/uno-vui/lib"
-      ]
-    }
-  },
-  "references": [
-    {
-      "path": "../tsconfig.node.json"
-    }
+    ".vitepress/theme/**/*",
   ]
 }

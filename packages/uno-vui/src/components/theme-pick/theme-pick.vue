@@ -30,16 +30,17 @@ const changeTheme = (index: number, config?: any) => {
 </script>
 
 <template>
-  <div v-if="themeList.length > 1" class="flex flex-col gap-2 w-30">
-    <button v-for="(item, index) in themeList" @click="changeTheme(index, item)">
-      <div class="flex gap-1 items-center rd shadow-xs" :class="`bg-${item.default} bg-op-10 hover:bg-op-15`">
+  <div v-if="themeList.length > 1" class="flex gap-2 flex-wrap">
+    <button v-for="(item, index) in themeList" @click="changeTheme(index, item)"
+      class="bg-white dark:bg-black rd-lg p-2 shadow-md">
+      <div class="flex gap-2 items-center">
         <i class="text-2xl" :class="{
-            'i-line-md:confirm-circle bg-primary': index == themeIndex,
+            'i-line-md:confirm-circle text-primary': index == themeIndex,
             'i-line-md:circle': index != themeIndex
-          }"></i>
-        <div class="flex-auto">
-          <div :class="`h-2 bg-${item.primary}`"></div>
-          <div :class="`h-2 bg-${item.accent} mt-2`"></div>
+          }">
+        </i>
+        <div class="flex gap-1">
+          <div v-for="c in item" :class="`bg-${c} rd-full h-6 w-2`"></div>
         </div>
       </div>
     </button>

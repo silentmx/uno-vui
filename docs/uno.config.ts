@@ -13,7 +13,7 @@ export default defineConfig({
     presetUnoVui({
       themes: [
         { primary: "blue", accent: "purple" },
-        { primary: "pink", accent: "violet" },
+        { primary: "pink", accent: "sky" },
       ],
       // icons: {
       //   loading: "i-mingcute:loading-line animate-spin"

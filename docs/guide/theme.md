@@ -18,7 +18,7 @@ error: "red"
 
 ```ts {2,14-23}
 // uno.config.ts
-import { iconConfig, presetUnoVui } from '@uno-vui/preset';
+import { iconConfig, presetUnoVui } from '@silentmx/preset';
 import {
   defineConfig,
   presetAttributify, presetIcons, presetUno,

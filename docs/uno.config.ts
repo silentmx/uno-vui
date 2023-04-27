@@ -1,4 +1,4 @@
-import { iconConfig, presetUnoVui, TransformerAttributifyToClass } from '@uno-vui/preset';
+import { iconConfig, presetUnoVui, TransformerAttributifyToClass } from '@silentmx/preset';
 import {
   defineConfig,
   presetAttributify, presetIcons, presetUno,

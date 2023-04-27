@@ -15,7 +15,7 @@
     "@iconify/tools": "^2.2.6",
     "@types/fs-extra": "^11.0.1",
     "@types/node": "^18.16.1",
-    "@uno-vui/preset": "workspace:*",
+    "@silentmx/preset": "workspace:*",
     "@vitejs/plugin-vue": "^4.2.1",
     "@vue/compiler-core": "^3.2.47",
     "@vueuse/core": "^10.1.0",

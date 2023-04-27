@@ -1,4 +1,4 @@
-import { UnovuiResolver } from '@uno-vui/preset';
+import { UnovuiResolver } from '@silentmx/preset';
 import Unocss from 'unocss/vite';
 import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';

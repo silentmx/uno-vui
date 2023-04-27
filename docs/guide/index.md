@@ -20,17 +20,17 @@ uno-vui是基于[Unocss](https://unocss.dev)和[Vueuse](https://vueuse.org)开�
 ::: code-group
 ```shell [pnpm]
 pnpm add uno-vui @unocss/reset @vueuse/core
-pnpm add @uno-vui/preset unocss @iconify/json -D
+pnpm add @silentmx/preset unocss @iconify/json -D
 ```
 
 ```shell [yarn]
 yarn add uno-vui @unocss/reset @vueuse/core
-yarn add @uno-vui/preset unocss @iconify/json -D
+yarn add @silentmx/preset unocss @iconify/json -D
 ```
 
 ```shell [npm]
 npm install uno-vui @unocss/reset @vueuse/core
-npm install @uno-vui/preset unocss @iconify/json -D
+npm install @silentmx/preset unocss @iconify/json -D
 ```
 :::
 
@@ -51,7 +51,7 @@ export default defineConfig({
 
 ```ts [uno.config.ts] {2,13-15,21-23}
 // uno.config.ts
-import { iconConfig, presetUnoVui } from '@uno-vui/preset';
+import { iconConfig, presetUnoVui } from '@silentmx/preset';
 import {
   defineConfig,
   presetAttributify, presetIcons, presetUno,
@@ -80,7 +80,7 @@ export default defineConfig({
 // uno.config.ts
 // 这个例子需要自行安装`@iconify/tools`
 import { deOptimisePaths, importDirectory, runSVGO } from '@iconify/tools';
-import { iconConfig, presetUnoVui } from '@uno-vui/preset';
+import { iconConfig, presetUnoVui } from '@silentmx/preset';
 import {
   defineConfig,
   presetIcons,
@@ -174,7 +174,7 @@ import Unocss from 'unocss/vite';
 import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
 import { defineConfig } from 'vite';
-import { UnovuiResolver } from '@uno-vui/preset';
+import { UnovuiResolver } from '@silentmx/preset';
 
 // https://vitejs.dev/config/
 export default defineConfig({

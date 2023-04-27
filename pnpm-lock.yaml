@@ -86,7 +86,11 @@ importers:
         specifier: '*'
         version: 2.2.6
 
-  packages/uno-vui: {}
+  packages/uno-vui:
+    dependencies:
+      '@silentmx/preset':
+        specifier: workspace:*
+        version: link:../preset
 
 packages:
 

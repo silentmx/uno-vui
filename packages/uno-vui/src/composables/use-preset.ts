@@ -1,6 +1,7 @@
+import { IconConfig, PresetConfig, ThemeConfig } from "@silentmx/preset";
 import { defaultDocument, useCssVar } from "@vueuse/core";
 import { computed } from 'vue';
-import type { IconConfig, PresetConfig, ThemeConfig } from '../../../preset/src';
+
 
 const presetConfig = computed<PresetConfig>(() => {
   const configString = useCssVar("--unovui-config", defaultDocument?.body, { initialValue: "{}" });

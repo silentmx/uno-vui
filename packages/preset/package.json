@@ -2,7 +2,7 @@
   "name": "@silentmx/preset",
   "version": "0.0.1",
   "private": false,
-  "description": "Unocss preset for UnoVui",
+  "description": "Unocss preset for uno-vui",
   "keywords": [
     "uno-vui",
     "@uno-vui/prest",

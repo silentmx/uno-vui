@@ -6,8 +6,8 @@
   "packageManager": "pnpm@8.3.1",
   "scripts": {
     "dev": "nr stub",
-    "build": "rimraf packages/*/dist && pnpm --filter=./packages/* --parallel run build && pnpm --filter=docs run docs:build",
-    "stub": "pnpm --filter=./packages/* --parallel run stub"
+    "build": "rimraf packages/*/dist && pnpm -r --filter=./packages/* run build && pnpm --filter=docs run docs:build",
+    "stub": "pnpm -r --filter=./packages/* --parallel run stub"
   },
   "devDependencies": {
     "@antfu/ni": "^0.21.3",

@@ -1,4 +1,4 @@
-import type { theme } from 'unocss/preset-mini';
+import { type theme } from 'unocss/preset-mini';
 
 // Colors
 export type Colors = Exclude<keyof (typeof theme.colors), "inherit" | "current" | "transparent" | "black" | "white">;

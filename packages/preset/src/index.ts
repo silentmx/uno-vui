@@ -10,6 +10,8 @@ import type { PresetConfig, ThemeConfig } from "./types";
 export { iconConfig } from './icon-config';
 // component resolver for uno-vui
 export * from './resolver';
+// transformer
+export * from './transformer';
 // export types
 export * from './types';
 // export preset config

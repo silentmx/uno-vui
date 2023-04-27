@@ -1,4 +1,4 @@
-import { iconConfig, presetUnoVui } from '@uno-vui/preset';
+import { iconConfig, presetUnoVui, TransformerAttributifyToClass } from '@uno-vui/preset';
 import {
   defineConfig,
   presetAttributify, presetIcons, presetUno,
@@ -21,6 +21,7 @@ export default defineConfig({
     })
   ],
   transformers: [
+    TransformerAttributifyToClass(),
     transformerVariantGroup(),
     transformerDirectives(),
   ],

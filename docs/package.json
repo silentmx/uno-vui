@@ -1,10 +1,14 @@
 {
   "name": "@uno-vui/docs",
+  "version": "0.0.1",
   "type": "module",
   "private": "true",
   "scripts": {
     "docs:dev": "vitepress dev",
     "docs:build": "vitepress build",
     "docs:preview": "vitepress preview"
+  },
+  "dependencies": {
+    "vue": "*"
   }
 }

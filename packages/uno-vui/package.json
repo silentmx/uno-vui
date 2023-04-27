@@ -1,6 +1,6 @@
 {
   "name": "uno-vui",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "private": false,
   "description": "Vue3 base component library build on top of Unocss and Vueuse",
   "keywords": [

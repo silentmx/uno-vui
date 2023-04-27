@@ -1,11 +1,11 @@
 {
   "name": "@silentmx/preset",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": false,
   "description": "Unocss preset for uno-vui",
   "keywords": [
     "uno-vui",
-    "@uno-vui/prest",
+    "prest",
     "unocss"
   ],
   "author": {
@@ -13,6 +13,7 @@
     "email": "silentmx@outlook.com",
     "url": "https://github.com/silentmx"
   },
+  "homepage": "https://uno-vui.netlify.app",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/silentmx/uno-vui.git",

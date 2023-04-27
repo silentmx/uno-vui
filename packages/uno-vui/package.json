@@ -1,6 +1,6 @@
 {
   "name": "uno-vui",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": false,
   "description": "Vue3 base component library build on top of Unocss and Vueuse",
   "keywords": [
@@ -13,6 +13,7 @@
     "name": "silentmx",
     "url": "https://github.com/silentmx"
   },
+  "homepage": "https://uno-vui.netlify.app",
   "repository": {
     "type": "git",
     "directory": "packages/uno-vui",

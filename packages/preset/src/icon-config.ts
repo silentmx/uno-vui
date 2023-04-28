@@ -4,11 +4,11 @@ import type { IconsOptions } from 'unocss/preset-icons';
 
 /**
  * config for preset-icons
- * @param { string } path svg存放位置, 默认`assets/svgs`
+ * @param { string } path svg存放位置, 默认`src/assets/svgs`
  * @param { IconsOptions } options 自定义配置
  * @returns { IconsOptions }
  */
-export const iconConfig = (path: string = "assets/svgs", options: IconsOptions = {}): IconsOptions => {
+export const iconConfig = (path: string = "src/assets/svgs", options: IconsOptions = {}): IconsOptions => {
   return mergeDeep({
     collections: {
       // custom icon set

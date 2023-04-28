@@ -9,7 +9,7 @@ export default defineConfig({
   presets: [
     presetUno(),
     presetAttributify(),
-    presetIcons(iconConfig()),
+    presetIcons(iconConfig("assets/svgs")),
     presetUnoVui({
       themes: [
         { primary: "blue", accent: "purple" },

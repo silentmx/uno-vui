@@ -2,8 +2,9 @@
   "extends": "../../tsconfig.json",
   "exclude": [
     "**/dist/**",
-    "preset.d.ts",
+    "**/scripts/**",
     "vite.config.ts",
+    "volar.d.ts"
   ],
   "include": [
     "**/*.ts",

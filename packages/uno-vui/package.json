@@ -26,13 +26,18 @@
   "types": "./dist/types/index.d.ts",
   "files": [
     "dist",
+    "README.md",
     "volar.d.ts"
   ],
   "scripts": {
     "stub": "vue-tsc --declaration --emitDeclarationOnly --skipLibCheck && vite build --watch",
-    "build": "vite build && vue-tsc --declaration --emitDeclarationOnly --skipLibCheck"
+    "build": "vite build && vue-tsc --declaration --emitDeclarationOnly --skipLibCheck && pnpm run gen-volar",
+    "gen-volar": "esno scripts/gen-volar"
   },
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "unocss": "*"
   }
 }

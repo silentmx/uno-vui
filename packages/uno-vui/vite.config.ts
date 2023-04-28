@@ -13,12 +13,13 @@ export default defineConfig({
     },
     rollupOptions: {
       // 确保外部化处理那些你不想打包进库的依赖
-      external: ["vue", "unocss", "@vueuse/core"],
+      external: ["vue", "unocss", "@vueuse/core", "unocss/preset-mini"],
       output: {
         globals: {
           vue: "Vue",
           unocss: "unocss",
           "@vueuse/core": "@vueuse/core",
+          "unocss/preset-mini": "unocss/preset-mini"
         }
       }
     }

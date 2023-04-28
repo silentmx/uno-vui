@@ -1,10 +1,11 @@
 import type { App } from 'vue';
-import components from './components';
+import * as components from './components';
 
+// export all components
 export * from './components';
 
 export const Unovui = {
   install(app: App) {
-    components.forEach(c => app.use(c));
+    Object.values(components).forEach(c => app.use(c));
   }
 }

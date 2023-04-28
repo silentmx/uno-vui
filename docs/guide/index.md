@@ -49,9 +49,9 @@ export default defineConfig({
 })
 ```
 
-```ts [uno.config.ts] {2,13-15,21-23}
+```ts [uno.config.ts] {2,13-15,18,21-24}
 // uno.config.ts
-import { iconConfig, presetUnoVui } from '@silentmx/preset';
+import { iconConfig, presetUnoVui, TransformerAttributifyToClass } from '@silentmx/preset';
 import {
   defineConfig,
   presetAttributify, presetIcons, presetUno,
@@ -67,6 +67,7 @@ export default defineConfig({
     presetUnoVui()
   ],
   transformers: [
+    TransformerAttributifyToClass(), // 必须放在第一个
     transformerVariantGroup(),
     transformerDirectives(),
   ],
@@ -134,7 +135,7 @@ export default defineConfig({
 添加`virtual:uno.css`到程序主入口文件
 ```ts
 // main.ts
-import '@unocss/reset/antfu.css'; // css 预设,你也可以使用其他预设
+import '@unocss/reset/tailwind.css'; // css 预设,你也可以使用其他预设
 import 'virtual:uno.css'; // unocss
 ```
 

@@ -18,7 +18,7 @@ error: "red"
 
 ```ts {2,14-23}
 // uno.config.ts
-import { iconConfig, presetUnoVui } from '@silentmx/preset';
+import { iconConfig, presetUnoVui, TransformerAttributifyToClass } from '@silentmx/preset';
 import {
   defineConfig,
   presetAttributify, presetIcons, presetUno,
@@ -42,6 +42,7 @@ export default defineConfig({
     })
   ],
   transformers: [
+    TransformerAttributifyToClass(), // 必须放在第一个
     transformerVariantGroup(),
     transformerDirectives(),
   ],

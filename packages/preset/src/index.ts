@@ -29,7 +29,7 @@ export const presetUnoVui = (config: PresetConfig = {}): Preset<Theme> => {
   });
 
   return {
-    name: "uno-vui/preset",
+    name: "@silentmx/preset",
     layers: {
       theme: 0,
       default: 1,

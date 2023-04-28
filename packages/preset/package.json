@@ -31,7 +31,8 @@
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "README.md"
   ],
   "scripts": {
     "stub": "tsup --watch --onSuccess \"pnpm --filter '../../docs' run docs:dev\"",

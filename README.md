@@ -9,6 +9,6 @@
   </a>
 </p>
 <p align="center">
-  <a href="https://uno-vui.netlify.app">🧑‍💻 Document <sup>Beta</sup></a> |
-  <a href="">🤹‍♂️ Preview</a>
+  <a href="https://uno-vui.netlify.app" target="_blank">🧑‍💻 Document <sup>Beta</sup></a> |
+  <a href="" target="_blank">🤹‍♂️ Preview</a>
 </p>

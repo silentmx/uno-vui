@@ -3,6 +3,8 @@
   "exclude": [
     "**/dist/**",
     "**/scripts/**",
+    "preset.d.ts",
+    "utils.d.ts",
     "vite.config.ts",
     "volar.d.ts"
   ],

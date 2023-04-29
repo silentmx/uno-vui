@@ -1,19 +1,19 @@
-<script lang="ts" setup>
-import { UIcon } from 'uno-vui';
+<script setup lang="ts">
+const iconList = [
+  "i-uim:500px",
+  "i-logos:unocss",
+  "i-logos:vue",
+  "i-logos:visual-studio-code",
+  "i-logos:angular-icon",
+  "i-logos:react",
+  "i-ic:baseline-wechat",
+  "i-mdi:github",
+  "i-eos-icons:loading"
+];
 </script>
 <template>
-  <div class="flex flex-wrap gap-2">
-    <u-icon name="i-material-symbols:dark-mode"></u-icon>
-    <u-icon name="i-material-symbols:dark-mode" class="text-default"></u-icon>
-    <u-icon name="i-material-symbols:dark-mode" class="text-primary"></u-icon>
-    <u-icon name="i-material-symbols:dark-mode" class="b-accent"></u-icon>
-    <u-icon name="i-material-symbols:dark-mode" class="text-success"></u-icon>
-    <u-icon name="i-material-symbols:dark-mode" class="text-warn"></u-icon>
-    <u-icon name="i-material-symbols:dark-mode" class="text-error"></u-icon>
-    <u-icon name="i-material-symbols:dark-mode" class="text-cyan"></u-icon>
-    <u-icon name="i-material-symbols:dark-mode" class="text-#696969"></u-icon>
-    <div class="bg-default/20 aspect-square flex p-1 rd-full">
-      <u-icon name="i-svg:desktop"></u-icon>
-    </div>
+  <div class="flex flex-wrap gap-4 text-2xl">
+    <u-icon v-for="icon in iconList" :name="icon"></u-icon>
+    <div class="i-svg:desktop text-4xl"></div>
   </div>
 </template>

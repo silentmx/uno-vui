@@ -6,21 +6,10 @@ import { genSafeList } from "./safe-list";
 import { genTheme } from "./theme";
 import type { PresetConfig, ThemeConfig } from "./types";
 
-// export for preset-icon
-export { iconConfig } from './icon-config';
-// component resolver for uno-vui
-export * from './resolver';
-// transformer
-export * from './transformer';
-// export types
-export * from './types';
-// export preset config
-export * from './use-preset';
-
 /**
- * preset for uno vui
+ * preset for uno-vui
  * @param config {@link PresetConfig}
- * @returns {Preset<Theme>}
+ * @returns { Preset<Theme> }
  */
 export const presetUnoVui = (config: PresetConfig = {}): Preset<Theme> => {
   const _config = mergeDeep<PresetConfig>(defaultConfig, config);
@@ -29,7 +18,7 @@ export const presetUnoVui = (config: PresetConfig = {}): Preset<Theme> => {
   });
 
   return {
-    name: "@silentmx/preset",
+    name: "uno-vui/preset",
     layers: {
       theme: 0,
       default: 1,

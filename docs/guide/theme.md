@@ -18,7 +18,9 @@ error: "red"
 
 ```ts {2,14-23}
 // uno.config.ts
-import { iconConfig, presetUnoVui, TransformerAttributifyToClass } from '@silentmx/preset';
+// uno.config.ts
+import { presetUnoVui } from 'uno-vui/preset';
+import { TransformerAttributifyToClass, unovuiIconsOptions } from 'uno-vui/utils';
 import {
   defineConfig,
   presetAttributify, presetIcons, presetUno,
@@ -29,16 +31,18 @@ export default defineConfig({
   presets: [
     presetUno(),
     presetAttributify(),
-    presetIcons(iconConfig()),
+    presetIcons(unovuiIconsOptions({
+      svgPath: "assets/svgs"
+    })),
     presetUnoVui({
       themes: [
         { primary: "blue", accent: "purple" },
-        { primary: "pink", accent: "violet" },
+        { primary: "pink", accent: "sky" },
       ],
       // 通过预设覆盖uno-vui默认使用图标
-      icons: {
-        loading: "i-mingcute:loading-line animate-spin"
-      }
+      // icons: {
+      //   loading: "i-mingcute:loading-line animate-spin"
+      // }
     })
   ],
   transformers: [
@@ -46,6 +50,8 @@ export default defineConfig({
     transformerVariantGroup(),
     transformerDirectives(),
   ],
+  // 添加这里恨重要，unocss默认不扫描node_modules文件夹下的.js,.cjs文件
+  // 这个ui库打包时是没有生成css文件的
   include: [/.*\/uno-vui\.js(.*)?$/, './**/*.vue']
 })
 ```

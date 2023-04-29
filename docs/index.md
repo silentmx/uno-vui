@@ -23,13 +23,13 @@ hero:
 
 features:
   - icon: <span class="i-vscode-icons:folder-type-theme"></span>
-    title: 自定义多套颜色主题
-    details: 通过presetUnoVui(),可以配置多套颜色主题
+    title: 多套颜色主题
+    details: 通过unocss预设,自定义多套颜色主题
     link: /guide/theme
     linkText: 主题
   - icon: <span class="i-vscode-icons:file-type-svg"></span>
     title: 纯css图标
-    details: 通过class方式使用任意图标
+    details: 使用任意你想要使用的svg
     link: /components/icon
     linkText: 图标
   - icon: <span class="i-vscode-icons:folder-type-typescript"></span>

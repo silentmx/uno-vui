@@ -1,7 +1,7 @@
 import fs from 'fs-extra';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import unovui from 'uno-vui';
+import * as unovui from 'uno-vui';
 import { name } from '../package.json';
 
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
@@ -16,7 +16,11 @@ declare module 'vue' {
 export { }`;
 
 const pkgRoot = path.join(__dirname, "..");
-const allKeys = Object.keys(unovui).filter(k => k != "Unovui");
+const allKeys = Object.keys(unovui).filter(k => {
+  const isUtils = k.toLowerCase().startsWith("unovui") || k.toLowerCase().startsWith("transformer");
+  const isPreset = k.toLowerCase().startsWith("preset");
+  return !(isUtils || isPreset);
+});
 const volarDTSContent = contentTemplate.replace(
   "$components",
   allKeys.filter(k => k.startsWith("U"))

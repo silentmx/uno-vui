@@ -1,4 +1,4 @@
-import { PresetConfig } from "./types";
+import type { PresetConfig } from "./types";
 
 export const prefix = "--unovui";
 export const defaultConfig: Required<PresetConfig> = {

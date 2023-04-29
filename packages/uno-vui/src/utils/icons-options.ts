@@ -2,19 +2,37 @@ import { deOptimisePaths, importDirectory, runSVGO } from '@iconify/tools';
 import { mergeDeep } from 'unocss';
 import type { IconsOptions } from 'unocss/preset-icons';
 
+type IconsConfig = {
+  /**
+   * 存放svg的路径
+   * 
+   * @default `src/assets/svgs`
+   */
+  svgPath?: string;
+
+  /**
+   * Unocss presetIcons {@link IconsOptions}
+   */
+  iconsOptions?: IconsOptions;
+}
+
 /**
- * config for preset-icons
- * @param { string } path svg存放位置, 默认`src/assets/svgs`
- * @param { IconsOptions } options 自定义配置
+ * uno-vui icon config for preset-icons
+ * @param config {@link IconsConfig}
  * @returns { IconsOptions }
  */
-export const iconConfig = (path: string = "src/assets/svgs", options: IconsOptions = {}): IconsOptions => {
+export const unovuiIconsOptions = (config: IconsConfig = {}): IconsOptions => {
+  const {
+    svgPath = "src/assets/svgs",
+    iconsOptions = {}
+  } = config;
+
   return mergeDeep({
     collections: {
       // custom icon set
       "svg": async () => {
         // load icons
-        const iconSet = await importDirectory(path, {
+        const iconSet = await importDirectory(svgPath, {
           prefix: "svg",
         });
 
@@ -43,5 +61,5 @@ export const iconConfig = (path: string = "src/assets/svgs", options: IconsOptio
       "display": "inline-block",
       "vertical-align": "middle",
     }
-  }, options);
+  }, iconsOptions);
 }

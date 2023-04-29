@@ -5,7 +5,7 @@
   "description": "Vue3 base component library build on top of Unocss and Vueuse",
   "keywords": [
     "vue3",
-    "components",
+    "components library",
     "unocss"
   ],
   "author": {
@@ -21,11 +21,30 @@
   },
   "license": "MIT",
   "type": "module",
-  "main": "./dist/uno-vui.umd.cjs",
+  "exports": {
+    ".": {
+      "import": "./dist/uno-vui.js",
+      "require": "./dist/uno-vui.umd.cjs",
+      "types": "./dist/types/index.d.ts"
+    },
+    "./preset": {
+      "import": "./dist/preset.js",
+      "require": "./dist/preset.umd.cjs",
+      "types": "./dist/types/preset/index.d.ts"
+    },
+    "./utils": {
+      "import": "./dist/utils.js",
+      "require": "./dist/utils.umd.cjs",
+      "types": "./dist/types/utils/index.d.ts"
+    }
+  },
   "module": "./dist/uno-vui.js",
+  "main": "./dist/uno-vui.umd.cjs",
   "types": "./dist/types/index.d.ts",
   "files": [
     "dist",
+    "preset.d.ts",
+    "utils.d.ts",
     "README.md",
     "volar.d.ts"
   ],
@@ -34,10 +53,12 @@
     "build": "vite build && vue-tsc --declaration --emitDeclarationOnly --skipLibCheck && pnpm run gen-volar",
     "gen-volar": "esno scripts/gen-volar"
   },
+  "dependencies": {
+    "unocss": "~0.51.8",
+    "@vueuse/core": "~10.1.0",
+    "@iconify/tools": "~2.2.6"
+  },
   "publishConfig": {
     "access": "public"
-  },
-  "dependencies": {
-    "unocss": "*"
   }
 }

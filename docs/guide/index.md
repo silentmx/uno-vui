@@ -20,17 +20,17 @@ uno-vui是基于[Unocss](https://unocss.dev)和[Vueuse](https://vueuse.org)开�
 ::: code-group
 ```shell [pnpm]
 pnpm add uno-vui @unocss/reset @vueuse/core
-pnpm add @silentmx/preset unocss @iconify/json -D
+pnpm add unocss @iconify/json -D
 ```
 
 ```shell [yarn]
 yarn add uno-vui @unocss/reset @vueuse/core
-yarn add @silentmx/preset unocss @iconify/json -D
+yarn add unocss @iconify/json -D
 ```
 
 ```shell [npm]
 npm install uno-vui @unocss/reset @vueuse/core
-npm install @silentmx/preset unocss @iconify/json -D
+npm install unocss @iconify/json -D
 ```
 :::
 
@@ -49,9 +49,10 @@ export default defineConfig({
 })
 ```
 
-```ts [uno.config.ts] {2,13-15,18,21-24}
+```ts [uno.config.ts] {2-3,14-16,19,22-25}
 // uno.config.ts
-import { iconConfig, presetUnoVui, TransformerAttributifyToClass } from '@silentmx/preset';
+import { presetUnoVui } from 'uno-vui/preset';
+import { TransformerAttributifyToClass, unovuiIconsOptions } from 'uno-vui/utils';
 import {
   defineConfig,
   presetAttributify, presetIcons, presetUno,
@@ -74,61 +75,6 @@ export default defineConfig({
   // 添加这里恨重要，unocss默认不扫描node_modules文件夹下的.js,.cjs文件
   // 这个ui库打包时是没有生成css文件的
   include: [/.*\/uno-vui\.js(.*)?$/, './**/*.vue']
-})
-```
-
-```ts [uno.config.ts+custom icon preset] {2,14-15}
-// uno.config.ts
-// 这个例子需要自行安装`@iconify/tools`
-import { deOptimisePaths, importDirectory, runSVGO } from '@iconify/tools';
-import { iconConfig, presetUnoVui } from '@silentmx/preset';
-import {
-  defineConfig,
-  presetIcons,
-} from 'unocss';
-
-export default defineConfig({
-  presets: [
-    presetIcons({
-      collections: {
-        // cdn: "https://esm.sh/",
-        // scale: 1.2,
-        // custom icon set
-        "svg": async () => {
-          // load icons
-          const iconSet = await importDirectory("assets/svgs", {
-            prefix: "svg",
-          });
-
-          await iconSet.forEach(async (name, type) => {
-            if (type !== "icon") {
-              return;
-            }
-
-            const svg = iconSet.toSVG(name);
-            if (svg) {
-              // Optimise
-              runSVGO(svg);
-
-              // Update paths for compatibility with old software
-              await deOptimisePaths(svg);
-            } else {
-              iconSet.remove(name);
-              return;
-            }
-          });
-          // Export as IconifyJson
-          return iconSet.export();
-        }
-      },
-      // 图标额外css属性，推荐添加
-      extraProperties: {
-        "display": "inline-block",
-        "vertical-align": "middle",
-      }
-    }),
-    // ...other presets
-  ],
 })
 ```
 :::
@@ -169,23 +115,27 @@ npm install unplugin-vue-components unplugin-auto-import -D
 :::
 
 然后在[Vite](https://cn.vitejs.dev/)配置中添加如下配置
-```ts {3-4,6,13,16}
+```ts {3-4,6,19}
 // vite.config.ts
 import Unocss from 'unocss/vite';
 import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
 import { defineConfig } from 'vite';
-import { UnovuiResolver } from '@silentmx/preset';
+import { unovuiResolver } from 'uno-vui/utils';
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     Unocss(),
     AutoImport({
-      resolvers: [UnovuiResolver()]
+      imports: ["vue", "@vueuse/core"],
+      ignore: ["h"],
+      vueTemplate: true
     }),
     Components({
-      resolvers: [UnovuiResolver()]
+      resolvers: [
+        unovuiResolver()
+      ]
     })
   ],
 })

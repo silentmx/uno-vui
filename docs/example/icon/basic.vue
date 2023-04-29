@@ -1,3 +1,6 @@
+<script lang="ts" setup>
+import { UIcon } from 'uno-vui';
+</script>
 <template>
   <div class="flex flex-wrap gap-2">
     <u-icon name="i-material-symbols:dark-mode"></u-icon>

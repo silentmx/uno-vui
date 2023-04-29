@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { defaultDocument } from '@vueuse/core';
 import { parseColor, theme } from 'unocss/preset-mini';
-import { themeList } from '../../composables';
+import { presetThemes } from '../../composables';
 
 // 使用index的方式来存储选用的主题
 const themeIndex = useLocalStorage("unovui-theme-index", 0);
 
 onMounted(() => {
   if (themeIndex.value != 0) {
-    changeTheme(themeIndex.value, themeList.value[themeIndex.value])
+    changeTheme(themeIndex.value, presetThemes.value?.[themeIndex.value])
   }
 });
 
@@ -30,8 +30,8 @@ const changeTheme = (index: number, config?: any) => {
 </script>
 
 <template>
-  <div v-if="themeList.length > 1" class="flex gap-2 flex-wrap">
-    <button v-for="(item, index) in themeList" @click="changeTheme(index, item)"
+  <div v-if="presetThemes && presetThemes.length > 1" class="flex gap-2 flex-wrap">
+    <button v-for="(item, index) in presetThemes" @click="changeTheme(index, item)"
       class="bg-white dark:bg-black rd-lg p-2 shadow-md">
       <div class="flex gap-2 items-center">
         <i class="text-2xl" :class="{

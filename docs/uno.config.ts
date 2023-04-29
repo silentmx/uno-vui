@@ -1,4 +1,5 @@
-import { iconConfig, presetUnoVui, TransformerAttributifyToClass } from '@silentmx/preset';
+import { presetUnoVui } from 'uno-vui/preset';
+import { TransformerAttributifyToClass, unovuiIconsOptions } from 'uno-vui/utils';
 import {
   defineConfig,
   presetAttributify, presetIcons, presetUno,
@@ -9,7 +10,9 @@ export default defineConfig({
   presets: [
     presetUno(),
     presetAttributify(),
-    presetIcons(iconConfig("assets/svgs")),
+    presetIcons(unovuiIconsOptions({
+      svgPath: "assets/svgs"
+    })),
     presetUnoVui({
       themes: [
         { primary: "blue", accent: "purple" },

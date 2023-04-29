@@ -6,11 +6,11 @@
       "./auto-imports",
       "./components"
     ],
-    "paths": {},
   },
   "exclude": [
     "**/dist/**",
-    "**/cache/**"
+    "**/cache/**",
+    "uno.config.ts"
   ],
   "include": [
     "**/*.ts",

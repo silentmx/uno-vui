@@ -1,15 +1,27 @@
-import { defaultDocument, useCssVar } from "@vueuse/core";
-import { computed } from 'vue';
+import { defaultDocument, useCssVar } from '@vueuse/core';
+import { computed, type ComputedRef } from 'vue';
+import { prefix } from '../preset/constants';
+import type { IconConfig, PresetConfig, ThemeConfig } from '../preset/types';
 
-const presetConfig = computed<any>(() => {
-  const configString = useCssVar("--unovui-config", defaultDocument?.body, { initialValue: "{}" });
-  return JSON.parse(configString.value);
+/**
+ * 获取预设配置
+ * @returns { ComputedRef<PresetConfig> }
+ */
+const presetConfig: ComputedRef<PresetConfig | undefined> = computed(() => {
+  const configString = useCssVar(`${prefix}-config`, defaultDocument?.body);
+  return configString.value ? JSON.parse(configString.value) : undefined;
 });
 
-export const themeList = computed<any[]>(() => {
-  return presetConfig.value?.themes as any[] || [];
+/**
+ * 获取预设主题
+ */
+export const presetThemes: ComputedRef<ThemeConfig[] | undefined> = computed(() => {
+  return presetConfig.value?.themes as ThemeConfig[] || [];
 });
 
-export const presetIcons = computed<any>(() => {
-  return presetConfig.value?.icons as any || {};
+/**
+ * 获取预设图标
+ */
+export const presetIcons: ComputedRef<IconConfig | undefined> = computed(() => {
+  return presetConfig.value?.icons as IconConfig || undefined;
 });

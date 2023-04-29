@@ -1,4 +1,4 @@
-import { SourceCodeTransformer, expandVariantGroup } from "unocss";
+import { expandVariantGroup, type SourceCodeTransformer } from "unocss";
 import { MagicString } from "vue/compiler-sfc";
 
 type AttributifyOptions = {
@@ -12,6 +12,12 @@ type AttributifyOptions = {
 const elementRE = /(<\w[\w:\.$-]*\s)((?:'[^>]*?'|"[^>]*?"|`(?:[^>]|[\S])*?`|\{(?:[^>]|[\S])*?\}|[^>]*?)*)/g;
 const attributeRE = /([a-zA-Z()#][\[?a-zA-Z0-9-_:()#%\]?]*)(?:\s*=\s*((?:'[^']*')|(?:"[^"]*")|\S+))?/g;
 
+/**
+ * Unocss Attributify to class
+ * 使用时必须放在`transformers`第一个
+ * @param options {@link AttributifyOptions}
+ * @returns { SourceCodeTransformer }
+ */
 export const TransformerAttributifyToClass = (options: AttributifyOptions = {}): SourceCodeTransformer => {
 
   const {
@@ -32,7 +38,7 @@ export const TransformerAttributifyToClass = (options: AttributifyOptions = {}):
   }
 
   return {
-    name: "@uno-preset/transformer-attributify-to-class",
+    name: "uno-vui/transformer-attributify-to-class",
     enforce: "pre",
     async transform(code, _, { uno }) {
       for (const ele of Array.from(code.original.matchAll(elementRE))) {

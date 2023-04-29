@@ -1,4 +1,4 @@
-import { UnovuiResolver } from '@silentmx/preset';
+import { unovuiResolver } from 'uno-vui/utils';
 import Unocss from 'unocss/vite';
 import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
@@ -84,7 +84,7 @@ export default defineConfig({
       }),
       Components({
         resolvers: [
-          UnovuiResolver()
+          unovuiResolver()
         ]
       })
     ]

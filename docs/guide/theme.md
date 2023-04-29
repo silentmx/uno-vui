@@ -16,8 +16,7 @@ warn: "yellow",
 error: "red"
 ```
 
-```ts {2,14-23}
-// uno.config.ts
+```ts {2-3,14-25}
 // uno.config.ts
 import { presetUnoVui } from 'uno-vui/preset';
 import { TransformerAttributifyToClass, unovuiIconsOptions } from 'uno-vui/utils';
@@ -32,7 +31,7 @@ export default defineConfig({
     presetUno(),
     presetAttributify(),
     presetIcons(unovuiIconsOptions({
-      svgPath: "assets/svgs"
+      svgPath: "src/assets/svgs"
     })),
     presetUnoVui({
       themes: [

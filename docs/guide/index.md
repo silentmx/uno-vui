@@ -49,7 +49,7 @@ export default defineConfig({
 })
 ```
 
-```ts [uno.config.ts] {2-3,14-16,19,22-25}
+```ts [uno.config.ts] {2-3,14-26,29,33-35}
 // uno.config.ts
 import { presetUnoVui } from 'uno-vui/preset';
 import { TransformerAttributifyToClass, unovuiIconsOptions } from 'uno-vui/utils';
@@ -63,9 +63,19 @@ export default defineConfig({
   presets: [
     presetUno(),
     presetAttributify(),
-    // 这里你也可以使用自己的图标预设
-    presetIcons(iconConfig()),
-    presetUnoVui()
+    presetIcons(unovuiIconsOptions({
+      svgPath: "src/assets/svgs"
+    })),
+    presetUnoVui({
+      themes: [
+        { primary: "blue", accent: "purple" },
+        { primary: "pink", accent: "sky" },
+      ],
+      // 通过预设覆盖uno-vui默认使用图标
+      // icons: {
+      //   loading: "i-mingcute:loading-line animate-spin"
+      // }
+    })
   ],
   transformers: [
     TransformerAttributifyToClass(), // 必须放在第一个

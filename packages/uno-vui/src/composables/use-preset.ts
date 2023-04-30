@@ -15,13 +15,13 @@ const presetConfig: ComputedRef<PresetConfig | undefined> = computed(() => {
 /**
  * 获取预设主题
  */
-export const presetThemes: ComputedRef<ThemeConfig[] | undefined> = computed(() => {
+export const presetThemeConfigs: ComputedRef<ThemeConfig[] | undefined> = computed(() => {
   return presetConfig.value?.themes as ThemeConfig[] || [];
 });
 
 /**
  * 获取预设图标
  */
-export const presetIcons: ComputedRef<IconConfig | undefined> = computed(() => {
+export const presetIconConfig: ComputedRef<IconConfig | undefined> = computed(() => {
   return presetConfig.value?.icons as IconConfig || undefined;
 });

@@ -1,5 +1,4 @@
 import { expandVariantGroup, type SourceCodeTransformer } from "unocss";
-import { MagicString } from "vue/compiler-sfc";
 
 type AttributifyOptions = {
   /**
@@ -42,7 +41,7 @@ export const TransformerAttributifyToClass = (options: AttributifyOptions = {}):
     enforce: "pre",
     async transform(code, _, { uno }) {
       for (const ele of Array.from(code.original.matchAll(elementRE))) {
-        const classVal = new MagicString("");
+        let classVal = "";
 
         for (const attr of (ele[2] || "").matchAll(attributeRE)) {
           if (isIgnored(attr[1]) || ["class", "className"].includes(attr[1])) {
@@ -59,26 +58,26 @@ export const TransformerAttributifyToClass = (options: AttributifyOptions = {}):
               const startIdx = (ele.index || 0) + (attr.index || 0) + tag.length;
               const endIdx = startIdx + attr[0].length;
               code.remove(startIdx, endIdx);
-              classVal.appendRight(0, `${expandString} `);
+              classVal += `${expandString} `;
               break;
             }
           }
         }
 
-        if (classVal.toString().length > 0) {
+        if (classVal.length > 0) {
           const classIndex = ele[2].indexOf("class=");
           if (classIndex >= 0) {
             // 已经有class属性
             // 查看class有没有带`:`
             const appendIndex = (ele.index || 0) + ele[1].length + classIndex - 1;
             if (code.slice(appendIndex, appendIndex + 1) == ":") {
-              code.appendRight(appendIndex + 9, `${classVal.toString()}`);
+              code.appendRight(appendIndex + 9, `${classVal}`);
             } else {
-              code.appendRight(appendIndex + 8, `${classVal.toString()}`);
+              code.appendRight(appendIndex + 8, `${classVal}`);
             }
           } else {
             // 没有class属性
-            code.appendRight((ele.index || 0) + ele[1].length, `class="${classVal.toString()}" `);
+            code.appendRight((ele.index || 0) + ele[1].length, `class="${classVal}" `);
           }
         }
       }

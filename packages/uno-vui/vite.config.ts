@@ -11,6 +11,7 @@ export default defineConfig({
         "uno-vui": resolve(__dirname, "src/index.ts"),
         "preset": resolve(__dirname, "src/preset/index.ts"),
         "utils": resolve(__dirname, "src/utils/index.ts"),
+        "forms": resolve(__dirname, "src/forms/index.ts"),
       },
       name: "uno-vui",
       fileName: (format: string, entryName: string) => `${entryName}${format == "es" ? ".js" : `.umd.${format}`}`,
@@ -19,7 +20,6 @@ export default defineConfig({
       // 确保外部化处理那些你不想打包进库的依赖
       external: [
         "vue",
-        "vue/compiler-sfc",
         "@vueuse/core",
         "unocss",
         "unocss/preset-mini",
@@ -31,7 +31,6 @@ export default defineConfig({
       output: {
         globals: {
           "vue": "Vue",
-          "vue/compiler-sfc": "vue/compiler-sfc",
           "@vueuse/core": "@vueuse/core",
           "unocss": "unocss",
           "unocss/preset-mini": "unocss/preset-mini",

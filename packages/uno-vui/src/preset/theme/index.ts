@@ -25,5 +25,16 @@ export const genTheme = (config: ThemeConfig): Theme => {
         }))];
       }))
     },
+    animation: {
+      keyframes: {
+        "scale": "{0%{transform: scale(0.95);}40%{transform:scale(1.02);}100%{transform:scale(1);}}",
+      },
+      durations: {
+        "scale": "0.2s",
+      },
+      timingFns: {
+        "scale": "ease-out",
+      }
+    }
   }
 }

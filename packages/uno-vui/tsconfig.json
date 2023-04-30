@@ -5,6 +5,7 @@
     "**/scripts/**",
     "preset.d.ts",
     "utils.d.ts",
+    "forms.d.ts",
     "vite.config.ts",
     "volar.d.ts"
   ],

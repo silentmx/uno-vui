@@ -16,7 +16,13 @@ export const genSafeList = (config: PresetConfig): string[] => {
     })
   });
 
+  const iconSet = new Set<string>();
+  Object.values(config.icons || {}).forEach(i => {
+    iconSet.add(i);
+  });
+
   return [
+    ...Array.from(iconSet),
     ...Array.from(colorSet),
     ...genThemeSafeList(),
   ];
@@ -39,13 +45,17 @@ function genThemeSafeList(): string[] {
   names.forEach(name => {
     keys.forEach(key => {
       safeList.add(`${name}-${key}`);
+      safeList.add(`dark:${name}-${key}`);
       variants.forEach(variant => {
         safeList.add(`${variant}:${name}-${key}`);
+        safeList.add(`dark:${variant}:${name}-${key}`);
       });
       regions.forEach(region => {
         safeList.add(`${name}-${key}-${region}`);
+        safeList.add(`dark:${name}-${key}-${region}`);
         variants.forEach(variant => {
           safeList.add(`${variant}:${name}-${key}-${region}`);
+          safeList.add(`dark:${variant}:${name}-${key}-${region}`);
         });
       })
     })

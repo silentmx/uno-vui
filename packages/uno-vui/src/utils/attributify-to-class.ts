@@ -39,7 +39,7 @@ export const TransformerAttributifyToClass = (options: AttributifyOptions = {}):
   return {
     name: "uno-vui/transformer-attributify-to-class",
     enforce: "pre",
-    async transform(code, _, { uno }) {
+    async transform(code, _id, { uno }) {
       for (const ele of Array.from(code.original.matchAll(elementRE))) {
         let classVal = "";
 
@@ -65,16 +65,12 @@ export const TransformerAttributifyToClass = (options: AttributifyOptions = {}):
         }
 
         if (classVal.length > 0) {
-          const classIndex = ele[2].indexOf("class=");
+          // class有可能在属性第一个
+          const classIndex = (" " + ele[2]).indexOf(" class=");
           if (classIndex >= 0) {
-            // 已经有class属性
-            // 查看class有没有带`:`
-            const appendIndex = (ele.index || 0) + ele[1].length + classIndex - 1;
-            if (code.slice(appendIndex, appendIndex + 1) == ":") {
-              code.appendRight(appendIndex + 9, `${classVal}`);
-            } else {
-              code.appendRight(appendIndex + 8, `${classVal}`);
-            }
+            // 已有class属性
+            const appendIndex = (ele.index || 0) + ele[1].length + classIndex;
+            code.appendRight(appendIndex + 7, `${classVal}`);
           } else {
             // 没有class属性
             code.appendRight((ele.index || 0) + ele[1].length, `class="${classVal}" `);

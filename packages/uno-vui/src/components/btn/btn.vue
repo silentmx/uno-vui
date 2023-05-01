@@ -62,5 +62,6 @@ const baseClass = computed(() => {
     :class="baseClass">
     <i v-if="loading" :class="presetIconConfig?.loading"></i>
     <slot></slot>
+    <div>{{ props.class }}</div>
   </component>
 </template>

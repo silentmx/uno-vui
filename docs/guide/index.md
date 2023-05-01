@@ -4,7 +4,7 @@ title: 快速开始
 
 # Uno vui
 ::: warning 警告!
-[uno-vui](https://github.com/silentmx/uno-vui)目前还在积极开发中，还不能用户生产环境
+[uno-vui](https://github.com/silentmx/uno-vui)目前还在积极开发中，还不能用于生产环境
 :::
 
 ## 简介

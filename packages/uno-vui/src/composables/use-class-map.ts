@@ -1,5 +1,5 @@
 import { theme } from 'unocss/preset-mini';
-import { computed, type ComputedRef } from 'vue';
+import { computed, type ComputedRef, type DeepReadonly } from 'vue';
 
 const sizeRegexp = new RegExp(/(\d+(?:px|rem|em)?)$/);
 const colors = [
@@ -30,19 +30,23 @@ const borderStyles = [
   ...globalKeywords
 ];
 
+type classMapKey = "borderStyle" | "borderWidth" | "borderColor" | "borderRadius" |
+  "bgColor" | "bgOp" | "textColor" | "other";
+
 /**
  * 按class作用进行分组
  * @param classRef 
- * @returns 
+ * @returns { DeepReadonly<ComputedRef<Map<classMapKey, string>>> }
  */
 export const useClassMap = (
   classRef: ComputedRef<string | undefined> | Ref<string | undefined>
-) => {
+): DeepReadonly<ComputedRef<Map<classMapKey, string>>> => {
 
-  return computed(() => {
-    const classMap = new Map<string, string>();
+  const classMap = computed(() => {
+    const classMap = new Map<classMapKey, string>();
     const classList = (unref(classRef) || "").split(" ").filter(c => !!c);
     for (const c of classList) {
+
       // border styles
       if (["b-", "border-"].some(v => c.includes(v)) && borderStyles.some(s => c.includes(s))) {
         classMap.set("borderStyle", (classMap.get("borderStyle") || "") + ` ${c}`);
@@ -75,7 +79,7 @@ export const useClassMap = (
       }
 
       // bg opacity
-      if (c.includes("bg-op-") || c.includes("bg-opacity")) {
+      if (c.includes("bg-op-") || c.includes("bg-opacity-")) {
         classMap.set("bgOp", (classMap.get("bgOp") || "") + ` ${c}`);
         continue;
       }
@@ -89,6 +93,8 @@ export const useClassMap = (
       classMap.set("other", (classMap.get("other") || "") + ` ${c}`);
     }
 
-    return readonly(classMap);
+    return classMap;
   });
+
+  return readonly(classMap);
 }

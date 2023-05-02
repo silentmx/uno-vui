@@ -19,6 +19,10 @@ const components = [
       {
         text: "图标",
         link: "/components/icon"
+      },
+      {
+        text: "按钮",
+        link: "/components/button"
       }
     ]
   }

@@ -5,5 +5,5 @@ defineProps<{
 </script>
 
 <template>
-  <i :class="[name]"></i>
+  <i :class="name"></i>
 </template>

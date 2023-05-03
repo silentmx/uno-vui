@@ -26,6 +26,7 @@ export default defineConfig({
         "unplugin-vue-components",
         "unplugin-auto-import",
         "@iconify/tools",
+        "@floating-ui/vue",
       ],
       // 在 UMD 构建模式下为这些外部化的依赖提供一个全局变量
       output: {
@@ -36,7 +37,8 @@ export default defineConfig({
           "unocss/preset-mini": "unocss/preset-mini",
           "unplugin-vue-components": "unplugin-vue-components",
           "unplugin-auto-import": "unplugin-auto-import",
-          "@iconify/tools": "@iconify/tools"
+          "@iconify/tools": "@iconify/tools",
+          "@floating-ui/vue": "@floating-ui/vue",
         }
       }
     }

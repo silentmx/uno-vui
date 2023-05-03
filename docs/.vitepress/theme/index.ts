@@ -10,6 +10,7 @@ import './rainbow.css';
 import './vars.css';
 
 // Unocss
+import { UThemePick } from "uno-vui";
 import 'virtual:uno.css';
 
 let homePageStyle: HTMLStyleElement | undefined
@@ -19,6 +20,7 @@ export default {
   Layout: () => {
     return h(Theme.Layout, null, {
       "home-features-after": () => h(HomePage),
+      "nav-bar-content-after": () => h(UThemePick),
     })
   },
   enhanceApp: ({ app, router }: { app: App, router: Router }) => {

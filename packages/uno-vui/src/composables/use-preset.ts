@@ -1,6 +1,7 @@
-import { defaultDocument, useCssVar } from '@vueuse/core';
+import { RemovableRef, defaultDocument, useCssVar, useLocalStorage } from '@vueuse/core';
+import { parseColor, theme } from 'unocss/preset-mini';
 import { computed, type ComputedRef } from 'vue';
-import { prefix } from '../preset/constants';
+import { defaultConfig, prefix } from '../preset/constants';
 import type { IconConfig, PresetConfig, ThemeConfig } from '../preset/types';
 
 /**
@@ -15,13 +16,41 @@ const presetConfig: ComputedRef<PresetConfig | undefined> = computed(() => {
 /**
  * 获取预设主题
  */
-export const presetThemeConfigs: ComputedRef<ThemeConfig[] | undefined> = computed(() => {
-  return presetConfig.value?.themes as ThemeConfig[] || [];
+export const presetThemeConfigs: ComputedRef<ThemeConfig[]> = computed(() => {
+  return presetConfig.value?.themes as ThemeConfig[] || [defaultConfig.themes];
 });
+
+export const themeIndex: RemovableRef<number> = useLocalStorage("unovui-theme-index", 0);
+/**
+ * 更新主题
+ * @param index 主题列表序号，从0开始
+ */
+export const changeTheme = (index: number) => {
+  if (index == 0) {
+    defaultDocument?.body.removeAttribute("style");
+    themeIndex.value = index;
+  } else {
+    const config = presetThemeConfigs?.value[index];
+    if (config) {
+      themeIndex.value = index;
+      Object.entries(config).forEach(([key, val]) => {
+        Object.keys(theme.colors[val]).forEach(region => {
+          defaultDocument?.body.style.setProperty(
+            `${prefix}-${key}-${region}`,
+            `${parseColor(`${val}-${region}`, theme)?.cssColor?.components.join(",")}`
+          )
+        })
+      })
+    } else {
+      defaultDocument?.body.removeAttribute("style");
+      themeIndex.value = 0;
+    }
+  }
+}
 
 /**
  * 获取预设图标
  */
-export const presetIconConfig: ComputedRef<IconConfig | undefined> = computed(() => {
-  return presetConfig.value?.icons as IconConfig || undefined;
+export const presetIconConfig: ComputedRef<IconConfig> = computed(() => {
+  return presetConfig.value?.icons as IconConfig || defaultConfig.icons;
 });

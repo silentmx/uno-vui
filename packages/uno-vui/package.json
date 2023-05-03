@@ -56,7 +56,9 @@
   "dependencies": {
     "unocss": "~0.51.8",
     "@vueuse/core": "~10.1.0",
-    "@iconify/tools": "~2.2.6"
+    "@floating-ui/vue": "~1.0.0",
+    "@iconify/tools": "~2.2.6",
+    "@iconify/json": "~2.2.59"
   },
   "publishConfig": {
     "access": "public"

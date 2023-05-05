@@ -37,7 +37,7 @@ export const genSafeList = (config: PresetConfig): string[] => {
 function genThemeSafeList(): string[] {
   const safeList = new Set<string>();
 
-  const variants = ["hover"];
+  const variants = ["hover", "!focus-within"];
   const names = ["bg", "text", "c", "b", "boder"];
   const keys = Object.keys(defaultConfig.themes[0]);
   const regions = Object.keys(theme.colors.blue);

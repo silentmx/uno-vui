@@ -32,7 +32,7 @@ onClickOutside(floatingEl, () => {
       class="flex justify-center items-center aspect-square p-1 rd-full hover:bg-gray/20 text-2xl">
       <i class="i-mdi:palette-swatch text-primary"></i>
     </button>
-    <div v-show="visiable" ref="floatingEl" class="bg-light dark:bg-dark p-2 rd shadow-md" :style="floatingStyles">
+    <div v-show="visiable" ref="floatingEl" class="bg-light dark:bg-dark p-2 rd shadow-md z-1000" :style="floatingStyles">
       <button v-for="(item, index) in presetThemeConfigs" @click="changeTheme(index)"
         class="flex items-center gap-1 p-1 rd b b-primary b-solid"
         :class="`${index == themeIndex ? 'b-op-100' : 'b-op-0'}`">

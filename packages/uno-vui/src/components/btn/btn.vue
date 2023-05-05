@@ -27,94 +27,51 @@ const isDisabled = computed(() => {
 
 const cursorClass = useCursorClass(toRef(props, "loading"), toRef(props, "disabled"));
 const baseClass = computed(() => {
-  // 基础样式
-  let base = "flex justify-center items-center gap-1";
-  base += classMap.value.get("other") || "";
-
-  if (onlyIcon.value) {
-    base += " aspect-square p-1";
-  } else {
-    base += " px-0.875em py-0.25em"
-  }
+  const baseVal = [
+    // 基础样式
+    "flex justify-center items-center gap-1",
+    onlyIcon.value ? "aspect-square p-1" : "px-0.875em py-0.25em",
+    classMap.value.get("others") || "",
+    classMap.value.get("hover-others") || "",
+    classMap.value.get("focus-within-others") || "",
+    // 背景色
+    classMap.value.get("bg-color") || `bg-${props.theme}`,
+    classMap.value.get("hover-bg-color") || (classMap.value.has("bg-color") ? '' : `hover:bg-${props.theme}-500`),
+    // 背景透明
+    classMap.value.get("bg-opacity") || (
+      props.appear == "text" ? "bg-op-0" :
+        props.appear == "outlined" ? "bg-op-10" : isDisabled.value ?
+          props.theme == "default" && !classMap.value.get("bg-color") ? "" : "bg-op-85" :
+          props.theme == "default" && !classMap.value.get("bg-color") ? "bg-op-10" : ""),
+    classMap.value.get("hover-bg-opacity") || (
+      props.appear == "text" ? "hover:bg-op-10" :
+        props.theme == "default" && !classMap.value.get("bg-color") ? "hover:bg-op-15" : ""),
+    // 边框
+    classMap.value.get("border-style") || (props.appear == "outlined" ? "b-solid" : ""),
+    classMap.value.get("border-width") || "b",
+    classMap.value.get("border-color") || `b-${props.theme}`,
+    classMap.value.get("border-radius") || "rd",
+    classMap.value.get("hover-border-style") || "",
+    classMap.value.get("hover-border-width") || "",
+    classMap.value.get("hover-border-color") || "",
+    classMap.value.get("hover-border-radius") || "",
+    // 文本
+    classMap.value.get("text-color") || (
+      props.theme == "default" ? "" : props.appear != "fill" ? `text-${props.theme}` : "text-light"),
+    classMap.value.get("hover-text-color") || (
+      props.theme == "default" ? "" : props.appear == "outlined" ? `hover:text-light` : ""),
+  ].filter(v => !!v);
 
   // 动画
   if (!isDisabled.value) {
-    base += " animate-scale active:hover:animate-none active:focus:animate-none" +
-      " active:hover:transform-scale-95 active:focus:transform-scale-95" +
-      " transition-duration-200 animate-ease";
-  }
-
-  // 背景色
-  if (classMap.value.has("bgColor")) {
-    base += classMap.value.get("bgColor");
-  } else {
-    base += ` bg-${props.theme} hover:bg-${props.theme}-500`;
-  }
-
-  // 背景色透明度
-  if (classMap.value.has("bgOp")) {
-    base += classMap.value.get("bgOp");
-  } else {
-    if (props.appear == "outlined") {
-      base += ` bg-op-10`;
-    } else if (props.appear == "text") {
-      base += ` bg-op-0 hover:bg-op-10`;
-    } else if (isDisabled.value) {
-      base += " bg-op-85";
-    }
-  }
-
-  // 边框样式
-  if (classMap.value.has("borderStyle")) {
-    base += classMap.value.get("borderStyle");
-  } else {
-    if (props.appear == "outlined") {
-      base += ` b-solid`;
-    }
-  }
-
-  // 边框宽度
-  if (classMap.value.has("borderWidth")) {
-    base += classMap.value.get("borderWidth");
-  } else {
-    if (props.appear == "outlined" || classMap.value.has("borderStyle")) {
-      base += ` b`;
-    }
-  }
-
-  // 边框颜色
-  if (classMap.value.has("borderColor")) {
-    base += classMap.value.get("borderColor");
-  } else {
-    if (props.appear == "outlined" || classMap.value.has("borderStyle")) {
-      base += ` b-${props.theme}`;
-    }
-  }
-
-  // radius
-  if (classMap.value.has("borderRadius")) {
-    base += classMap.value.get("borderRadius");
-  } else {
-    base += " rd";
-  }
-
-  // 文字颜色
-  if (classMap.value.has("textColor")) {
-    base += classMap.value.get("textColor");
-  } else {
-    if (props.appear == "outlined") {
-      base += ` text-${props.theme} hover:text-light`;
-    } else if (props.appear == "text") {
-      base += ` text-${props.theme}`;
-    } else {
-      base += " text-light";
-    }
+    baseVal.push("transition-all active:hover:animate-none active:focus:animate-none");
+    baseVal.push("active:hover:transform-scale-95 active:focus:transform-scale-95");
   }
 
   if (isDisabled.value) {
-    return base.split(" ").filter(item => !item.includes("hover"));
+    return baseVal.filter(item => !item.includes("hover"));
   } else {
-    return base;
+    return baseVal;
   }
 });
 </script>

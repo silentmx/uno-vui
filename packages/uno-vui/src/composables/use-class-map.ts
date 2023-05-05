@@ -30,8 +30,11 @@ const borderStyles = [
   ...globalKeywords
 ];
 
-type classMapKey = "borderStyle" | "borderWidth" | "borderColor" | "borderRadius" |
-  "bgColor" | "bgOp" | "textColor" | "other";
+type Variants = "hover" | "focus-within";
+type Keys = "border-style" | "border-width" | "border-color" | "border-radius" |
+  "bg-color" | "bg-opacity" | "text-color" | "others";
+
+type MapKeys = Keys | `${Variants}-${Keys}`;
 
 /**
  * 按class作用进行分组
@@ -40,61 +43,61 @@ type classMapKey = "borderStyle" | "borderWidth" | "borderColor" | "borderRadius
  */
 export const useClassMap = (
   classRef: ComputedRef<string | undefined> | Ref<string | undefined>
-): DeepReadonly<ComputedRef<Map<classMapKey, string>>> => {
+): DeepReadonly<ComputedRef<Map<MapKeys, string>>> => {
 
   const classMap = computed(() => {
-    const classMap = new Map<classMapKey, string>();
-    const classList = (unref(classRef) || "").split(" ").filter(c => !!c);
-    for (const c of classList) {
-
-      // border styles
-      if (["b-", "border-"].some(v => c.includes(v)) && borderStyles.some(s => c.includes(s))) {
-        classMap.set("borderStyle", (classMap.get("borderStyle") || "") + ` ${c}`);
-        continue;
-      }
-
-      // border radius
-      if (["rd", "rounded"].some(v => c == v || c.includes(`${v}-`) || c.includes(`-${v}`))) {
-        classMap.set("borderRadius", (classMap.get("borderRadius") || "") + ` ${c}`);
-        continue;
-      }
-
-      // border width
-      if (["b", "border"].some(v => c == v) ||
-        (["b-", "border-"].some(v => c.includes(v)) && sizeRegexp.test(c))) {
-        classMap.set("borderWidth", (classMap.get("borderWidth") || "") + ` ${c}`);
-        continue;
-      }
-
-      // border color
-      if (["b-", "border-"].some(v => c.includes(v)) && colors.some(v => c.includes(v))) {
-        classMap.set("borderColor", (classMap.get("borderColor") || "") + ` ${c}`);
-        continue;
-      }
-
-      // bg color
-      if (c.includes("bg-") && colors.some(v => c.includes(v))) {
-        classMap.set("bgColor", (classMap.get("bgColor") || "") + ` ${c}`);
-        continue;
-      }
-
-      // bg opacity
-      if (c.includes("bg-op-") || c.includes("bg-opacity-")) {
-        classMap.set("bgOp", (classMap.get("bgOp") || "") + ` ${c}`);
-        continue;
-      }
-
-      // text color
-      if (["c-", "color-", "text-"].some(v => c.includes(v)) && colors.some(v => c.includes(v))) {
-        classMap.set("textColor", (classMap.get("textColor") || "") + ` ${c}`);
-        continue;
-      }
-
-      classMap.set("other", (classMap.get("other") || "") + ` ${c}`);
-    }
-
+    const classMap = new Map<MapKeys, string>();
+    (unref(classRef) || "").split(" ").filter(c => !!c).forEach(c => {
+      const key = genMapKey(c);
+      classMap.set(key, (classMap.get(key) || "") + ` ${c}`);
+    });
     return classMap;
   });
 
   return readonly(classMap);
+}
+
+function genMapKey(classVal: string): MapKeys {
+  const prefix = classVal.includes("focus-within") ?
+    "focus-within-" :
+    classVal.includes("hover") ? "hover-" : "";
+
+  // border-style
+  if (["b-", "border-"].some(v => classVal.includes(v)) && borderStyles.some(s => classVal.endsWith(s))) {
+    return `${prefix}border-style`;
+  }
+
+  // border-radius
+  if (["rd", "rounded"].some(v => classVal.includes(v))) {
+    return `${prefix}border-radius`;
+  }
+
+  // border-color
+  if (["b-", "border-"].some(v => classVal.includes(v)) && colors.some(v => classVal.includes(v))) {
+    return `${prefix}border-color`;
+  }
+
+  // border-width
+  if (["b", "border"].some(v => classVal == v) ||
+    (["b-", "border-"].some(v => classVal.includes(v)) && sizeRegexp.test(classVal))) {
+    return `${prefix}border-width`;
+  }
+
+  // bg color
+  if (classVal.includes("bg-") && colors.some(v => classVal.includes(v))) {
+    return `${prefix}bg-color`;
+  }
+
+  // bg opacity
+  if (classVal.includes("bg-op-") || classVal.includes("bg-opacity-")) {
+    return `${prefix}bg-opacity`;
+  }
+
+  // text color
+  if (["c-", "color-", "text-"].some(v => classVal.includes(v)) && colors.some(v => classVal.includes(v))) {
+    return `${prefix}text-color`;
+  }
+
+  // others
+  return `${prefix}others`;
 }

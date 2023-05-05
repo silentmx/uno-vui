@@ -3,4 +3,4 @@ title: "组件"
 ---
 
 # 组件
-<demo src="../example/button/basic.vue"/>
+<demo src="../example/input/basic.vue"/>

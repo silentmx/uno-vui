@@ -54,11 +54,10 @@
     "gen-volar": "esno scripts/gen-volar"
   },
   "dependencies": {
-    "unocss": "~0.51.8",
-    "@vueuse/core": "~10.1.0",
     "@floating-ui/vue": "~1.0.0",
     "@iconify/tools": "~2.2.6",
-    "@iconify/json": "~2.2.59"
+    "@vueuse/core": "~10.1.2",
+    "unocss": "~0.51.12"
   },
   "publishConfig": {
     "access": "public"

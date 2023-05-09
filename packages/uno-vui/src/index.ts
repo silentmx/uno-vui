@@ -4,7 +4,7 @@ import * as components from './components';
 // export all components
 export * from './components';
 // export preset
-export { presetIconConfig, presetThemeConfigs } from './composables';
+export { changeTheme, presetThemeConfigs } from './composables';
 
 /**
  * Vue app global install obj

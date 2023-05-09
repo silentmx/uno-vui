@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useClassMap, useCursorClass } from '../../composables';
+import { useCursorClass } from '../../composables';
 import { ThemeType } from '../../preset/types';
 
 const props = withDefaults(defineProps<{
@@ -12,9 +12,10 @@ const props = withDefaults(defineProps<{
   icon?: string;
   loading?: boolean;
   disabled?: boolean;
-  class?: string;
+  // class?: string;
 
   modelValue: string;
+  dataUnoInfo: any;
 }>(), {
   theme: "default",
   type: "text",
@@ -27,7 +28,7 @@ const emit = defineEmits<{
 const vm = useVModel(props, "modelValue", emit);
 
 const cursorClass = useCursorClass(toRef(props, "loading"), toRef(props, "disabled"));
-const classMap = useClassMap(toRef(props, "class"));
+// const classMap = useClassMap(toRef(props, "class"));
 
 const inputRef = ref();
 const isFocusInput = useFocus(inputRef);
@@ -37,16 +38,16 @@ const fieldsetClass = computed(() => {
     // 基础样式
     "flex items-center px-0.5em gap-1 box-border transition-250 relative",
     // 边框
-    classMap.value.get("border-style") || "b-solid",
-    classMap.value.get("border-width") || "b",
-    classMap.value.get("border-radius") || "rd",
-    classMap.value.get("border-color") || "b-gray",
-    classMap.value.get("hover-border-color") || "hover:b-dark dark:hover:b-light",
-    classMap.value.get("focus-within-border-color") || (
-      props.theme == "default" ? "focus-within:b-dark dark:focus-within:b-light" : `!focus-within:b-${props.theme}`
-    ),
-    // text
-    classMap.value.get("text-color") || ""
+    // classMap.value.get("border-style") || "b-solid",
+    // classMap.value.get("border-width") || "b",
+    // classMap.value.get("border-radius") || "rd",
+    // classMap.value.get("border-color") || "b-gray",
+    // classMap.value.get("hover-border-color") || "hover:b-dark dark:hover:b-light",
+    // classMap.value.get("focus-within-border-color") || (
+    //   props.theme == "default" ? "focus-within:b-dark dark:focus-within:b-light" : `!focus-within:b-${props.theme}`
+    // ),
+    // // text
+    // classMap.value.get("text-color") || ""
   ];
 
   return classVal;
@@ -78,7 +79,7 @@ const labelClass = computed(() => {
 </script>
 
 <template>
-  <div class="flex flex-col relative mt-0.5em">
+  <div ref="root" class="flex flex-col relative mt-0.5em">
     <label v-if="appear != 'floating'">label</label>
     <fieldset ref="fieldsetRef" :class="[fieldsetClass, cursorClass]" :disabled="disabled" :aria-disabled="disabled">
       <legend class="p-0 w-[var(--label-width)] transition-all ease-out" :style="labelStyleVar"></legend>
@@ -91,7 +92,7 @@ const labelClass = computed(() => {
       </div>
       <input ref="inputRef" :type="type" v-model="vm" class="w-full py-0.5em bg-clip-text text-size-inherit lh-inherit"
         :placeholder="`${appear == 'floating' && !isFocusInput.focused.value && label ? '' : placeholder}`" />
-      <slot name="suffix"></slot>
+      <slot name="suffix">{{ dataUnoInfo }}</slot>
     </fieldset>
   </div>
 </template>

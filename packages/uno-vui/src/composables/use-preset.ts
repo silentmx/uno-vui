@@ -1,4 +1,4 @@
-import { RemovableRef, defaultDocument, useCssVar, useLocalStorage } from '@vueuse/core';
+import { defaultDocument, useCssVar, useLocalStorage, type RemovableRef } from '@vueuse/core';
 import { parseColor, theme } from 'unocss/preset-mini';
 import { computed, type ComputedRef } from 'vue';
 import { defaultConfig, prefix } from '../preset/constants';
@@ -18,6 +18,12 @@ const presetConfig: ComputedRef<PresetConfig | undefined> = computed(() => {
  */
 export const presetThemeConfigs: ComputedRef<ThemeConfig[]> = computed(() => {
   return presetConfig.value?.themes as ThemeConfig[] || [defaultConfig.themes];
+});
+/**
+ * 获取预设图标
+ */
+export const presetIconConfig: ComputedRef<IconConfig> = computed(() => {
+  return presetConfig.value?.icons as IconConfig || defaultConfig.icons;
 });
 
 export const themeIndex: RemovableRef<number> = useLocalStorage("unovui-theme-index", 0);
@@ -47,10 +53,3 @@ export const changeTheme = (index: number) => {
     }
   }
 }
-
-/**
- * 获取预设图标
- */
-export const presetIconConfig: ComputedRef<IconConfig> = computed(() => {
-  return presetConfig.value?.icons as IconConfig || defaultConfig.icons;
-});
